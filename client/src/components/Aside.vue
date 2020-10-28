@@ -32,7 +32,7 @@
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
+          <router-link class="link" to="/dcard/dressup">
             <img src="../assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
@@ -151,12 +151,14 @@ export default {
 
 <style lang="scss" scoped>
 .right-sideBar {
-  width: 200px;
-  height: calc(100vh - 48px);
+  width: 208px;
+  height: calc(100vh - 108px);
   display: flex;
   flex-direction: column;
-  padding-top: 20px;
   background: #00324e;
+  position: sticky;
+  top: 68px;
+  z-index: 1000;
 }
 .menu {
   .title {

@@ -23,11 +23,13 @@ export default {
 .container {
   display: flex;
   background: #00324e;
+  min-height: 100vh;
 }
 .main {
   width: 1280px;
   display: flex;
   margin: 0 auto;
   margin-top: 48px;
+  position: relative;
 }
 </style>

@@ -1,13 +1,12 @@
 <template>
-  <aside>廣告</aside>
+  <div class="container"></div>
 </template>
 
 <script>
-export default {};
+export default {
+  components: {},
+};
 </script>
 
 <style lang="scss" scoped>
-aside {
-  overflow: hidden;
-}
 </style>

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Main from '../views/Main'
-
+import DressupBoard from "../components/DressupBoard";
 
 Vue.use(VueRouter)
 
@@ -14,19 +14,9 @@ const routes = [
     component: Main,
     children: [
       {
-        name: "AllBoard",
-        path: 'all',
-        component: AllBoard,
-      },
-      {
         name: "DressupBoard",
         path: 'dressup',
         component: DressupBoard,
-      },
-      {
-        name: "CookingBoard",
-        path: 'cooking',
-        component: CookingBoard,
       },
     ]
   },
