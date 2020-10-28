@@ -11,6 +11,7 @@ a{
 
 body{
 	font-family: Roboto,Helvetica Neue,Helvetica,Arial,PingFang TC,黑體-繁,Heiti TC,蘋果儷中黑,Apple LiGothic Medium,微軟正黑體,Microsoft JhengHei,sans-serif;
+  background: #00324e;
 }
 input{
   &:focus{
@@ -18,6 +19,7 @@ input{
   }
 }
 button{
+  border:none;
   &:focus{
     outline: none;
   }

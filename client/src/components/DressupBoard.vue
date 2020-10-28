@@ -523,6 +523,7 @@ export default {
 
 <style lang="scss" scoped>
 .containerrr {
+  width: 728px;
   display: flex;
   flex-direction: column;
   margin-top: 20px;

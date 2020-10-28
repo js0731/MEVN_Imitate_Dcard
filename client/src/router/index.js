@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 import Main from '../views/Main'
 import DressupBoard from "../components/DressupBoard";
-
+import Signup from "../components/Signup";
 Vue.use(VueRouter)
 
 
@@ -19,6 +19,11 @@ const routes = [
         component: DressupBoard,
       },
     ]
+  },
+  {
+    name: "Signup",
+    path: '/dcard/signup',
+    component: Signup,
   },
 ]
 
