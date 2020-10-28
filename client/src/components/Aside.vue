@@ -2,22 +2,22 @@
   <aside class="right-sideBar">
     <ul class="menu">
       <li class="item">
-        <router-link class="link" to="/dcard/allboard">
+        <router-link class="link" to="/dcard">
           <AsideIcon name="allBoard" />所有看板
         </router-link>
       </li>
       <li class="item">
-        <router-link class="link" to="/dcard/allboard">
+        <router-link class="link" to="/dcard">
           <AsideIcon name="hotBoard" />即時熱門看板
         </router-link>
       </li>
       <li class="item">
-        <router-link class="link" to="/dcard/allboard">
+        <router-link class="link" to="/dcard">
           <AsideIcon name="store" />好物研究室
         </router-link>
       </li>
       <li class="item">
-        <router-link class="link" to="/dcard/allboard">
+        <router-link class="link" to="/dcard">
           <AsideIcon name="gameBoard" />遊戲專區
         </router-link>
       </li>
@@ -26,9 +26,9 @@
       <ul class="menu">
         <p class="title">追蹤的看板</p>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
-            <img src="../assets/img/cooking.jpg" alt="" />
-            煮菜
+          <router-link class="link" to="/dcard">
+            <img src="../assets/img/frontend.jpg" alt="" />
+            前端工程師
           </router-link>
         </li>
         <li class="item">
@@ -38,100 +38,136 @@
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
-            <img src="../assets/img/fitness.jpg" alt="" />
-            健身
+          <router-link class="link" to="/dcard">
+            <img src="../assets/img/funny.jpg" alt="" />
+            有趣版
           </router-link>
         </li>
         <p class="title">Dcard 精選看板</p>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
-            <img src="../assets/img/cooking.jpg" alt="" />
-            煮菜
+          <router-link class="link" to="/dcard">
+            <img src="../assets/img/frontend.jpg" alt="" />
+            前端工程師
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
+          <router-link class="link" to="/dcard/dressup">
             <img src="../assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
-            <img src="../assets/img/fitness.jpg" alt="" />
-            健身
+          <router-link class="link" to="/dcard">
+            <img src="../assets/img/funny.jpg" alt="" />
+            有趣版
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
-            <img src="../assets/img/cooking.jpg" alt="" />
-            煮菜
+          <router-link class="link" to="/dcard">
+            <img src="../assets/img/frontend.jpg" alt="" />
+            前端工程師
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
+          <router-link class="link" to="/dcard/dressup">
             <img src="../assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
-            <img src="../assets/img/fitness.jpg" alt="" />
-            健身
+          <router-link class="link" to="/dcard">
+            <img src="../assets/img/funny.jpg" alt="" />
+            有趣版
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
-            <img src="../assets/img/cooking.jpg" alt="" />
-            煮菜
+          <router-link class="link" to="/dcard">
+            <img src="../assets/img/frontend.jpg" alt="" />
+            前端工程師
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
+          <router-link class="link" to="/dcard/dressup">
             <img src="../assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
-            <img src="../assets/img/fitness.jpg" alt="" />
-            健身
+          <router-link class="link" to="/dcard">
+            <img src="../assets/img/funny.jpg" alt="" />
+            有趣版
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
-            <img src="../assets/img/cooking.jpg" alt="" />
-            煮菜
+          <router-link class="link" to="/dcard">
+            <img src="../assets/img/frontend.jpg" alt="" />
+            前端工程師
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
+          <router-link class="link" to="/dcard/dressup">
             <img src="../assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
-            <img src="../assets/img/fitness.jpg" alt="" />
-            健身
+          <router-link class="link" to="/dcard">
+            <img src="../assets/img/funny.jpg" alt="" />
+            有趣版
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
-            <img src="../assets/img/cooking.jpg" alt="" />
-            煮菜
+          <router-link class="link" to="/dcard">
+            <img src="../assets/img/frontend.jpg" alt="" />
+            前端工程師
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
+          <router-link class="link" to="/dcard/dressup">
             <img src="../assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/allboard">
-            <img src="../assets/img/fitness.jpg" alt="" />
-            健身
+          <router-link class="link" to="/dcard">
+            <img src="../assets/img/funny.jpg" alt="" />
+            有趣版
+          </router-link>
+        </li>
+        <li class="item">
+          <router-link class="link" to="/dcard">
+            <img src="../assets/img/frontend.jpg" alt="" />
+            前端工程師
+          </router-link>
+        </li>
+        <li class="item">
+          <router-link class="link" to="/dcard/dressup">
+            <img src="../assets/img/dress.jpg" alt="" />
+            穿搭
+          </router-link>
+        </li>
+        <li class="item">
+          <router-link class="link" to="/dcard">
+            <img src="../assets/img/funny.jpg" alt="" />
+            有趣版
+          </router-link>
+        </li>
+        <li class="item">
+          <router-link class="link" to="/dcard">
+            <img src="../assets/img/frontend.jpg" alt="" />
+            前端工程師
+          </router-link>
+        </li>
+        <li class="item">
+          <router-link class="link" to="/dcard/dressup">
+            <img src="../assets/img/dress.jpg" alt="" />
+            穿搭
+          </router-link>
+        </li>
+        <li class="item">
+          <router-link class="link" to="/dcard">
+            <img src="../assets/img/funny.jpg" alt="" />
+            有趣版
           </router-link>
         </li>
       </ul>
