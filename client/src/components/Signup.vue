@@ -10,17 +10,56 @@
       <!-- <button class="apple"><SignIcon name="apple" />Apple 註冊 / 登入</button> -->
       <span class="or">或</span>
       <label for="name">姓名</label>
-      <input id="name" type="email" />
+      <input v-model="registerUser.name" id="name" type="text" />
       <label for="email">常用信箱</label>
-      <input id="email" type="email" />
+      <input v-model="registerUser.email" id="email" type="email" />
       <label for="password">密碼</label>
-      <input id="password" type="password" />
-
+      <input
+        v-model="registerUser.password"
+        name="password"
+        id="password"
+        type="password"
+      />
       <label for="boy">男</label>
-      <input id="boy" type="radio" name="sex" value="male" />
+      <input
+        v-model="registerUser.sex"
+        id="boy"
+        type="radio"
+        name="sex"
+        value="male"
+      />
       <label for="girl">女</label>
-      <input id="girl" type="radio" name="sex" value="female" />
-      <button class="signup">註冊 / 登入</button>
+      <input
+        v-model="registerUser.sex"
+        id="girl"
+        type="radio"
+        name="sex"
+        value="female"
+      />
+      <button class="signup" @click.prevent="submitRegisterForm()">註冊</button>
+      <button class="signup" @click.prevent="submitLoginForm()">登入</button>
+      <span class="content">註冊/登入即代表您同意遵守 Dcard 使用協議</span>
+    </form>
+    <form action="">
+      <button class="facbook">
+        <SignIcon name="facebook" />Facebook 註冊 / 登入
+      </button>
+      <button class="google">
+        <SignIcon name="google" />Google 註冊 / 登入
+      </button>
+      <!-- <button class="apple"><SignIcon name="apple" />Apple 註冊 / 登入</button> -->
+      <span class="or">或</span>
+
+      <label for="email">常用信箱</label>
+      <input v-model="loginUser.email" id="email" type="email" />
+      <label for="password">密碼</label>
+      <input
+        v-model="loginUser.password"
+        name="password"
+        id="password"
+        type="password"
+      />
+      <button class="signup" @click.prevent="submitLoginForm()">登入</button>
       <span class="content">註冊/登入即代表您同意遵守 Dcard 使用協議</span>
     </form>
   </div>
@@ -28,9 +67,74 @@
 
 <script>
 import SignIcon from "./SignIcon";
+import jwt_decode from "jwt-decode";
 export default {
+  data() {
+    return {
+      registerUser: {
+        name: "",
+        email: "",
+        password: "",
+        sex: "",
+      },
+      loginUser: {
+        email: "",
+        password: "",
+      },
+    };
+  },
   components: {
     SignIcon,
+  },
+  methods: {
+    submitRegisterForm() {
+      const registerUserData = this.registerUser;
+      this.$axios
+        .post("/api/user/register", registerUserData) // 跨域路由加上'/api'
+        .then((res) => {
+          console.log(res);
+          this.$router.push("/dcard/login");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    toLogin() {
+      this.$router.push("/login");
+    },
+    submitLoginForm() {
+      const loginUserData = this.loginUser;
+      this.$axios
+        .post("/api/user/login", loginUserData)
+        .then((res) => {
+          console.log(res);
+          // 取出token
+          const { token } = res.data;
+          // 存儲到 localStorage
+          console.log(token);
+          localStorage.setItem("myToken", token);
+          const decoded = jwt_decode(token); // 解析token
+          console.log(decoded);
+          this.$store.dispatch("setAuthenticated", !this.isEmpty(decoded));
+          this.$store.dispatch("setUser", decoded);
+          this.$router.push("/dcard/forum");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    toRegister() {
+      this.$router.push("/register");
+    },
+    isEmpty(value) {
+      // 空值為true 有值為false
+      return (
+        value === undefined ||
+        value === null ||
+        (typeof value === "object" && Object.keys(value).length === 0) ||
+        (typeof value === "string" && value.trim().length === 0)
+      );
+    },
   },
 };
 </script>
@@ -59,7 +163,7 @@ form {
     border-radius: 10px;
     border: 1px solid #d9d9d9;
     position: relative;
-    color: balck;
+    color: black;
     margin-bottom: 20px;
     svg {
       position: absolute;
@@ -109,7 +213,8 @@ form {
     padding-bottom: 10px;
   }
   input[type="email"],
-  [type="password"] {
+  [type="password"],
+  [type="text"] {
     width: 100%;
     height: 44px;
     border-radius: 10px;

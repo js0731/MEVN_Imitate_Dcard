@@ -29,7 +29,7 @@
           </router-link>
         </li>
         <li class="menuItem">
-          <router-link class="navLink" to="/dcard/signup">
+          <router-link class="navLink" to="/dcard/profile">
             <Icon name="user" />
           </router-link>
         </li>
