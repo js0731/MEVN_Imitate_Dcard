@@ -32,7 +32,7 @@
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/dressup">
+          <router-link class="link" to="/dcard/forum/dressup">
             <img src="../assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
@@ -51,7 +51,7 @@
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/dressup">
+          <router-link class="link" to="/dcard/forum/dressup">
             <img src="../assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
@@ -69,7 +69,7 @@
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/dressup">
+          <router-link class="link" to="/dcard/forum/dressup">
             <img src="../assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
@@ -87,7 +87,7 @@
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/dressup">
+          <router-link class="link" to="/dcard/forum/dressup">
             <img src="../assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
@@ -105,7 +105,7 @@
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/dressup">
+          <router-link class="link" to="/dcard/forum/dressup">
             <img src="../assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
@@ -123,7 +123,7 @@
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/dressup">
+          <router-link class="link" to="/dcard/forum/dressup">
             <img src="../assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
@@ -141,7 +141,7 @@
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/dressup">
+          <router-link class="link" to="/dcard/forum/dressup">
             <img src="../assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
@@ -159,7 +159,7 @@
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard/dressup">
+          <router-link class="link" to="/dcard/forum/dressup">
             <img src="../assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>

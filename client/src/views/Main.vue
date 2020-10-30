@@ -22,8 +22,6 @@ export default {
 <style lang="scss" scoped>
 .container {
   display: flex;
-  background: #00324e;
-  min-height: 100vh;
 }
 .main {
   width: 1280px;

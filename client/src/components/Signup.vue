@@ -7,16 +7,22 @@
       <button class="google">
         <SignIcon name="google" />Google 註冊 / 登入
       </button>
-      <button class="apple"><SignIcon name="apple" />Apple 註冊 / 登入</button>
-      <span>或</span>
+      <!-- <button class="apple"><SignIcon name="apple" />Apple 註冊 / 登入</button> -->
+      <span class="or">或</span>
+      <label for="name">姓名</label>
+      <input id="name" type="email" />
       <label for="email">常用信箱</label>
-      <input type="email" id="email" />
+      <input id="email" type="email" />
       <label for="password">密碼</label>
       <input id="password" type="password" />
-      <input type="checkbox" />
-      <button class="btn">註冊 / 登入</button>
+
+      <label for="boy">男</label>
+      <input id="boy" type="radio" name="sex" value="male" />
+      <label for="girl">女</label>
+      <input id="girl" type="radio" name="sex" value="female" />
+      <button class="signup">註冊 / 登入</button>
+      <span class="content">註冊/登入即代表您同意遵守 Dcard 使用協議</span>
     </form>
-    <footer></footer>
   </div>
 </template>
 
@@ -32,7 +38,8 @@ export default {
 <style lang="scss" scoped>
 .container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   background: #00324e;
   margin-top: 48px;
@@ -44,6 +51,7 @@ form {
   display: flex;
   flex-direction: column;
   padding: 30px 50px;
+  border-radius: 5px;
   button {
     height: 48px;
     padding: 0 16px;
@@ -51,6 +59,8 @@ form {
     border-radius: 10px;
     border: 1px solid #d9d9d9;
     position: relative;
+    color: balck;
+    margin-bottom: 20px;
     svg {
       position: absolute;
       left: 16px;
@@ -59,22 +69,20 @@ form {
   .facbook {
     background: #425f9c;
     color: #fff;
-    margin-bottom: 20px;
   }
   .google {
     background: #fff;
     color: balck;
-    margin-bottom: 20px;
   }
-  .apple {
+  /* .apple {
     background: #000000;
     color: #fff;
-  }
-  span {
+  } */
+  .or {
     text-align: center;
     position: relative;
     color: rgba(0, 0, 0, 0.35);
-    padding: 16px 0;
+    margin-bottom: 16px;
     &::after {
       content: "";
       position: absolute;
@@ -111,9 +119,14 @@ form {
     text-indent: 16px;
     font-size: 16px;
   }
-  .btn {
+  .signup {
     color: #fff;
     background: rgb(51, 151, 207);
+  }
+  .content {
+    text-align: center;
+
+    color: rgba(0, 0, 0, 0.35);
   }
 }
 </style>

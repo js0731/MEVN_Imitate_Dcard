@@ -9,7 +9,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/dcard',
+    path: '/dcard/forum',
     name: 'Main',
     component: Main,
     children: [

@@ -3,7 +3,7 @@
     <div class="container">
       <div class="block-left">
         <h1 class="title">
-          <router-link class="logoLink" to="/dcard">
+          <router-link class="logoLink" to="/dcard/forum">
             <Icon name="logo" />
           </router-link>
         </h1>
