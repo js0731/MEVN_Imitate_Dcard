@@ -28,6 +28,7 @@ export default {
   display: flex;
   margin: 0 auto;
   margin-top: 48px;
+  padding-top: 20px;
   position: relative;
 }
 </style>

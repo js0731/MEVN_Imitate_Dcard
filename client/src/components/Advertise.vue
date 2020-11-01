@@ -14,6 +14,5 @@ export default {};
 <style lang="scss" scoped>
 aside {
   width: 300px;
-  overflow: hidden;
 }
 </style>

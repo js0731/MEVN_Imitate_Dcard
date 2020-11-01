@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <form action="">
-      <button class="facbook">
+      <button class="facebook">
         <SignIcon name="facebook" />Facebook 註冊 / 登入
       </button>
       <button class="google">
@@ -41,7 +41,7 @@
       <span class="content">註冊/登入即代表您同意遵守 Dcard 使用協議</span>
     </form>
     <form action="">
-      <button class="facbook">
+      <button class="facebook">
         <SignIcon name="facebook" />Facebook 註冊 / 登入
       </button>
       <button class="google">
@@ -170,7 +170,7 @@ form {
       left: 16px;
     }
   }
-  .facbook {
+  .facebook {
     background: #425f9c;
     color: #fff;
   }

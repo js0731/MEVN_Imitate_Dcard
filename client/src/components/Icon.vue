@@ -111,6 +111,70 @@
     ></path>
     <path fill="none" d="M0 0h24v24H0z"></path>
   </svg>
+
+  <svg
+    v-else-if="name === 'search'"
+    viewBox="0 0 28 28"
+    class="ptn2cr-0 imJSLl sc-1smn70n-0 fkapGQ"
+    focusable="false"
+    width="24"
+    height="24"
+    role="img"
+    aria-hidden="true"
+    style="fill: rgba(0, 0, 0, 0.35)"
+  >
+    <path
+      d="M22.9 21.2l-4.5-4.5A7.5 7.5 0 1017 18l4.5 4.5a.5.5 0 00.8 0l.5-.5a.5.5 0 000-.8zm-10.4-3.5a5.6 5.6 0 115.6-5.6 5.6 5.6 0 01-5.6 5.6z"
+    ></path>
+  </svg>
+
+  <svg
+    v-else-if="name === 'alert'"
+    viewBox="0 0 16 16"
+    class="ptn2cr-0 imJSLl sc-1wxgk12-2 faqdf"
+    focusable="false"
+    width="15"
+    height="15"
+    role="img"
+    aria-hidden="true"
+    style="fill: rgba(0, 0, 0, 0.25)"
+  >
+    <path
+      d="M6.75 7v5.5a1 1 0 001 1h.5a1 1 0 001-1V7a1 1 0 00-1-1h-.5a1 1 0 00-1 1M8 5a1.25 1.25 0 100-2.5A1.25 1.25 0 008 5M.5 8A7.5 7.5 0 018 .5 7.5 7.5 0 0115.5 8 7.5 7.5 0 018 15.5 7.5 7.5 0 01.5 8"
+    ></path>
+  </svg>
+
+  <svg
+    v-else-if="name === 'male'"
+    viewBox="0 0 40 40"
+    focusable="false"
+    width="32"
+    height="32"
+    class="ptn2cr-0 imJSLl"
+  >
+    <title>男</title>
+    <path fill="#81D4FA" d="M40 20a20 20 0 11-40 0 20 20 0 0140 0"></path>
+    <path
+      fill="#2490BF"
+      d="M16 7.9C12.4 7.4 9.3 6 9.3 6s5.5 4.3 5 5.3c-.4 1-4.2 0-4.2 0l4 2a9.7 9.7 0 00-1.5 4.6l.1 3.4a1.5 1.5 0 10.8 2.9 8.3 8.3 0 006.2 5.3c.6 0 .6 2 .6 3.2-1.6 1-2.5 3-2 5v2.2a20.2 20.2 0 009.9-1.6l-.7-2.7v-.4l-.2-.4-.2-.4-.2-.3-.2-.3c-.7-1-1.7-1.6-2.9-1.8l.6-2.3s1.4-1 3-2.6l.4 1.3 1.4-2.5.9-1.8s3.8-10.3.8-13.9c-2.6-3-11-1.9-14.7-2.3"
+    ></path>
+  </svg>
+
+  <svg
+    v-else-if="name === 'female'"
+    viewBox="0 0 40 40"
+    focusable="false"
+    width="32"
+    height="32"
+    class="ptn2cr-0 imJSLl"
+  >
+    <title>女</title>
+    <path fill="#F48FB1" d="M40 20a20 20 0 11-40 0 20 20 0 0140 0"></path>
+    <path
+      fill="#CB3A6B"
+      d="M28.7 17.5a9.6 9.6 0 00-1.4-4.4l.9-.6S25.5 6 17.9 7.3c-5.5 1-7.7 5.4-7.4 9C10.8 19.8 8.3 31 8.3 31l6.7 1.7a4.6 4.6 0 00-.7 1.1v.1a4.2 4.2 0 00-.4.8l-1.3 3.8a20 20 0 0010.6 1.1L23 37c.4-2-.4-4-2-5 0-1.1 0-3 .5-3.1 3-.6 5.1-2.5 6.2-5.3.3.2.6.2 1 .2a1.5 1.5 0 00-.2-3c.1-1 .2-2.2 0-3.3z"
+    ></path>
+  </svg>
 </template>
 
 <script>
