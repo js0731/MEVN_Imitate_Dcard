@@ -9,34 +9,17 @@
       </button>
       <!-- <button class="apple"><SignIcon name="apple" />Apple 註冊 / 登入</button> -->
       <span class="or">或</span>
-      <label for="registername">姓名</label>
-      <input v-model="registerUser.name" id="name" type="text" />
-      <label for="registeremail">常用信箱</label>
-      <input v-model="registerUser.email" id="registeremail" type="email" />
-      <label for="registerpassword">密碼</label>
 
+      <label for="email">常用信箱</label>
+      <input v-model="loginUser.email" id="email" type="email" />
+      <label for="password">密碼</label>
       <input
-        v-model="registerUser.password"
-        id="registerpassword"
+        v-model="loginUser.password"
+        name="password"
+        id="password"
         type="password"
       />
-      <label for="boy">男</label>
-      <input
-        v-model="registerUser.sex"
-        id="boy"
-        type="radio"
-        name="sex"
-        value="male"
-      />
-      <label for="girl">女</label>
-      <input
-        v-model="registerUser.sex"
-        id="girl"
-        type="radio"
-        name="sex"
-        value="female"
-      />
-      <button class="signup" @click.prevent="submitRegisterForm()">註冊</button>
+      <button class="signup" @click.prevent="submitLoginForm()">登入</button>
       <span class="content">註冊/登入即代表您同意遵守 Dcard 使用協議</span>
     </form>
   </div>
@@ -48,12 +31,6 @@ import jwt_decode from "jwt-decode";
 export default {
   data() {
     return {
-      registerUser: {
-        name: "",
-        email: "",
-        password: "",
-        sex: "",
-      },
       loginUser: {
         email: "",
         password: "",
@@ -64,22 +41,29 @@ export default {
     SignIcon,
   },
   methods: {
-    submitRegisterForm() {
-      console.log("a");
-      const registerUserData = this.registerUser;
-      console.log(registerUserData);
+    submitLoginForm() {
+      const loginUserData = this.loginUser;
       this.$axios
-        .post("/api/user/register", registerUserData) // 跨域路由加上'/api'
+        .post("/api/user/login", loginUserData)
         .then((res) => {
           console.log(res);
+          // 取出token
+          const { token } = res.data;
+          // 存儲到 localStorage
+          console.log(token);
+          localStorage.setItem("myToken", token);
+          const decoded = jwt_decode(token); // 解析token
+          console.log(decoded);
+          this.$store.dispatch("setAuthenticated", !this.isEmpty(decoded));
+          this.$store.dispatch("setUser", decoded);
           this.$router.push("/dcard/forum");
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    toLogin() {
-      this.$router.push("/login");
+    toRegister() {
+      this.$router.push("/register");
     },
     isEmpty(value) {
       // 空值為true 有值為false
@@ -95,19 +79,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: #00324e;
+  margin-top: 48px;
+}
 form {
+  margin: 50px 0;
   width: 460px;
-  margin: 0 auto;
-  max-width: 460px;
   background: #fff;
   display: flex;
   flex-direction: column;
   padding: 30px 50px;
   border-radius: 5px;
-  transform: translate(-50%, -50%);
-  position: absolute;
-  top: 50%;
-  left: 50%;
   button {
     height: 48px;
     padding: 0 16px;
@@ -130,6 +117,10 @@ form {
     background: #fff;
     color: balck;
   }
+  /* .apple {
+    background: #000000;
+    color: #fff;
+  } */
   .or {
     text-align: center;
     position: relative;

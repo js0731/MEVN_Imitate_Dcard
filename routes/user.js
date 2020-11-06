@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const User = require('../models/User')
-
+const Article = require('../models/Article')
 
 router.get('/', (req, res) => {
     res.json({ msg: 'user works' });
@@ -54,7 +54,8 @@ router.post('/login', (req, res) => {
                     const payload = {
                         id: user.id,
                         name: user.name,
-                        date: user.date
+                        date: user.date,
+                        sex: user.sex,
                     }
                     // 產生token (存放資訊, 簽章, 過期時間, callback)
                     jwt.sign(payload, process.env.SECRET, { expiresIn: 3600 }, (err, token) => {
@@ -72,7 +73,36 @@ router.post('/login', (req, res) => {
             });
         })
 })
+
+router.post('api/user/addarticle', (req, res) => {
+    console.log(req.body.username, req.body.sex, req.body.date, req.body.selectedBoard, req.body.title, req.body.content);
+    Article.create({
+        username: req.body.username,
+        sex: req.body.sex,
+        date: req.body.date,
+        selectedBoard: req.body.selectedBoard,
+        title: req.body.title,
+        content: req.body.content,
+    })
+        .then(article => {
+            if (article) {
+                console.log(article);
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+})
+
 router.get('/information', passport.authenticate('jwt', { session: false }), (req, res) => {
     res.json({ message: '驗證成功' })
 })
+
+
+router.get('/allarticle', (req, res) => {
+    Article.find({}, (err, data) => {
+        res.json(data)
+    })
+})
+
 module.exports = router

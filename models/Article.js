@@ -3,15 +3,15 @@ const Schema = mongoose.Schema;
 
 
 const ArticlesSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
     sex: {
         type: String,
         required: true
     },
-    board: {
+    username: {
+        type: String,
+        required: true
+    },
+    selectedBoard: {
         type: String,
         required: true
     },
@@ -19,22 +19,13 @@ const ArticlesSchema = new Schema({
         type: String,
         required: true
     },
-    paragraph: {
+    content: {
         type: String,
         required: true
     },
     date: {
         type: Date,
-        default: Date.now
-    },
-    response: {
-        type: Number,
-
-
-    },
-    love: {
-        type: Number,
-
+        require: true
     },
 })
 

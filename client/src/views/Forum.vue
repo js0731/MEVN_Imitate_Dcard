@@ -1,20 +1,20 @@
 <template>
   <div class="container">
     <div class="main">
-      <Aside />
+      <AsideBoard />
       <router-view />
-      <Advertise />
+      <AsideAdvertise />
     </div>
   </div>
 </template>
 
 <script>
-import Aside from "../components/Aside";
-import Advertise from "../components/Advertise";
+import AsideBoard from "../components/AsideBoard";
+import AsideAdvertise from "../components/AsideAdvertise";
 export default {
   components: {
-    Aside,
-    Advertise,
+    AsideBoard,
+    AsideAdvertise,
   },
 };
 </script>
