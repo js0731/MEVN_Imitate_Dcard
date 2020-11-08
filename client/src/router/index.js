@@ -2,18 +2,46 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Forum from '../views/Forum'
-import Board from "../components/Board";
-import Signup from "../components/Signup";
+import Board from "@/components/forum/board/Board";
 
-import AddArticle from "../components/AddArticle";
-import Profile from "../components/Profile";
-import Login from "../components/Login";
+import User from "../views/User.vue";
+import AddArticle from "@/components/user/addarticle/AddArticle";
+import Profile from "@/components/user/profile/Profile";
+import UseDcard from "@/components/dcard/UseDcard";
+
 
 
 Vue.use(VueRouter)
 
 
 const routes = [
+  {
+    path: '/dcard',
+    component: UseDcard,
+    children: [
+      {
+        name: 'UseDcard',
+        path: 'usedcard',
+        component: UseDcard,
+      },
+    ]
+  },
+  {
+    path: '/dcard/user',
+    component: User,
+    children: [
+      {
+        name: 'AddArticle',
+        path: 'addarticle',
+        component: AddArticle,
+      },
+      {
+        name: 'Profile',
+        path: 'profile',
+        component: Profile,
+      }
+    ]
+  },
   {
     path: '/dcard/forum',
     component: Forum,
@@ -23,43 +51,9 @@ const routes = [
         path: '/',
         component: Board,
       },
-      {
-        name: 'Board',
-        path: '/',
-        component: Board,
-      },
-      {
-        name: 'Board',
-        path: '/',
-        component: Board,
-      },
-      {
-        name: 'Board',
-        path: '/',
-        component: Board,
-      },
     ]
   },
-  {
-    name: "addArticle",
-    path: '/dcard/addarticle',
-    component: AddArticle,
-  },
-  {
-    name: "Signup",
-    path: '/dcard/signup',
-    component: Signup,
-  },
-  {
-    name: "Login",
-    path: '/dcard/login',
-    component: Login,
-  },
-  {
-    name: "Profile",
-    path: '/dcard/profile',
-    component: Profile,
-  },
+
 ]
 
 const router = new VueRouter({

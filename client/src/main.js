@@ -4,6 +4,10 @@ import router from './router'
 import store from './store'
 import axios from 'axios';
 import '../src/assets/scss/_all.scss'
+import toastRegister from './components/toast.js'
+
+Vue.use(toastRegister);
+
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 new Vue({

@@ -27,146 +27,146 @@
         <p class="title">追蹤的看板</p>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../assets/img/frontend.jpg" alt="" />
+            <img src="../.././assets/img/frontend.jpg" alt="" />
             前端工程師
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../assets/img/dress.jpg" alt="" />
+            <img src="../.././assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../assets/img/funny.jpg" alt="" />
+            <img src="../.././assets/img/funny.jpg" alt="" />
             有趣版
           </router-link>
         </li>
         <p class="title">Dcard 精選看板</p>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../assets/img/frontend.jpg" alt="" />
+            <img src="../.././assets/img/frontend.jpg" alt="" />
             前端工程師
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../assets/img/dress.jpg" alt="" />
+            <img src="../.././assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../assets/img/funny.jpg" alt="" />
+            <img src="../.././assets/img/funny.jpg" alt="" />
             有趣版
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../assets/img/frontend.jpg" alt="" />
+            <img src="../.././assets/img/frontend.jpg" alt="" />
             前端工程師
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../assets/img/dress.jpg" alt="" />
+            <img src="../.././assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../assets/img/funny.jpg" alt="" />
+            <img src="../.././assets/img/funny.jpg" alt="" />
             有趣版
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../assets/img/frontend.jpg" alt="" />
+            <img src="../.././assets/img/frontend.jpg" alt="" />
             前端工程師
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../assets/img/dress.jpg" alt="" />
+            <img src="../.././assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../assets/img/funny.jpg" alt="" />
+            <img src="../.././assets/img/funny.jpg" alt="" />
             有趣版
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../assets/img/frontend.jpg" alt="" />
+            <img src="../.././assets/img/frontend.jpg" alt="" />
             前端工程師
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../assets/img/dress.jpg" alt="" />
+            <img src="../.././assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../assets/img/funny.jpg" alt="" />
+            <img src="../.././assets/img/funny.jpg" alt="" />
             有趣版
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../assets/img/frontend.jpg" alt="" />
+            <img src="../.././assets/img/frontend.jpg" alt="" />
             前端工程師
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../assets/img/dress.jpg" alt="" />
+            <img src="../.././assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../assets/img/funny.jpg" alt="" />
+            <img src="../.././assets/img/funny.jpg" alt="" />
             有趣版
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../assets/img/frontend.jpg" alt="" />
+            <img src="../.././assets/img/frontend.jpg" alt="" />
             前端工程師
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../assets/img/dress.jpg" alt="" />
+            <img src="../.././assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../assets/img/funny.jpg" alt="" />
+            <img src="../.././assets/img/funny.jpg" alt="" />
             有趣版
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../assets/img/frontend.jpg" alt="" />
+            <img src="../.././assets/img/frontend.jpg" alt="" />
             前端工程師
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../assets/img/dress.jpg" alt="" />
+            <img src="../.././assets/img/dress.jpg" alt="" />
             穿搭
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../assets/img/funny.jpg" alt="" />
+            <img src="../.././assets/img/funny.jpg" alt="" />
             有趣版
           </router-link>
         </li>
@@ -176,7 +176,7 @@
 </template>
 
 <script>
-import AsideIcon from "../components/AsideIcon";
+import AsideIcon from "../../components/AsideIcon";
 export default {
   name: "sidebar",
   components: {

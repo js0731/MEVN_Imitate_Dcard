@@ -3,7 +3,7 @@
     <img src="http://fakeimg.pl/728x242/" alt="" />
     <div class="topBar">
       <div class="follow">
-        <img src="../assets/img/dress.jpg" alt />
+        <img src="../../.././assets/img/dress.jpg" alt />
         <h2 class="title">穿搭</h2>
         <button>追蹤</button>
       </div>
@@ -48,7 +48,7 @@
             <img
               width="16"
               height="16"
-              src="../assets/img/love.jpg"
+              src="../../.././assets/img/love.jpg"
               alt="愛心"
             />
             <span>{{ art.response }}</span>
@@ -57,7 +57,7 @@
             <img
               width="16"
               height="16"
-              src="../assets/img/response1.png"
+              src="../../.././assets/img/response1.png"
               alt="愛心"
             />
             <span>{{ art.love }}</span>
@@ -66,7 +66,7 @@
             <img
               width="16"
               height="16"
-              src="../assets/img/folder.png"
+              src="../../.././assets/img/folder.png"
               alt="愛心"
             />
             <span>收藏</span>

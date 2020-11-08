@@ -14,7 +14,7 @@
       </div>
       <ul class="block-right">
         <li class="menuItem">
-          <router-link class="navLink" to="/dcard/addarticle">
+          <router-link class="navLink" to="/dcard/user/addarticle">
             <Icon name="pen" />
           </router-link>
         </li>
@@ -29,8 +29,13 @@
           </router-link>
         </li>
         <li class="menuItem">
-          <router-link class="navLink" to="/dcard/profile">
+          <router-link class="navLink" to="/dcard/user/profile">
             <Icon name="user" />
+          </router-link>
+        </li>
+        <li class="menuItem">
+          <router-link class="navLink" to="/dcard/usedcard">
+            <Icon name="enroll" />
           </router-link>
         </li>
         <li class="menuItem">

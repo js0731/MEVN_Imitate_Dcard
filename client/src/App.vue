@@ -8,6 +8,7 @@
 <script>
 import Navbar from "./components/Navbar";
 import jwt_decode from "jwt-decode";
+
 export default {
   name: "App",
   components: { Navbar },

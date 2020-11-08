@@ -74,7 +74,7 @@ router.post('/login', (req, res) => {
         })
 })
 
-router.post('api/user/addarticle', (req, res) => {
+router.post('/addarticle', (req, res) => {
     console.log(req.body.username, req.body.sex, req.body.date, req.body.selectedBoard, req.body.title, req.body.content);
     Article.create({
         username: req.body.username,
@@ -85,9 +85,7 @@ router.post('api/user/addarticle', (req, res) => {
         content: req.body.content,
     })
         .then(article => {
-            if (article) {
-                console.log(article);
-            }
+            res.json({ message: 'success ' })
         })
         .catch(err => {
             console.log(err);

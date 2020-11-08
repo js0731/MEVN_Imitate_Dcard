@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import AsideBoard from "../components/AsideBoard";
-import AsideAdvertise from "../components/AsideAdvertise";
+import AsideBoard from "../components/forum/AsideBoard";
+import AsideAdvertise from "../components/forum/AsideAdvertise";
 export default {
   components: {
     AsideBoard,

@@ -7,6 +7,11 @@
   </div>
 </template>
 
+   <style lang="scss" scoped>
+div {
+  padding-top: 500px;
+}
+</style>
 <script>
 export default {
   computed: {
