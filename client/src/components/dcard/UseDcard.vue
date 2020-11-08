@@ -18,7 +18,7 @@
       <SignIcon name="facebook" />Facebook 註冊 / 登入
     </button>
     <button class="btn-thirdParty btn-google">
-      <SignIcon name="google" />Google 註冊 / 登入
+      <SignIcon name="google" />Google 註冊 / 登入入
     </button>
     <span class="text-or">或</span>
     <keep-alive>
