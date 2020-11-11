@@ -57,17 +57,16 @@ export default {
       this.$axios
         .post("/api/user/login", loginUserData)
         .then((res) => {
-          console.log(res);
           // 取出token
           const { token } = res.data;
           // 存儲到 localStorage
-          console.log(token);
           localStorage.setItem("myToken", token);
           const decoded = jwt_decode(token); // 解析token
-          console.log(decoded);
           this.$store.dispatch("setAuthenticated", !this.isEmpty(decoded));
           this.$store.dispatch("setUser", decoded);
           this.$router.push("/dcard/forum");
+          console.log(res);
+          this.$toast("0....0");
         })
         .catch((err) => {
           console.log(err);

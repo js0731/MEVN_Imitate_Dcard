@@ -1,5 +1,5 @@
 <template>
-  <div class="container" v-if="show"></div>
+  <div class="container" v-if="show">{{ text }}</div>
 </template>
 
 <script>
@@ -10,9 +10,9 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  position: fixed;
-  top: calc(50% - 20px);
-  left: calc(50% - 50px);
+  position: absolute;
+  top: calc(10% - 20px);
+  right: calc(10% - 50px);
   width: 100px;
   height: 40px;
   text-align: center;

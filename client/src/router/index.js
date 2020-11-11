@@ -8,7 +8,7 @@ import User from "../views/User.vue";
 import AddArticle from "@/components/user/addarticle/AddArticle";
 import Profile from "@/components/user/profile/Profile";
 import UseDcard from "@/components/dcard/UseDcard";
-
+import AllBoard from '@/components/forum/board/AllBoard'
 
 
 Vue.use(VueRouter)
@@ -47,8 +47,23 @@ const routes = [
     component: Forum,
     children: [
       {
-        name: 'Board',
+        name: 'AllBoard',
         path: '/',
+        component: AllBoard,
+      },
+      {
+        name: 'Dressup',
+        path: 'dressup',
+        component: Board,
+      },
+      {
+        name: 'Frontend',
+        path: 'frontend',
+        component: Board,
+      },
+      {
+        name: 'Funny',
+        path: 'funny',
         component: Board,
       },
     ]
@@ -65,7 +80,8 @@ const router = new VueRouter({
 // to: 即將要進入的路由 from : 當前要離開的路由。 next(去哪的路由)
 router.beforeEach((to, from, next) => {
   const isLogin = localStorage.myToken ? true : false; //查看localStorage token 是否存在
-  if (to.path === '/dcard/signup' || to.path === '/dcard/login') {
+  if (to.path === '/dcard/usedcard' || to.path === '/dcard/login') {
+
     next();
   } else {
     isLogin ? next() : next('/dcard/login') || next('/dcard/signup') // 如果 localStorage token 不存在則導入/login頁面，存在則放行。

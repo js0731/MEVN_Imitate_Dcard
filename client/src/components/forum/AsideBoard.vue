@@ -26,19 +26,19 @@
       <ul class="menu">
         <p class="title">追蹤的看板</p>
         <li class="item">
-          <router-link class="link" to="/dcard">
+          <router-link class="link" to="/dcard/forum/frontend">
             <img src="../.././assets/img/frontend.jpg" alt="" />
             前端工程師
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../.././assets/img/dress.jpg" alt="" />
+            <img src="../.././assets/img/dressup.jpg" alt="" />
             穿搭
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard">
+          <router-link class="link" to="/dcard/forum/funny">
             <img src="../.././assets/img/funny.jpg" alt="" />
             有趣版
           </router-link>
@@ -52,7 +52,7 @@
         </li>
         <li class="item">
           <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../.././assets/img/dress.jpg" alt="" />
+            <img src="../.././assets/img/dressup.jpg" alt="" />
             穿搭
           </router-link>
         </li>
@@ -70,7 +70,7 @@
         </li>
         <li class="item">
           <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../.././assets/img/dress.jpg" alt="" />
+            <img src="../.././assets/img/dressup.jpg" alt="" />
             穿搭
           </router-link>
         </li>
@@ -88,7 +88,7 @@
         </li>
         <li class="item">
           <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../.././assets/img/dress.jpg" alt="" />
+            <img src="../.././assets/img/dressup.jpg" alt="" />
             穿搭
           </router-link>
         </li>
@@ -106,7 +106,7 @@
         </li>
         <li class="item">
           <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../.././assets/img/dress.jpg" alt="" />
+            <img src="../.././assets/img/dressup.jpg" alt="" />
             穿搭
           </router-link>
         </li>
@@ -124,7 +124,7 @@
         </li>
         <li class="item">
           <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../.././assets/img/dress.jpg" alt="" />
+            <img src="../.././assets/img/dressup.jpg" alt="" />
             穿搭
           </router-link>
         </li>
@@ -142,7 +142,7 @@
         </li>
         <li class="item">
           <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../.././assets/img/dress.jpg" alt="" />
+            <img src="../.././assets/img/dressup.jpg" alt="" />
             穿搭
           </router-link>
         </li>
@@ -160,7 +160,7 @@
         </li>
         <li class="item">
           <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../.././assets/img/dress.jpg" alt="" />
+            <img src="../.././assets/img/dressup.jpg" alt="" />
             穿搭
           </router-link>
         </li>
@@ -194,7 +194,7 @@ export default {
   background: #00324e;
   position: sticky;
   top: 68px;
-  z-index: 1000;
+  z-index: 100;
 }
 .menu {
   .title {

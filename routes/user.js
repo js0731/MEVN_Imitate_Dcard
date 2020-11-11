@@ -30,7 +30,7 @@ router.post('/register', (req, res) => {
                     if (err) throw err
                     newUser.password = hash  // 將newUser.password 改為加密密碼
                     newUser.save() // 將資訊存入mongodb
-                        .then(user => res.json(user)) // 成功回傳
+                        .then(user => res.json('註冊成功!!')) // 成功回傳
                         .catch(err => console.log(err)) // 錯誤回傳
                 });
             }

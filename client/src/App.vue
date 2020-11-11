@@ -19,6 +19,8 @@ export default {
       this.$store.dispatch("setAuthenticated", !this.isEmpty(decoded));
       this.$store.dispatch("setUser", decoded);
     }
+    this.$loading();
+    setTimeout(() => {}, 2000);
   },
   methods: {
     isEmpty(value) {

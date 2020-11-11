@@ -15,6 +15,7 @@ function showToast(text, duration = 2000) {
             }
         }
     })
+    //toastDom指向元件的實體
     document.body.appendChild(toastDom.$el)
     setTimeout(() => {
         toastDom.show = false

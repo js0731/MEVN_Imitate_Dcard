@@ -25,7 +25,7 @@
       <RegisterForm v-if="toggle" />
       <LoginForm v-else />
     </keep-alive>
-    <button @click="showToast">111111111</button>
+
     <span class="text-protocol">註冊/登入即代表您同意遵守 Dcard 使用協議</span>
   </div>
 </template>
@@ -46,11 +46,7 @@ export default {
     LoginForm,
     RegisterForm,
   },
-  methods: {
-    showToast() {
-      this.$toast("哈囉");
-    },
-  },
+  methods: {},
   created() {},
 };
 </script>

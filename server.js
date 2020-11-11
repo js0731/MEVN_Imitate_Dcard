@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const passport = require('passport');
 
 const user = require('./routes/user');
-
+const board = require('./routes/board');
 
 mongoose.connect(process.env.MONGODBURL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Mongodb Connected'))
@@ -23,7 +23,7 @@ require('./passport')(passport)
 
 
 app.use('/user', user);
-
+app.use('/board', board);
 
 
 

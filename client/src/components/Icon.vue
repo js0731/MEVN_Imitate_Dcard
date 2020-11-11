@@ -199,6 +199,31 @@
       </g>
     </g>
   </svg>
+
+  <svg
+    v-else-if="name === 'favorite'"
+    viewBox="0 0 24 24"
+    focusable="false"
+    role="img"
+    aria-hidden="true"
+    class="ptn2cr-0 fKdOqo"
+  >
+    <path
+      d="M17.65 21.39L12 17.5l-5.65 3.88A1.5 1.5 0 014 20.15V5a2.5 2.5 0 012.5-2.5h11A2.5 2.5 0 0120 5v15.15a1.5 1.5 0 01-2.35 1.24z"
+    ></path>
+  </svg>
+  <svg
+    v-else-if="name === 'favorited'"
+    viewBox="0 0 24 24"
+    focusable="false"
+    role="img"
+    aria-hidden="true"
+    class="ptn2cr-0 fKdOqo"
+  >
+    <path
+      d="M17.65 21.39L12 17.5l-5.65 3.88A1.5 1.5 0 014 20.15V5a2.5 2.5 0 012.5-2.5h11A2.5 2.5 0 0120 5v15.15a1.5 1.5 0 01-2.35 1.24z"
+    ></path>
+  </svg>
 </template>
 
 <script>

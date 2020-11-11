@@ -1,5 +1,4 @@
 const validateInput = function (tag) {
-    console.log('aa');
     switch (tag) {
         case "name":
             this.$refs.name.checkValidity()

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form @submit="submitRegisterForm">
+    <form @submit.prevent="submitRegisterForm">
       <label for="userName">
         <span>姓名</span>
         <input
@@ -92,15 +92,22 @@ export default {
   },
   methods: {
     submitRegisterForm() {
+      this.$loading();
       const userDate = this.registerUser;
       this.$axios
         .post("/api/user/register", userDate) // 跨域路由加上'/api'
         .then((res) => {
           console.log(res);
+          this.$toast(res.data);
+          for (let key in this.registerUser) {
+            this.registerUser[key] = "";
+          }
+          this.$loading(false);
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
+      
     },
     isEmpty(value) {
       // 空值為true 有值為false

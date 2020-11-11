@@ -1,28 +1,16 @@
 <template>
   <div class="containerrr">
-    <img src="http://fakeimg.pl/728x242/" alt="" />
     <div class="topBar">
-      <div class="follow">
-        <img
-          :src="
-            require(`../../../assets/img/${this.$route.name.toLowerCase()}.jpg`)
-          "
-          alt
-        />
-        <h2 class="title" v-if="this.allarticle">{{ boardName }}</h2>
-        <button>追蹤</button>
-      </div>
       <ul class="sort">
+        <li @click="selectedAll()">全部</li>
         <li>熱門</li>
         <li>最新</li>
-        <li>板規</li>
       </ul>
     </div>
     <article v-for="(art, index) in allarticle" :key="index">
       <div class="container">
         <div class="user">
-          <Icon name="male" v-if="art.sex === 'male'" />
-          <Icon name="female" v-if="art.sex === 'female'" />
+          <Icon name="male" />
           <!-- <svg
             v-if="art.sex == 'girl'"
             width="20"
@@ -43,8 +31,8 @@
               d="M16 7.9C12.4 7.4 9.3 6 9.3 6s5.5 4.3 5 5.3c-.4 1-4.2 0-4.2 0l4 2a9.7 9.7 0 00-1.5 4.6l.1 3.4a1.5 1.5 0 10.8 2.9 8.3 8.3 0 006.2 5.3c.6 0 .6 2 .6 3.2-1.6 1-2.5 3-2 5v2.2a20.2 20.2 0 009.9-1.6l-.7-2.7v-.4l-.2-.4-.2-.4-.2-.3-.2-.3c-.7-1-1.7-1.6-2.9-1.8l.6-2.3s1.4-1 3-2.6l.4 1.3 1.4-2.5.9-1.8s3.8-10.3.8-13.9c-2.6-3-11-1.9-14.7-2.3"
             />
           </svg> -->
-          {{ art.selectedBoard }} ．
           {{ art.username }}
+          {{ art.selectedBoard }}
         </div>
         <div class="content">
           <h2>{{ art.title }}</h2>
@@ -52,8 +40,31 @@
         </div>
         <div class="status">
           <div>
-            <Icon name="favorite" />
-            <span></span>
+            <img
+              width="16"
+              height="16"
+              src="../../.././assets/img/love.jpg"
+              alt="愛心"
+            />
+            <span>{{ art.response }}</span>
+          </div>
+          <div>
+            <img
+              width="16"
+              height="16"
+              src="../../.././assets/img/response1.png"
+              alt="愛心"
+            />
+            <span>{{ art.love }}</span>
+          </div>
+          <div>
+            <img
+              width="16"
+              height="16"
+              src="../../.././assets/img/folder.png"
+              alt="愛心"
+            />
+            <span>收藏</span>
           </div>
         </div>
       </div>
@@ -65,47 +76,29 @@
 </template>
 
 <script>
-import Icon from "../../Icon";
 export default {
   data() {
     return {
       allarticle: [],
-      userInformation: [],
-      boardName: "",
     };
   },
-  components: {
-    Icon,
-  },
-  watch: {
-    $route: function () {
-      this.$axios
-        .get(`/api/board/${this.$route.name.toLowerCase()}`)
-        .then((res) => {
-          console.log(res, res.data);
-          this.allarticle = res.data.boardData;
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+
+  methods: {
+    selectedAll() {
+      this.allarticle.sort((a, b) => {
+        console.log(a.date, b.date);
+      });
     },
   },
   created() {
     this.$axios
-      .get(`/api/board/${this.$route.name.toLowerCase()}`)
+      .get("/api/user/allarticle")
       .then((res) => {
-        this.boardName = res.data.boardName;
-        this.allarticle = res.data.boardData;
+        this.allarticle = res.data;
       })
       .catch((err) => {
         console.error(err);
       });
-  },
-  computed: {
-    getUserData() {
-      console.log(this.$store.getters.user);
-      return this.$store.getters.user;
-    },
   },
 };
 </script>
@@ -179,10 +172,6 @@ article {
   margin: 0 auto;
   border-bottom: 1px solid rgb(233, 233, 233);
   display: flex;
-  &:hover {
-    cursor: pointer;
-    color: red;
-  }
 }
 .container {
   width: 504px;
@@ -190,7 +179,6 @@ article {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   .user {
   }
   .content {
