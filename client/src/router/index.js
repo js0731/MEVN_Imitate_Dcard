@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 import Forum from '../views/Forum'
 import Board from "@/components/forum/board/Board";
-
+import Article from "@/components/forum/board/Article";
 import User from "../views/User.vue";
 import AddArticle from "@/components/user/addarticle/AddArticle";
 import Profile from "@/components/user/profile/Profile";
@@ -55,6 +55,13 @@ const routes = [
         name: 'Dressup',
         path: 'dressup',
         component: Board,
+        children: [
+          {
+            name: 'Article',
+            path: ':id',
+            component: Article,
+          },
+        ]
       },
       {
         name: 'Frontend',

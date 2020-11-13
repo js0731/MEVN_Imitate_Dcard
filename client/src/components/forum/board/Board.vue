@@ -9,7 +9,7 @@
           "
           alt
         />
-        <h2 class="title" v-if="this.allarticle">{{ boardName }}</h2>
+        <h2 class="title">{{ boardName }}</h2>
         <button>追蹤</button>
       </div>
       <ul class="sort">
@@ -18,8 +18,13 @@
         <li>板規</li>
       </ul>
     </div>
-    <article v-for="(art, index) in allarticle" :key="index">
-      <div class="container">
+    <article
+      v-for="(art, index) in allarticle"
+      :key="index"
+      :data-articleId="art.id"
+      @click="clickArt(art._id)"
+    >
+      <div class="container" :data-articleId="art.id">
         <div class="user">
           <Icon name="male" v-if="art.sex === 'male'" />
           <Icon name="female" v-if="art.sex === 'female'" />
@@ -52,8 +57,14 @@
         </div>
         <div class="status">
           <div>
+            <Icon name="love" />
+          </div>
+          <div>
+            <span>回應 141</span>
+          </div>
+          <div>
             <Icon name="favorite" />
-            <span></span>
+            <span>收藏</span>
           </div>
         </div>
       </div>
@@ -74,15 +85,30 @@ export default {
       boardName: "",
     };
   },
+  methods: {
+    clickArt(path) {
+      console.log(path);
+      this.$axios
+        .get(`/api/board/${this.$route.name.toLowerCase()}/${path}`)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(`/api/board/${this.$route.name.toLowerCase()}/${path}`);
+          console.error(err);
+        });
+    },
+  },
   components: {
     Icon,
   },
   watch: {
     $route: function () {
+      this.boardName = "";
       this.$axios
         .get(`/api/board/${this.$route.name.toLowerCase()}`)
         .then((res) => {
-          console.log(res, res.data);
+          this.boardName = res.data.boardName;
           this.allarticle = res.data.boardData;
         })
         .catch((err) => {
@@ -206,11 +232,19 @@ article {
   }
   .status {
     display: flex;
-    img {
-      margin-right: 5px;
-    }
-    span {
-      margin-right: 10px;
+    align-items: center;
+    div {
+      display: flex;
+      align-items: center;
+      margin-right: 16px;
+      svg {
+        margin-right: 6px;
+      }
+      span {
+        color: rgba(0, 0, 0, 0.35);
+        margin-right: 10px;
+        font-size: 14px;
+      }
     }
   }
 }

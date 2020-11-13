@@ -207,6 +207,9 @@
     role="img"
     aria-hidden="true"
     class="ptn2cr-0 fKdOqo"
+    fill="rgb(225,225,225)"
+    width="20px"
+    height="20px"
   >
     <path
       d="M17.65 21.39L12 17.5l-5.65 3.88A1.5 1.5 0 014 20.15V5a2.5 2.5 0 012.5-2.5h11A2.5 2.5 0 0120 5v15.15a1.5 1.5 0 01-2.35 1.24z"
@@ -215,6 +218,8 @@
   <svg
     v-else-if="name === 'favorited'"
     viewBox="0 0 24 24"
+    width="20px"
+    height="20px"
     focusable="false"
     role="img"
     aria-hidden="true"
@@ -222,6 +227,40 @@
   >
     <path
       d="M17.65 21.39L12 17.5l-5.65 3.88A1.5 1.5 0 014 20.15V5a2.5 2.5 0 012.5-2.5h11A2.5 2.5 0 0120 5v15.15a1.5 1.5 0 01-2.35 1.24z"
+    ></path>
+  </svg>
+  <svg
+    v-else-if="name === 'love'"
+    width="20px"
+    height="20px"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    focusable="false"
+    role="img"
+    aria-hidden="true"
+    class="ptn2cr-0 fKdOqo"
+    fill="rgb(225,225,225)"
+  >
+    <path
+      d="M16.5 4A5.49 5.49 0 0012 6.344 5.49 5.49 0 007.5 4 5.5 5.5 0 002 9.5C2 16 12 22 12 22s10-6 10-12.5A5.5 5.5 0 0016.5 4z"
+      fill-rule="evenodd"
+    ></path>
+  </svg>
+  <svg
+    v-else-if="name === 'loved'"
+    width="20px"
+    height="20px"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    focusable="false"
+    role="img"
+    aria-hidden="true"
+    class="ptn2cr-0 fKdOqo"
+    fill="red"
+  >
+    <path
+      d="M16.5 4A5.49 5.49 0 0012 6.344 5.49 5.49 0 007.5 4 5.5 5.5 0 002 9.5C2 16 12 22 12 22s10-6 10-12.5A5.5 5.5 0 0016.5 4z"
+      fill-rule="evenodd"
     ></path>
   </svg>
 </template>

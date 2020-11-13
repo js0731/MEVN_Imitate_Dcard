@@ -39,7 +39,8 @@
           <p>{{ art.content }}</p>
         </div>
         <div class="status">
-          <div>
+          <Icon name="favorite" />
+          <!-- <div>
             <img
               width="16"
               height="16"
@@ -47,25 +48,7 @@
               alt="愛心"
             />
             <span>{{ art.response }}</span>
-          </div>
-          <div>
-            <img
-              width="16"
-              height="16"
-              src="../../.././assets/img/response1.png"
-              alt="愛心"
-            />
-            <span>{{ art.love }}</span>
-          </div>
-          <div>
-            <img
-              width="16"
-              height="16"
-              src="../../.././assets/img/folder.png"
-              alt="愛心"
-            />
-            <span>收藏</span>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="pic">
@@ -76,13 +59,16 @@
 </template>
 
 <script>
+import Icon from "../../Icon";
 export default {
   data() {
     return {
       allarticle: [],
     };
   },
-
+  components: {
+    Icon,
+  },
   methods: {
     selectedAll() {
       this.allarticle.sort((a, b) => {
@@ -194,12 +180,6 @@ article {
   }
   .status {
     display: flex;
-    img {
-      margin-right: 5px;
-    }
-    span {
-      margin-right: 10px;
-    }
   }
 }
 .pic {
