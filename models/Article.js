@@ -15,6 +15,10 @@ const ArticlesSchema = new Schema({
         type: String,
         required: true
     },
+    boardPath: {
+        type: String,
+        required: true
+    },
     title: {
         type: String,
         required: true
@@ -26,6 +30,10 @@ const ArticlesSchema = new Schema({
     date: {
         type: Date,
         require: true
+    },
+    isCollect: {
+        type: Boolean,
+        default: false
     },
 })
 

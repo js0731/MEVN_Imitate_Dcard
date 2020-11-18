@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import axios from 'axios';
 Vue.use(Vuex)
 
 const state = {
@@ -33,6 +33,20 @@ const actions = {
   },
   setUser: ({ commit }, user) => {
     commit('SET_USER', user)
+  },
+  collectArticle: ({ commit }, id) => {
+    let data = {
+      articleId: id,
+      userId: state.user.id
+    }
+    console.log(data);
+    axios.post('/api/user/collectarticle', data)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 }
 

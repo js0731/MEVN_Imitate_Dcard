@@ -29,7 +29,7 @@
           ref="password"
         />
       </label>
-      <button class="btn-login" @click="submitLoginForm()">登入</button>
+      <button class="btn-login" @click.prevent="submitLoginForm()">登入</button>
     </form>
   </div>
 </template>
@@ -57,6 +57,7 @@ export default {
       this.$axios
         .post("/api/user/login", loginUserData)
         .then((res) => {
+          console.log(res);
           // 取出token
           const { token } = res.data;
           // 存儲到 localStorage
@@ -66,7 +67,7 @@ export default {
           this.$store.dispatch("setUser", decoded);
           this.$router.push("/dcard/forum");
           console.log(res);
-          this.$toast("0....0");
+          // this.$toast("0....0");
         })
         .catch((err) => {
           console.log(err);

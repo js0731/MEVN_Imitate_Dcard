@@ -22,7 +22,32 @@ const UserSchema = new Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    collectArticle: [
+        {
+            collectArticleId: {
+                type: Array,
+            },
+            collectArticleDate: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ],
+    // collectArticle: {
+    //     type: [
+    //         {
+    //             collectArticleId: {
+    //                 type: Array,
+    //             },
+    //             collectArticleDate: {
+    //                 type: Date,
+    //                 default: Date.now
+    //             }
+    //         }
+    //     ]
+    // },
+
 })
 
 module.exports = User = mongoose.model('users', UserSchema)

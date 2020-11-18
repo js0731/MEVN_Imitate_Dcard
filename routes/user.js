@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const User = require('../models/User')
-const Article = require('../models/Article')
+const Article = require('../models/Article');
+const { route } = require('./board');
 
 router.get('/', (req, res) => {
     res.json({ msg: 'user works' });
@@ -56,11 +57,12 @@ router.post('/login', (req, res) => {
                         name: user.name,
                         date: user.date,
                         sex: user.sex,
+                        collectArticle: user.collectArticle
                     }
                     // 產生token (存放資訊, 簽章, 過期時間, callback)
                     jwt.sign(payload, process.env.SECRET, { expiresIn: 3600 }, (err, token) => {
                         if (err) throw err
-                        console.log(token);
+                        console.log(payload);
                         res.json({
                             success: true,
                             token: 'Bearer ' + token
@@ -81,6 +83,7 @@ router.post('/addarticle', (req, res) => {
         sex: req.body.sex,
         date: req.body.date,
         selectedBoard: req.body.selectedBoard,
+        boardPath: req.body.boardPath,
         title: req.body.title,
         content: req.body.content,
     })
@@ -101,6 +104,17 @@ router.get('/allarticle', (req, res) => {
     Article.find({}, (err, data) => {
         res.json(data)
     })
+})
+
+router.post('/collectarticle', (req, res) => {
+    User.update({ _id: req.body.userId }, {
+        $push: { collectArticle: { collectArticleId: req.body.articleId } }
+    }, function (err, response) {
+        if (err) console.log(err);
+        // console.log(response);
+        res.json({ "status": response })
+    },
+    );
 })
 
 module.exports = router

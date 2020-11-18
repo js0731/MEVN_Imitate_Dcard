@@ -1,53 +1,22 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../models/User')
 const Article = require('../models/Article')
 
 
-router.get('/:board', (req, res) => {
-    console.log(this.params);
-    Article.find({ selectedBoard: '前端工程師' }, (err, boardData) => {
-
-        res.json({
-            boardName: '前端工程師',
-            boardData
-        })
+router.post('/:board', (req, res) => {
+    Article.find({ boardPath: req.params.board }, (err, articleData) => {
+        res.json({ articleData: articleData })
     })
-});
 
-router.get('/frontend', (req, res) => {
-    Article.find({ selectedBoard: '前端工程師' }, (err, boardData) => {
+})
 
-        res.json({
-            boardName: '前端工程師',
-            boardData
-        })
+router.get('/:board/:id', (req, res) => {
+    Article.find({ boardPath: req.params.board, _id: req.params.id }, (err, article) => {
+        console.log(article);
+        res.json({ article: article })
     })
-});
-// router.get('/:board/:id', (req, res) => {
-//     console.log(req.params.id, req.params);
-//     Article.findById({ _id: req.params.id }, (err, data) => {
-//         console.log(data);
-//         res.json('123')
-//     })
-
-// })
-router.get('/dressup', (req, res) => {
-    Article.find({ selectedBoard: '穿搭板' }, (err, boardData) => {
-        res.json({
-            boardName: '穿搭板',
-            boardData
-        })
-    })
-});
-
-router.get('/funny', (req, res) => {
-    Article.find({ selectedBoard: '有趣板' }, (err, boardData) => {
-        res.json({
-            boardName: '有趣板',
-            boardData
-        })
-    })
-});
+})
 
 
 module.exports = router

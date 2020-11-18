@@ -11,5 +11,6 @@ export default {};
 
 <style lang="scss" scoped>
 div {
+  margin-top: 48px;
 }
 </style>

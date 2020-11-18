@@ -49,9 +49,9 @@
             <Icon class="dropDownIcon" name="search" />
             <input type="text" placeholder="尋找看板" />
           </div>
-          <li @click="setBoard('前端工程師')">前端工程師</li>
-          <li @click="setBoard('有趣板')">有趣板</li>
-          <li @click="setBoard('穿搭板')">穿搭板</li>
+          <li @click="setBoard('前端工程師', 'frontend')">前端工程師</li>
+          <li @click="setBoard('有趣板', 'funny')">有趣板</li>
+          <li @click="setBoard('穿搭板', 'dressup')">穿搭板</li>
         </ul>
       </div>
     </transition>
@@ -75,14 +75,16 @@ export default {
         username: this.$store.getters.user.name,
         date: new Date().getTime(),
         selectedBoard: "請選擇看板",
+        boardPath: "",
         title: "",
         content: "",
       },
     };
   },
   methods: {
-    setBoard(board) {
-      this.newArticle.selectedBoard = board;
+    setBoard(selectedBoard, boardPath) {
+      this.newArticle.selectedBoard = selectedBoard;
+      this.newArticle.boardPath = boardPath;
       this.openWindow = false;
     },
     submitArticle() {
@@ -133,7 +135,7 @@ export default {
 form {
   display: flex;
   flex-direction: column;
-  padding-top: 68px;
+  padding-top: 28px;
   max-width: 680px;
   height: 100vh;
   margin: 0 auto;
