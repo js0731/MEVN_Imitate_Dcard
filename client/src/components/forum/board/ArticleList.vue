@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <BoardBar />
-    <!-- {{ getUserData.collectArticle[0].collectArticleId[0] }} -->
+
     <article>
       <div class="article" v-for="art in articleData" :key="art._id">
         <router-link
@@ -24,11 +24,9 @@
             <button @click.prevent="b">
               <span>回應 141</span>
             </button> -->
+
             <button @click.prevent="collectArticle(art._id)">
-              <Icon
-                name="favorited"
-                v-if="'5fa2619cb3e02b4b28ec757f' === '5fb3d5006780d944088ad99f'"
-              />
+              <Icon v-if="findCollect(art._id)" name="favorited" />
               <Icon v-else name="favorite" />
               <span>收藏</span>
             </button>
@@ -49,7 +47,6 @@ export default {
   data() {
     return {
       articleData: [],
-      fav: false,
     };
   },
   methods: {
@@ -64,8 +61,29 @@ export default {
       console.log("b", e);
       e.stopPropagation();
     },
-    collectArticle(id) {
-      this.$store.dispatch("collectArticle", id);
+    findCollect(articleId) {
+      return (
+        this.$store.getters.collectArticle
+          .map((x) => x.collectArticleId)
+          .indexOf(articleId) >= 0
+      );
+    },
+    collectArticle(articleId) {
+      if (
+        this.$store.getters.collectArticle
+          .map((x) => x.collectArticleId)
+          .indexOf(articleId) >= 0
+      ) {
+        console.log("remove");
+        this.$store.dispatch("cancelCollect", articleId);
+      } else if (
+        this.$store.getters.collectArticle
+          .map((x) => x.collectArticleId)
+          .indexOf(articleId) < 0
+      ) {
+        console.log("add");
+        this.$store.dispatch("collectArticle", articleId);
+      }
     },
   },
   components: {
@@ -74,12 +92,10 @@ export default {
   },
   watch: {
     $route: function () {
-      // console.log(this.$route.params.boardPath);
       this.$axios
         .get(`/api/board/${this.$route.params.boardPath}`)
         .then((res) => {
           this.articleData = res.data.articleData;
-          console.log(this.articleData[0].boardPath);
         })
         .catch((err) => {
           console.error(err);
@@ -87,21 +103,26 @@ export default {
     },
   },
   created() {
-    // console.log(this.$route.params.boardPath);
-    let userId = this.$store.getters.user.id;
     this.$axios
-      .post(`/api/board/${this.$route.params.boardPath}`, { userId: userId })
+      .get(`/api/board/${this.$route.params.boardPath}`)
       .then((res) => {
         this.articleData = res.data.articleData;
       })
       .catch((err) => {
         console.error(err);
       });
+    // test
+    // let arr = this.$store.getters.collectArticle
+    // console.log(arr,this.$store.getters.collectArticle);
+    // console.log(arr.map((x) => x.collectArticleId).indexOf("5fa2624bb3e02b4b28ec7580"));
   },
   computed: {
-    // getUserData() {
-    //   return this.$store.getters.user;
-    // },
+    getUserData() {
+      return this.$store.getters.userData;
+    },
+    getUserCollectArticle() {
+      return this.$store.state.collectArticle;
+    },
   },
 };
 </script>

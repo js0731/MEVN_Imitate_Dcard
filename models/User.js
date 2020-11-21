@@ -23,15 +23,11 @@ const UserSchema = new Schema({
         type: Date,
         default: Date.now
     },
+
     collectArticle: [
         {
-            collectArticleId: {
-                type: Array,
-            },
-            collectArticleDate: {
-                type: Date,
-                default: Date.now
-            }
+            collectArticleId: String,
+            collectArticleDate: Date,
         }
     ],
     // collectArticle: {

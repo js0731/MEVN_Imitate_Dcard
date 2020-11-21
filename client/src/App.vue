@@ -17,7 +17,8 @@ export default {
       const decoded = jwt_decode(localStorage.myToken);
       // 將 token 儲存到 vuex 中
       this.$store.dispatch("setAuthenticated", !this.isEmpty(decoded));
-      this.$store.dispatch("setUser", decoded);
+      this.$store.dispatch("storeUserId", decoded);
+      this.$store.dispatch("getUserData", this.$store.getters.user.id);
     }
   },
   methods: {

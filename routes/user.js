@@ -48,19 +48,15 @@ router.post('/login', (req, res) => {
             if (!user) {
                 return res.status(404).json({ email: "email不存在" })
             }
-            // 加密函式 (使用者密碼, 加鹽次數多越安全相對的加密時間就越長, callback)
+            // 驗證加密密碼 (使用者輸入的密碼,  資料庫內的bcrypt密碼, callback)
             bcrypt.compare(req.body.password, user.password, (err, result) => {
                 if (result) {  // 密碼比對為true
                     // 存放在jwt token的資料(不見得是要使用者資料)
                     const payload = {
                         id: user.id,
-                        name: user.name,
-                        date: user.date,
-                        sex: user.sex,
-                        collectArticle: user.collectArticle
                     }
                     // 產生token (存放資訊, 簽章, 過期時間, callback)
-                    jwt.sign(payload, process.env.SECRET, { expiresIn: 3600 }, (err, token) => {
+                    jwt.sign(payload, process.env.SECRET, { expiresIn: 36000 }, (err, token) => {
                         if (err) throw err
                         console.log(payload);
                         res.json({
@@ -95,9 +91,7 @@ router.post('/addarticle', (req, res) => {
         })
 })
 
-router.get('/information', passport.authenticate('jwt', { session: false }), (req, res) => {
-    res.json({ message: '驗證成功' })
-})
+
 
 
 router.get('/allarticle', (req, res) => {
@@ -106,15 +100,56 @@ router.get('/allarticle', (req, res) => {
     })
 })
 
-router.post('/collectarticle', (req, res) => {
-    User.update({ _id: req.body.userId }, {
-        $push: { collectArticle: { collectArticleId: req.body.articleId } }
-    }, function (err, response) {
-        if (err) console.log(err);
-        // console.log(response);
-        res.json({ "status": response })
+router.post('/collectarticle', passport.authenticate('jwt', { session: false }), (req, res) => {
+    User.updateOne({ _id: req.body.userId }, {
+        $push: {
+            collectArticle: [{
+                collectArticleId: req.body.articleId,
+                collectArticleDate: new Date()
+            }]
+        }
+    }, (err, response) => {
+        if (err) console.log(err)
+        User.findById({ _id: req.body.userId })
+            .then(data => {
+                console.log(data.collectArticle);
+                res.json(data.collectArticle)
+            })
+            .catch(err => console.log(err))
     },
     );
+
 })
+
+
+router.post('/cancelCollect', passport.authenticate('jwt', { session: false }), (req, res) => {
+    User.updateOne({ _id: req.body.userId }, {
+        $pull: {
+            collectArticle: { collectArticleId: req.body.articleId }
+        }
+    }, (err, response) => {
+        if (err) console.log(err);
+        User.findById({ _id: req.body.userId })
+            .then(data => {
+
+                console.log(data.collectArticle);
+                res.json(data.collectArticle)
+            })
+            .catch(err => console.log(err))
+    })
+
+})
+
+router.get('/information/:id', (req, res) => {
+    User.findById({ _id: req.params.id })
+        .then(userData => {
+            res.json(userData)
+        })
+        .catch(err => {
+            console.log(err);
+        })
+
+})
+
 
 module.exports = router
