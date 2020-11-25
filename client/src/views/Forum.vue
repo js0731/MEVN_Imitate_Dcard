@@ -1,20 +1,18 @@
 <template>
   <div class="container">
-    <div class="main">
-      <AsideBoard />
-      <router-view />
-      <AsideAdvertise />
-    </div>
+    <AsideRight />
+    <router-view />
+    <AsideLeft />
   </div>
 </template>
 
 <script>
-import AsideBoard from "../components/forum/AsideBoard";
-import AsideAdvertise from "../components/forum/AsideAdvertise";
+import AsideRight from "../components/forum/AsideRight";
+import AsideLeft from "../components/forum/AsideLeft";
 export default {
   components: {
-    AsideBoard,
-    AsideAdvertise,
+    AsideRight,
+    AsideLeft,
   },
 };
 </script>
@@ -22,13 +20,8 @@ export default {
 <style lang="scss" scoped>
 .container {
   display: flex;
-}
-.main {
-  width: 1280px;
-  display: flex;
-  margin: 0 auto;
-  margin-top: 48px;
-  padding-top: 20px;
-  position: relative;
+  justify-content: center;
+  flex-grow: 1;
+  margin-top: 68px;
 }
 </style>

@@ -15,10 +15,10 @@
       登入
     </button>
     <button class="btn-thirdParty btn-facebook">
-      <SignIcon name="facebook" />Facebook 註冊 / 登入
+      <Icon name="facebook" />Facebook 註冊 / 登入
     </button>
     <button class="btn-thirdParty btn-google">
-      <SignIcon name="google" />Google 註冊 / 登入入
+      <Icon name="google" />Google 註冊 / 登入入
     </button>
     <span class="text-or">或</span>
     <keep-alive>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import SignIcon from "../SignIcon";
+import Icon from "../Icon";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
@@ -42,7 +42,7 @@ export default {
     };
   },
   components: {
-    SignIcon,
+    Icon,
     LoginForm,
     RegisterForm,
   },

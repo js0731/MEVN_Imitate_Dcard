@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import SignIcon from "../SignIcon";
+import Icon from "../Icon";
 import jwt_decode from "jwt-decode";
 import validateInput from "../../utils/validateform.js";
 export default {
@@ -49,7 +49,7 @@ export default {
     };
   },
   components: {
-    SignIcon,
+    Icon,
   },
   methods: {
     submitLoginForm() {
@@ -64,9 +64,8 @@ export default {
           const decoded = jwt_decode(token); // 解析token
           // 空值就回傳false
           this.$store.dispatch("setAuthenticated", !this.isEmpty(decoded));
-          this.$store.dispatch("storeUserId", decoded);
+          this.$store.dispatch("storeUserData", decoded);
           this.$router.push("/dcard/forum");
-
           // this.$toast("0....0");
         })
         .catch((err) => {

@@ -13,6 +13,12 @@ export default {};
 
 <style lang="scss" scoped>
 aside {
-  width: 300px;
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  img {
+    width: 100%;
+    margin-bottom: 16px;
+  }
 }
 </style>

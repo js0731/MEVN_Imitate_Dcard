@@ -8,13 +8,11 @@ a{
     cursor: pointer;
   }
 }
-html{
-  height: 100%;
-}
 body{
-  height: 100%;
+
   font-family: Roboto,Helvetica Neue,Helvetica,Arial,PingFang TC,黑體-繁,Heiti TC,蘋果儷中黑,Apple LiGothic Medium,微軟正黑體,Microsoft JhengHei,sans-serif;
   background: #00324e;
+    overflow-y: scroll;
 }
 input{
   &:focus{
@@ -30,3 +28,9 @@ button{
     cursor: pointer;
   }
 }
+
+  textarea {
+    &:focus {
+      outline: none;
+    }
+  }

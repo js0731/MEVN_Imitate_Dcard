@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Navbar from "./components/Navbar";
+import Navbar from "./views/Navbar";
 import jwt_decode from "jwt-decode";
 
 export default {
@@ -17,8 +17,8 @@ export default {
       const decoded = jwt_decode(localStorage.myToken);
       // 將 token 儲存到 vuex 中
       this.$store.dispatch("setAuthenticated", !this.isEmpty(decoded));
-      this.$store.dispatch("storeUserId", decoded);
-      this.$store.dispatch("getUserData", this.$store.getters.user.id);
+      // 把使用者基本訊息存放到localstorge
+      this.$store.dispatch("storeUserData", decoded);
     }
   },
   methods: {

@@ -1,30 +1,30 @@
 <template>
-  <aside class="right-sideBar">
+  <aside class="aside-right">
     <ul class="menu">
       <li class="item">
         <router-link class="link" to="/dcard">
-          <AsideIcon name="allBoard" />所有看板
+          <Icon name="allBoard" />所有看板
         </router-link>
       </li>
       <li class="item">
         <router-link class="link" to="/dcard">
-          <AsideIcon name="hotBoard" />即時熱門看板
+          <Icon name="hotBoard" />即時熱門看板
         </router-link>
       </li>
       <li class="item">
         <router-link class="link" to="/dcard">
-          <AsideIcon name="store" />好物研究室
+          <Icon name="store" />好物研究室
         </router-link>
       </li>
       <li class="item">
         <router-link class="link" to="/dcard">
-          <AsideIcon name="gameBoard" />遊戲專區
+          <Icon name="gameBoard" />遊戲專區
         </router-link>
       </li>
     </ul>
     <div class="scrollBlock">
       <ul class="menu">
-        <p class="title">追蹤的看板</p>
+        <span class="text">追蹤的看板</span>
         <li class="item">
           <router-link class="link" to="/dcard/forum/frontend">
             <img src="../.././assets/img/frontend.jpg" alt="" />
@@ -43,7 +43,7 @@
             有趣版
           </router-link>
         </li>
-        <p class="title">Dcard 精選看板</p>
+        <span class="text">Dcard 精選看板</span>
         <li class="item">
           <router-link class="link" to="/dcard">
             <img src="../.././assets/img/frontend.jpg" alt="" />
@@ -176,28 +176,29 @@
 </template>
 
 <script>
-import AsideIcon from "../../components/AsideIcon";
+import Icon from "../../components/Icon";
 export default {
-  name: "sidebar",
+  name: "AsideRight",
   components: {
-    AsideIcon,
+    Icon,
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.right-sideBar {
-  width: 208px;
+.aside-right {
   height: calc(100vh - 108px);
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  max-width: 208px;
   background: #00324e;
   position: sticky;
   top: 68px;
   z-index: 100;
 }
 .menu {
-  .title {
+  .text {
     height: 44px;
     color: rgba(255, 255, 255, 0.35);
     font-size: 14px;

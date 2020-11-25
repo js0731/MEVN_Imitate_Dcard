@@ -1,40 +1,73 @@
 <template>
   <div class="container">
     <aside>
-      <div class="box">
+      <div class="userInfo">
         <Icon class="avatar" name="male" />
         <span class="userName">{{ getUserData.name }}</span>
         <span class="userDate">{{ getUserData.date | handleDate }}</span>
       </div>
-      <ul>
-        <li>
+      <ul class="menu">
+        <li class="list">
           <router-link to="#"><Icon name="favorited" />我的收藏</router-link>
         </li>
-        <li>
+        <li class="list">
           <router-link to="#"><Icon name="setting" />設定</router-link>
         </li>
       </ul>
     </aside>
     <div class="main">
       <div class="title">我的收藏</div>
-      <ul>
-        <li>
-          <div class="userInfo"><Icon name="female" />語言 ． 1月7日 12:30</div>
-          <div class="box">
-            <h2>480➡️735 給多益還沒過的大四生</h2>
-            <div class="content">
-              普通市立高中，英文程度普 普通私立大學文組（普）
-              目前只交過一個男友（普到爆）
-              這篇給底子不好的人看～底子好就當笑話看看
-              聽信友人說多益這種東西隨隨考隨隨過 本人抱著僥倖的心態結果480謝謝
-              然後就一路廢到大三結束 覺得自己就爛考不過ㄏㄏ
-              活得高亢低落～得過且過～
+      <article v-for="art in getUserCollectArticle" :key="art._id">
+        <router-link
+          :to="`/dcard/forum/${art.boardPath}/${art._id}`"
+          class="articleLink"
+        >
+          <div class="block-top">
+            <Icon name="male" v-if="art.sex === 'male'" />
+            <Icon name="female" v-else />
+            <p>{{ art.selectedBoard }} ． {{ art.username }}</p>
+          </div>
+          <div class="block-bottom">
+            <div class="block-left">
+              <div class="content">
+                <h2>{{ art.title }}</h2>
+                <p>{{ art.content }}</p>
+              </div>
+              <div class="status">
+                <button
+                  class="collect"
+                  @click.prevent="collectArticle(art._id)"
+                >
+                  <Icon v-if="findCollect(art._id)" name="favorited" />
+                  <Icon v-else name="favorite" />
+                  <span>收藏</span>
+                </button>
+                <button
+                  class="collect"
+                  @click.prevent="collectArticle(art._id)"
+                >
+                  <Icon v-if="findCollect(art._id)" name="favorited" />
+                  <Icon v-else name="favorite" />
+                  <span>收藏</span>
+                </button>
+                <button
+                  class="collect"
+                  @click.prevent="collectArticle(art._id)"
+                >
+                  <Icon v-if="findCollect(art._id)" name="favorited" />
+                  <Icon v-else name="favorite" />
+                  <span>收藏</span>
+                </button>
+              </div>
+            </div>
+            <div class="block-right">
+              <div class="pic">
+                <img :src="art.img" alt />
+              </div>
             </div>
           </div>
-
-          <div class="status">123</div>
-        </li>
-      </ul>
+        </router-link>
+      </article>
     </div>
   </div>
 </template>
@@ -42,12 +75,63 @@
 import Icon from "../../Icon";
 import moment from "moment";
 export default {
+  data() {
+    return {
+      A: [],
+    };
+  },
   components: {
     Icon,
   },
+  methods: {
+    findCollect(articleId) {
+      return (
+        this.$store.getters.collectArticle
+          .map((x) => x.collectArticleId)
+          .indexOf(articleId) >= 0
+      );
+    },
+    collectArticle(articleId) {
+      console.log(this.$store.getters.collectArticle);
+
+      if (
+        this.$store.getters.collectArticle
+          .map((x) => x.collectArticleId)
+          .indexOf(articleId) >= 0
+      ) {
+        console.log("remove");
+        this.$store.dispatch("cancelCollect", articleId);
+      } else if (
+        this.$store.getters.collectArticle
+          .map((x) => x.collectArticleId)
+          .indexOf(articleId) < 0
+      ) {
+        console.log("add", this.$store.getters.collectArticle);
+        console.log(articleId);
+        this.$store.dispatch("collectArticle", articleId);
+      }
+    },
+  },
+  created() {
+    // 獲取動態訊息，如收藏文章等等
+    this.$store.dispatch("storeUserDynamicData", {
+      userId: this.$store.state.userData.id,
+    });
+  },
   computed: {
     getUserData() {
-      return this.$store.getters.user;
+      return this.$store.getters.userData;
+    },
+    async getUserCollectArticle() {
+      let collectArticle = this.$store.getters.collectArticle;
+      await this.$axios
+        .post(
+          "/api/user/collect/article/data",
+          this.$store.getters.collectArticle
+        )
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+      return this.$store.getters.collectArticle;
     },
   },
   filters: {
@@ -63,12 +147,12 @@ export default {
   justify-content: center;
 }
 aside {
-  height: 100%;
+  min-height: calc(100vh - 48px);
   display: flex;
-
+  position: sticky;
   flex-direction: column;
   width: 208px;
-  .box {
+  .userInfo {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -90,14 +174,14 @@ aside {
     }
   }
 
-  ul {
+  .menu {
     display: flex;
     flex-direction: column;
     align-items: center;
     flex: 1 1 0%;
     height: 100%;
     overflow: auto;
-    li {
+    .list {
       width: 100%;
       a {
         display: flex;
@@ -128,6 +212,7 @@ aside {
   flex-direction: column;
   background-color: rgb(242, 243, 244);
   border-radius: 12px;
+  margin: 0 10px;
   .title {
     height: 60px;
     font-size: 24px;
@@ -135,37 +220,85 @@ aside {
     line-height: 60px;
     margin-bottom: 24px;
   }
-  ul {
+  article {
     display: flex;
-    flex-direction: column;
-    li {
+    margin: 0 40px;
+    padding: 20px;
+    border-bottom: 1px solid rgb(233, 233, 233);
+    .articleLink {
+      width: 100%;
+      height: 115px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      width: 640px;
-      height: 170px;
-      background: #fff;
-      border-radius: 12px;
-      padding: 20px;
-      .userInfo {
-        font-size: 14px;
-        color: rgba(0, 0, 0, 0.35);
-        svg {
-          margin-right: 8px;
-        }
-      }
-      .box {
+    }
+  }
+
+  .block-top {
+    display: flex;
+    align-items: center;
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+    p {
+      margin-left: 8px;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 14px;
+    }
+  }
+
+  .block-bottom {
+    display: flex;
+    flex-grow: 1;
+    .block-left {
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      .content {
+        max-width: 504px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        margin: auto;
+        justify-content: center;
+        line-height: 1.4rem;
         h2 {
           font-size: 18px;
         }
-        .content {
+        p {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
           font-size: 14px;
         }
       }
-
       .status {
-        font-size: 14px;
-        color: rgba(0, 0, 0, 0.75);
+        display: flex;
+
+        button {
+          display: flex;
+          align-items: center;
+          margin-right: 16px;
+          background: none;
+          padding: 0;
+          &:hover {
+            background: red;
+          }
+          span {
+            color: rgba(0, 0, 0, 0.35);
+            font-size: 14px;
+          }
+        }
+      }
+    }
+    .block-right {
+      align-self: flex-end;
+      .pic {
+        margin-left: 20px;
+        img {
+          width: 84px;
+          height: 84px;
+        }
       }
     }
   }

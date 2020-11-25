@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import Icon from "./Icon";
+import Icon from "../components/Icon";
 export default {
   name: "Navbar",
   components: {
@@ -100,7 +100,7 @@ export default {
   left: 0;
   right: 0;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
 }
 .container {
   display: flex;

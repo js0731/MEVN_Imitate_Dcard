@@ -54,6 +54,10 @@ router.post('/login', (req, res) => {
                     // 存放在jwt token的資料(不見得是要使用者資料)
                     const payload = {
                         id: user.id,
+                        sex: user.sex,
+                        name: user.name,
+                        email: user.email,
+                        data: user.date
                     }
                     // 產生token (存放資訊, 簽章, 過期時間, callback)
                     jwt.sign(payload, process.env.SECRET, { expiresIn: 36000 }, (err, token) => {
@@ -122,16 +126,18 @@ router.post('/collectarticle', passport.authenticate('jwt', { session: false }),
 })
 
 
-router.post('/cancelCollect', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.post('/cancelcollect', passport.authenticate('jwt', { session: false }), (req, res) => {
     User.updateOne({ _id: req.body.userId }, {
         $pull: {
-            collectArticle: { collectArticleId: req.body.articleId }
+            collectArticle: {
+                collectArticleId: req.body.articleId,
+
+            }
         }
     }, (err, response) => {
         if (err) console.log(err);
         User.findById({ _id: req.body.userId })
             .then(data => {
-
                 console.log(data.collectArticle);
                 res.json(data.collectArticle)
             })
@@ -148,8 +154,35 @@ router.get('/information/:id', (req, res) => {
         .catch(err => {
             console.log(err);
         })
-
 })
 
+router.post('/dynamicdata', (req, res) => {
+
+    User.findById({ _id: req.body.userId })
+        .then(userData => {
+            let collectArticle = userData.collectArticle
+            res.json(collectArticle)
+        })
+        .catch(err => {
+            console.log(err);
+        })
+})
+
+// 從收藏文章id取得收藏文章整體資料
+router.post('/collect/article/data', (req, res) => {
+    console.log(req.body);
+
+    res.json('a')
+    // 傳回所有收藏文章id
+    // req.body.map(artId => {
+    //     Article.findById({ _id: artId })
+    //         .then(art => {
+    //             collectArticle.push(art)
+    //         })
+    //         .catch(err => console.log(err))
+    // })
+    // console.log(collectArticle);
+
+})
 
 module.exports = router

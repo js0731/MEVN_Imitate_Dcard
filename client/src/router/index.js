@@ -2,13 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Forum from '../views/Forum'
-import ArticleList from "@/components/forum/board/ArticleList";
-import Article from "@/components/forum/board/Article";
+import BoardArticle from "@/components/forum/articlelist/BoardArticle";
+import Article from "@/components/forum/articlelist/article/Article";
 import User from "../views/User.vue";
 import AddArticle from "@/components/user/addarticle/AddArticle";
 import Profile from "@/components/user/profile/Profile";
 import UseDcard from "@/components/dcard/UseDcard";
-import AllBoard from '@/components/forum/board/AllBoard'
+import AllBoard from '@/components/forum/articlelist/AllBoard'
 
 
 Vue.use(VueRouter)
@@ -52,9 +52,9 @@ const routes = [
         component: AllBoard,
       },
       {
-        name: 'ArticleList',
+        name: 'BoardArticle',
         path: '/dcard/forum/:boardPath',
-        component: ArticleList,
+        component: BoardArticle,
 
       },
       {

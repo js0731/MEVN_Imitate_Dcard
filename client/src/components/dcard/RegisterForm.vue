@@ -71,7 +71,6 @@
 </template>
 
 <script>
-import SignIcon from "../SignIcon";
 import Icon from "../Icon";
 import validateInput from "../../utils/validateform.js";
 export default {
@@ -87,7 +86,6 @@ export default {
     };
   },
   components: {
-    SignIcon,
     Icon,
   },
   methods: {
@@ -107,7 +105,6 @@ export default {
         .catch((err) => {
           console.error(err);
         });
-      
     },
     isEmpty(value) {
       // 空值為true 有值為false

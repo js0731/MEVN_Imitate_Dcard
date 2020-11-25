@@ -1,47 +1,55 @@
 
 <template>
-  <div>
+  <div class="container">
+    <h1 class="title">發表文章</h1>
     <form action="">
-      <h1 class="title">發表文章</h1>
       <div class="block_top">
-        <div class="box_selectBoard">
+        <label @click="openWindow = true">
           <input
             class="selectBoard"
             type="button"
-            @click="openWindow = true"
             value=""
             v-model="newArticle.selectedBoard"
           />
           <Icon class="dropDownIcon" name="dropdown" />
-        </div>
-        <p class="draft">
-          草稿已暫存
-          <span class="postRule">
-            <Icon class="alertIcon" name="alert" />發文規則
-          </span>
-        </p>
+        </label>
+        <span class="postRule">
+          <Icon class="alertIcon" name="alert" />發文規則
+        </span>
       </div>
       <div class="block_mid">
-        <Icon class="maleIcon" name="male" />
-        <div class="box_userInformation">
+        <Icon class="maleIcon" name="male" v-if="(newArticle.sex = 'male')" />
+        <Icon class="maleIcon" name="female" v-else />
+        <div class="info">
           <p class="username">{{ newArticle.username }}</p>
           <p class="postDate">{{ newArticle.date | handleDate }}</p>
         </div>
       </div>
-      <textarea
-        class="inputTitle"
-        placeholder="標題"
-        v-model="newArticle.title"
-      >
-      </textarea>
-      <textarea class="inputContent" v-model="newArticle.content"> </textarea>
       <div class="block_bottom">
+        <textarea
+          class="inputTitle"
+          placeholder="標題"
+          v-model="newArticle.title"
+        >
+        </textarea>
+        <div class="boxContent">
+          <div class="dummy">{{ newArticle.content }}</div>
+          <textarea
+            class="inputContent"
+            v-model="newArticle.content"
+            wrap="physical"
+          >
+          </textarea>
+        </div>
+      </div>
+
+      <div class="footer">
         <button class="btnCancel">取消</button>
         <button class="btnNext" @click.prevent="submitArticle()">下一步</button>
       </div>
     </form>
     <transition name="fade">
-      <div v-if="openWindow">
+      <div v-if="openWindow" class="popWindow">
         <BackDrop @click.native="openWindow = false" />
         <ul class="window">
           <p>選擇發文看板</p>
@@ -71,8 +79,8 @@ export default {
     return {
       openWindow: false,
       newArticle: {
-        sex: this.$store.getters.user.sex,
-        username: this.$store.getters.user.name,
+        sex: this.$store.state.userData.sex,
+        username: this.$store.state.userData.name,
         date: new Date().getTime(),
         selectedBoard: "請選擇看板",
         boardPath: "",
@@ -103,7 +111,7 @@ export default {
         });
       newArticle.title = "";
       newArticle.content = "";
-      newArticle.selectedBoard = "穿搭板";
+      newArticle.selectedBoard = "請選擇看板";
     },
   },
   filters: {
@@ -111,6 +119,12 @@ export default {
       return moment(date).format("MM月DD M:DD");
     },
   },
+  computed: {
+    userData() {
+      return this.$store.state.userData;
+    },
+  },
+
   beforeCreate() {
     document
       .querySelector("body")
@@ -132,54 +146,51 @@ export default {
 .fade-leave-active {
   transition: 0.2s;
 }
-form {
+.container {
+  max-width: 768px;
+  min-height: calc(100vh - 48px);
   display: flex;
   flex-direction: column;
-  padding-top: 28px;
-  max-width: 680px;
-  height: 100vh;
   margin: 0 auto;
-  .title {
-    line-height: 60px;
-    text-align: center;
-    border-bottom: 1px solid;
-    margin-bottom: 20px;
-  }
-  .inputTitle {
-    border: none;
-    min-height: 38px;
-    font-weight: 500;
-    font-size: 28px;
-    margin-bottom: 20px;
-    overflow: visible;
-  }
-  .inputContent {
-    width: 100%;
-    height: 100%;
-    font-size: 16px;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 68px;
-    &:focus {
-      outline: none;
-    }
-  }
+  padding: 0 50px;
+}
+.title {
+  width: 100%;
+  height: 60px;
+  margin-bottom: 20px;
+  line-height: 60px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+  padding-top: 28px;
+  margin: 0 auto;
 }
 .block_top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
-  .box_selectBoard {
-    display: flex;
-    background: rgba(0, 16, 32, 0.06);
-    font-size: 14px;
+  label {
+    height: 32px;
     display: flex;
     align-items: center;
-    padding: 6px 4px 6px 8px;
+    padding: 0 8px;
+    border: none;
     border-radius: 8px;
+    background-color: rgba(0, 16, 32, 0.06);
+
+    &:hover {
+      cursor: pointer;
+    }
     input[type="button"] {
       border: none;
+      padding: 0;
       &:hover {
         cursor: pointer;
       }
@@ -187,17 +198,18 @@ form {
     .dropDownIcon {
       width: 18px;
       height: 18px;
+      left: 6px;
       fill: rgba(0, 0, 0, 0.5);
     }
   }
 }
 .block_mid {
-  margin-bottom: 24px;
   display: flex;
+  margin-bottom: 24px;
   .maleIcon {
     margin-right: 8px;
   }
-  .box_userInformation {
+  .info {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -210,24 +222,61 @@ form {
     }
   }
 }
-
 .block_bottom {
-  position: fixed;
-  background: #fff;
-  left: 50%;
-  right: 0;
-  margin-left: -340px;
-  max-width: 680px;
-  height: 68px;
-  bottom: 0;
-
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  flex-grow: 1;
+  .inputTitle {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: 500;
+    border: none;
+    resize: none;
+  }
+  .boxContent {
+    height: 100%;
+    flex-grow: 1;
+    position: relative;
+    font: 14px monospace;
+    .dummy {
+      visibility: hidden;
+      white-space: pre-wrap; // 連續的空白字元都會被保留。換行會在換行字元、有<br>元素以及被文字空間限制時發生。
+      overflow-wrap: break-word; // 表示如果行內沒有多餘的地方容納該單詞到結尾，則那些正常的不能被分割的單詞會被強制分割換行。
+    }
+    .inputContent {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      resize: none;
+      border: none;
+      /* border: 5px solid black; */
+      overflow-y: hidden;
+      font: inherit;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+.footer {
+  height: 68px;
+  display: flex;
   align-items: center;
+  justify-content: flex-end;
+  position: sticky;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  border: 1px solid black;
   button {
     height: 44px;
-    border-radius: 5px;
     padding: 0 8px;
+    border-radius: 5px;
     &:hover {
       background: rgb(90, 176, 219);
     }
@@ -236,57 +285,59 @@ form {
     margin-left: 16px;
   }
 }
-.window {
-  position: absolute;
-  z-index: 500;
-  left: 0;
-  right: 0;
-  top: 185px;
-  margin: 0 auto;
-  max-width: 520px;
-  padding: 40px 60px;
-  border-radius: 8px;
-  box-shadow: 0 0 1px black;
+/* ---------------未處理-------------------------------------------- */
+.popWindow {
+  .window {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 900;
 
-  background: #fff;
-  p {
-    font-size: 24px;
-    line-height: 33px;
-    font-weight: bold;
-    margin-bottom: 16px;
-  }
-  li {
-    max-width: 100%;
-    height: 44px;
-    line-height: 44px;
-    padding: 0 14px;
-    &:hover {
-      background: rgb(242, 243, 244);
-      cursor: pointer;
+    width: 520px;
+    display: block;
+    padding: 40px 60px;
+    border-radius: 8px;
+    background: #fff;
+    p {
+      font-size: 24px;
+      line-height: 33px;
+      font-weight: bold;
+      margin-bottom: 16px;
     }
-  }
-  .searchBox {
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    max-width: 400px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    border-radius: 10px;
-    margin-bottom: 12px;
-
-    .dropDownIcon {
-      margin: 0 10px;
-      height: 100%;
-    }
-    input {
+    li {
       width: 100%;
-      border: none;
-      border-radius: 0px 10px 10px 0px;
-      padding-right: 10px;
-      font-weight: 400;
-      font-size: 16px;
-      &::placeholder {
-        color: rgba(0, 0, 0, 0.35);
+      height: 44px;
+      line-height: 44px;
+      padding: 0 14px;
+      &:hover {
+        background: rgb(242, 243, 244);
+        cursor: pointer;
+      }
+    }
+    .searchBox {
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      max-width: 400px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      border-radius: 10px;
+      margin-bottom: 12px;
+
+      .dropDownIcon {
+        margin: 0 10px;
+        height: 100%;
+      }
+      input {
+        width: 100%;
+        border: none;
+        border-radius: 0px 10px 10px 0px;
+        padding-right: 10px;
+        font-weight: 400;
+        font-size: 16px;
+        &::placeholder {
+          color: rgba(0, 0, 0, 0.35);
+        }
       }
     }
   }

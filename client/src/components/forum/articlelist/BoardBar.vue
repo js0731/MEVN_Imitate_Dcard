@@ -1,48 +1,38 @@
 <template>
-  <div>
-    <img src="http://fakeimg.pl/728x242/" alt="" />
-    <div class="topBar">
-      <div class="follow">
-        <img
-          :src="
-            require(`../../../assets/img/${this.$route.params.boardPath}.jpg`)
-          "
-          alt
-        />
-        <h2 class="title">xxxxx</h2>
-        <button>追蹤</button>
-      </div>
-      <ul class="sort">
-        <li>熱門</li>
-        <li>最新</li>
-        <li>板規</li>
-      </ul>
+  <div class="topBar">
+    <div class="follow">
+      <img
+        :src="
+          require(`../../../assets/img/${this.$route.params.boardPath}.jpg`)
+        "
+        alt
+      />
+      <h2 class="title">{{ boardName }}</h2>
+      <button>追蹤</button>
     </div>
+    <ul class="sort">
+      <li>熱門</li>
+      <li>最新</li>
+      <li>板規</li>
+    </ul>
   </div>
 </template>
 
 <script>
 import Icon from "../../Icon";
 export default {
-  watch: {
-    $route: function () {
-      // console.log(this.$route.name);
-    },
-  },
-  created() {
-    // console.log(this.$route.name);
-  },
+  props: ["boardName"],
 };
 </script>
 
 
 <style lang="scss" scoped>
 .topBar {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   padding: 20px 60px 0px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-  position: sticky;
-  top: 48px;
   background: #fff;
   .follow {
     height: 60px;
@@ -84,7 +74,7 @@ export default {
       &:hover {
         cursor: pointer;
         color: black;
-        height: 61px;
+
         border-bottom: 2px solid rgb(51, 151, 207);
       }
     }

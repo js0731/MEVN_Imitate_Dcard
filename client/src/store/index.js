@@ -5,8 +5,7 @@ Vue.use(Vuex)
 
 const state = {
   isAuthenticated: false,  // 是否授權
-  user: {},  // 用戶資訊
-  userData: {},
+  userData: {},  // 用戶資訊
   collectArticle: []
 }
 
@@ -15,7 +14,6 @@ const state = {
 //getter 不止單單起到封裝的作用,它還跟vue的computed屬性一樣,會緩存結果數據, 只有當依賴改變的時候,才要重新計算.
 const getters = {
   isAuthenticated: state => state.isAuthenticated,
-  user: state => state.userId,
   userData: state => state.userData,
   collectArticle: state => state.collectArticle
 }
@@ -25,33 +23,42 @@ const mutations = {
     if (isAuthenticated) state.isAuthenticated = isAuthenticated
     else state.isAuthenticated = false
   },
-  STORE_USER_ID(state, userId) {
-    if (userId) state.userId = userId
-    else state.userId = {}
+  STORE_USER_DATA(state, userData) {
+    if (userData) state.userData = userData
+    else state.userData = {}
   },
   PROCESS_COLLECT_ARTICLE(state, newCollectArticle) {
     console.log(newCollectArticle);
     state.collectArticle = newCollectArticle
     // console.log(state.collectArticle);
   },
-  STORE_USER_DATA_AND_COLLECT_ARTICLE(state, userData) {
-    // console.log(userData); // {}
-    state.userData = userData
-    state.collectArticle = userData.collectArticle
+  SET_DYNAMIC_DATA(state, dynamicData) {
+    state.collectArticle = dynamicData
+    // console.log(state.collectArticle);
   }
+
 }
 
 const actions = {
   setAuthenticated: ({ commit }, isAuthenticated) => {
     commit('SET_AUTHENTICATED', isAuthenticated)
   },
-  storeUserId: ({ commit }, userId) => {
-    commit('STORE_USER_ID', userId)
+  storeUserData: ({ commit }, userData) => {
+    commit('STORE_USER_DATA', userData)
+
+  },
+  storeUserDynamicData: ({ commit }, userId) => {
+    axios.post('/api/user/dynamicData', userId)
+      .then(res => {
+        commit('SET_DYNAMIC_DATA', res.data)
+      })
+      .catch(err => console.log(err))
   },
   collectArticle: ({ commit }, articleId) => {
+
     let data = {
       articleId: articleId,
-      userId: state.userId.id
+      userId: state.userData.id
     }
     axios.post('/api/user/collectarticle', data)
       .then(res => {
@@ -60,12 +67,11 @@ const actions = {
       .catch(err => {
         console.log(err);
       })
-
   },
   cancelCollect: ({ commit }, articleId) => {
     let data = {
       articleId: articleId,
-      userId: state.userId.id
+      userId: state.userData.id
     }
     axios.post('/api/user/cancelCollect', data)
       .then(res => {
@@ -76,13 +82,6 @@ const actions = {
         console.log(err);
       })
   },
-  getUserData: ({ commit }, userId) => {
-    axios.get(`/api/user/information/${userId}`)
-      .then(res => {
-        commit('STORE_USER_DATA_AND_COLLECT_ARTICLE', res.data) // {}
-      })
-      .catch(err => console.log(err))
-  }
 }
 
 export default new Vuex.Store({
