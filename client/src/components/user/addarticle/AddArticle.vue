@@ -34,11 +34,7 @@
         </textarea>
         <div class="boxContent">
           <div class="dummy">{{ newArticle.content }}</div>
-          <textarea
-            class="inputContent"
-            v-model="newArticle.content"
-            wrap="physical"
-          >
+          <textarea class="inputContent" v-model="newArticle.content">
           </textarea>
         </div>
       </div>
@@ -240,6 +236,8 @@ form {
     flex-grow: 1;
     position: relative;
     font: 14px monospace;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
     .dummy {
       visibility: hidden;
       white-space: pre-wrap; // 連續的空白字元都會被保留。換行會在換行字元、有<br>元素以及被文字空間限制時發生。

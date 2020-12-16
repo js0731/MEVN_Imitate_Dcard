@@ -59,7 +59,7 @@ const routes = [
       },
       {
         name: 'Article',
-        path: '/dcard/forum/:boardPath/:id',
+        path: '/dcard/forum/:boardPath/article/:id',
         component: Article,
       }
       // {

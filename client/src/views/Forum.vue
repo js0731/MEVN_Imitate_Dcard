@@ -14,6 +14,7 @@ export default {
     AsideRight,
     AsideLeft,
   },
+  methods: {},
 };
 </script>
 
@@ -21,7 +22,6 @@ export default {
 .container {
   display: flex;
   justify-content: center;
-  flex-grow: 1;
-  margin-top: 68px;
+  margin-top: 48px;
 }
 </style>

@@ -105,37 +105,30 @@ router.get('/allarticle', (req, res) => {
 })
 
 router.post('/collectarticle', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const collectData = {
+        collectArticleId: req.body.articleId,
+        collectArticleDate: new Date()
+    }
     User.updateOne({ _id: req.body.userId }, {
         $push: {
-            collectArticle: [{
-                collectArticleId: req.body.articleId,
-                collectArticleDate: new Date()
-            }]
+            collectArticle: [collectData]
         }
-    }, (err, response) => {
-        if (err) console.log(err)
-        User.findById({ _id: req.body.userId })
-            .then(data => {
-                console.log(data.collectArticle);
-                res.json(data.collectArticle)
-            })
-            .catch(err => console.log(err))
-    },
-    );
-
+    }, (err, result) => {
+        if (err) console.log(err);
+        res.json(collectData)
+    })
+    console.log(collectData);
 })
-
-
 router.post('/cancelcollect', passport.authenticate('jwt', { session: false }), (req, res) => {
     User.updateOne({ _id: req.body.userId }, {
         $pull: {
             collectArticle: {
                 collectArticleId: req.body.articleId,
-
             }
         }
-    }, (err, response) => {
+    }, (err, userData) => {
         if (err) console.log(err);
+        console.log(userData);
         User.findById({ _id: req.body.userId })
             .then(data => {
                 console.log(data.collectArticle);
@@ -143,7 +136,6 @@ router.post('/cancelcollect', passport.authenticate('jwt', { session: false }), 
             })
             .catch(err => console.log(err))
     })
-
 })
 
 router.get('/information/:id', (req, res) => {
@@ -159,30 +151,79 @@ router.get('/information/:id', (req, res) => {
 router.post('/dynamicdata', (req, res) => {
 
     User.findById({ _id: req.body.userId })
+        .then(user => {
+            res.json(user.collectArticle)
+        })
+})
+
+// 從收藏文章id取得收藏文章整體資料
+router.post('/collect/article/data', async (req, res) => {
+    // 找出使用者的收藏文章id和date
+    let userCollectData
+    await User.findById({ _id: req.body.userId })
         .then(userData => {
-            let collectArticle = userData.collectArticle
-            res.json(collectArticle)
+            userCollectData = userData.collectArticle
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    let userCollectId = userCollectData.map(x => x.collectArticleId);
+    let completed_article = [];
+    Article.find({ _id: { $in: userCollectId } })
+        .then(allCollectArticle => {
+            // 把所有文章加讓收藏日期
+            for (let i = 0; i < userCollectId.length; i++) {
+                let collectId = JSON.stringify(userCollectId[i]);
+                for (let j = 0; j < allCollectArticle.length; j++) {
+                    let articleId = JSON.stringify(allCollectArticle[j]._id)
+                    if (collectId === articleId) {
+                        completed_article.push({
+                            collectArtId: userCollectData[i].collectArticleId,
+                            collectDate: userCollectData[i].collectArticleDate,
+                            article: allCollectArticle[j]
+                        })
+                        break
+                    }
+
+                }
+            }
+
+            res.json(completed_article)
         })
         .catch(err => {
             console.log(err);
         })
 })
 
-// 從收藏文章id取得收藏文章整體資料
-router.post('/collect/article/data', (req, res) => {
-    console.log(req.body);
-
-    res.json('a')
-    // 傳回所有收藏文章id
-    // req.body.map(artId => {
-    //     Article.findById({ _id: artId })
-    //         .then(art => {
-    //             collectArticle.push(art)
-    //         })
-    //         .catch(err => console.log(err))
-    // })
-    // console.log(collectArticle);
-
-})
-
 module.exports = router
+
+
+
+
+
+
+// router.post('/collectarticle', passport.authenticate('jwt', { session: false }), (req, res) => {
+//     User.updateOne({ _id: req.body.userId }, {
+//         $push: {
+//             collectArticle: [{
+//                 collectArticleId: req.body.articleId,
+//                 collectArticleDate: new Date()
+//             }]
+//         }
+//     }, (err, response) => {
+//         if (err) console.log(err)
+//         User.findById({ _id: req.body.userId })
+//             .then(data => {
+//                 console.log(data.collectArticle);
+//                 res.json(data.collectArticle)
+//             })
+//             .catch(err => console.log(err))
+//     },
+//     );
+
+// })
+
+
+
+
+

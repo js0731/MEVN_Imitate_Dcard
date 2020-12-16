@@ -56,6 +56,7 @@ export default {
       const loginUserData = this.loginUser;
       this.$axios
         .post("/api/user/login", loginUserData)
+
         .then((res) => {
           // 取出token
           const { token } = res.data;

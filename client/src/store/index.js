@@ -27,14 +27,19 @@ const mutations = {
     if (userData) state.userData = userData
     else state.userData = {}
   },
-  PROCESS_COLLECT_ARTICLE(state, newCollectArticle) {
-    console.log(newCollectArticle);
-    state.collectArticle = newCollectArticle
-    // console.log(state.collectArticle);
-  },
+  // PROCESS_COLLECT_ARTICLE(state, newCollectArticle) {
+  //   console.log(newCollectArticle);
+  //   state.collectArticle = newCollectArticle
+  //   // console.log(state.collectArticle);
+  // },
   SET_DYNAMIC_DATA(state, dynamicData) {
     state.collectArticle = dynamicData
-    // console.log(state.collectArticle);
+  },
+  PUSH_COLLECT_DATA(state, collectData) {
+    console.log(collectData);
+    state.collectArticle.push(collectData)
+    console.log(state.collectArticle);
+    // state.collectArticle = collectData
   }
 
 }
@@ -50,23 +55,22 @@ const actions = {
   storeUserDynamicData: ({ commit }, userId) => {
     axios.post('/api/user/dynamicData', userId)
       .then(res => {
+        // console.log(res);
         commit('SET_DYNAMIC_DATA', res.data)
       })
       .catch(err => console.log(err))
   },
   collectArticle: ({ commit }, articleId) => {
-
     let data = {
       articleId: articleId,
       userId: state.userData.id
     }
     axios.post('/api/user/collectarticle', data)
       .then(res => {
-        commit('PROCESS_COLLECT_ARTICLE', res.data)
+        console.log(res, res.data);
+        commit('PUSH_COLLECT_DATA', res.data)
       })
-      .catch(err => {
-        console.log(err);
-      })
+      .catch(err => console.log(err))
   },
   cancelCollect: ({ commit }, articleId) => {
     let data = {
@@ -75,8 +79,8 @@ const actions = {
     }
     axios.post('/api/user/cancelCollect', data)
       .then(res => {
-
-        commit('PROCESS_COLLECT_ARTICLE', res.data)
+        console.log(res.data);
+        commit('SET_DYNAMIC_DATA', res.data)
       })
       .catch(err => {
         console.log(err);

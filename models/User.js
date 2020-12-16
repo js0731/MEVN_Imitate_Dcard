@@ -30,6 +30,11 @@ const UserSchema = new Schema({
             collectArticleDate: Date,
         }
     ],
+    loveArticle: [
+        {
+            loveArticleId: String,
+        }
+    ],
     // collectArticle: {
     //     type: [
     //         {

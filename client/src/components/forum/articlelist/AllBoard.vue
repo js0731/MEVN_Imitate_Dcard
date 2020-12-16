@@ -1,5 +1,5 @@
 <template>
-  <div class="containerrr">
+  <div class="container">
     <div class="topBar">
       <ul class="sort">
         <li @click="selectedAll()">全部</li>
@@ -109,13 +109,15 @@ export default {
 
 
 <style lang="scss" scoped>
-.containerrr {
+.container {
   width: 728px;
   display: flex;
   flex-direction: column;
   margin-top: 20px;
   background: #fff;
   margin: 0 12px;
+  min-height: 0;
+  min-width: 0;
 }
 .topBar {
   width: 100%;
@@ -170,20 +172,24 @@ export default {
     }
   }
 }
+
+.board {
+  position: sticky;
+  top: 48px;
+}
 article {
-  max-width: 648px;
   display: flex;
-  margin: 0 40px;
+  width: 100%;
   padding: 20px;
   border-bottom: 1px solid rgb(233, 233, 233);
 }
 .articleLink {
   width: 100%;
+  padding: 0 40px;
   height: 115px;
   display: flex;
   flex-direction: column;
 }
-
 .block-top {
   display: flex;
   align-items: center;
@@ -200,20 +206,25 @@ article {
 
 .block-bottom {
   display: flex;
-  flex-grow: 1;
+  height: 100%;
   .block-left {
+    max-width: 504px;
     display: flex;
-    flex-grow: 1;
     flex-direction: column;
+    min-height: 0;
+    min-width: 0;
     .content {
-      max-width: 504px;
+      min-height: 0;
+      min-width: 0;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
-      margin: auto;
       justify-content: center;
-      line-height: 1.4rem;
+      line-height: 1.5rem;
       h2 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         font-size: 18px;
       }
       p {
@@ -243,7 +254,7 @@ article {
     }
   }
   .block-right {
-    align-self: flex-end;
+    align-self: flex-start;
     .pic {
       margin-left: 20px;
       img {

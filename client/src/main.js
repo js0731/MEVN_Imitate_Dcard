@@ -6,9 +6,11 @@ import axios from 'axios';
 import '../src/assets/scss/_all.scss'
 import toastRegister from './components/toast.js'
 import loadingRegister from './utils/loading/loading.js'
+import infiniteScroll from 'vue-infinite-scroll'
 
 Vue.use(loadingRegister);
 Vue.use(toastRegister);
+Vue.use(infiniteScroll)
 
 axios.interceptors.request.use(config => {
   if (localStorage.myToken) { // 如果token存在

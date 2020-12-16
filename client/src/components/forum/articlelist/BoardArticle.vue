@@ -1,10 +1,15 @@
 <template>
-  <div class="container">
+  <div
+    class="container"
+    v-infinite-scroll="loadMore"
+    infinite-scroll-disabled="busy"
+    infinite-scroll-distance="10"
+  >
     <img class="banner" src="http://fakeimg.pl/728x242/" alt="" />
     <BoardBar class="board" :boardName="'a'" />
     <article v-for="art in articleData" :key="art._id">
       <router-link
-        :to="`/dcard/forum/${art.boardPath}/${art._id}`"
+        :to="`/dcard/forum/${art.boardPath}/article/${art._id}`"
         class="articleLink"
       >
         <div class="block-top">
@@ -24,16 +29,6 @@
                 <Icon v-else name="favorite" />
                 <span>收藏</span>
               </button>
-              <button class="collect" @click.prevent="collectArticle(art._id)">
-                <Icon v-if="findCollect(art._id)" name="favorited" />
-                <Icon v-else name="favorite" />
-                <span>收藏</span>
-              </button>
-              <button class="collect" @click.prevent="collectArticle(art._id)">
-                <Icon v-if="findCollect(art._id)" name="favorited" />
-                <Icon v-else name="favorite" />
-                <span>收藏</span>
-              </button>
             </div>
           </div>
           <div class="block-right">
@@ -48,102 +43,143 @@
 </template>
 
 <script>
+import LoginFormVue from "../../dcard/LoginForm.vue";
 import Icon from "../../Icon";
 import BoardBar from "./BoardBar";
+
 export default {
-  data() {
-    return {
-      articleData: [],
-    };
-  },
-  methods: {
-    findCollect(articleId) {
-      return (
-        this.$store.getters.collectArticle
-          .map((x) => x.collectArticleId)
-          .indexOf(articleId) >= 0
-      );
-    },
-    collectArticle(articleId) {
-      // console.log(this.$store.getters.collectArticle);
-      let collectData = this.$store.getters.collectArticle;
-      if (collectData.map((x) => x.collectArticleId).indexOf(articleId) >= 0) {
-        console.log("remove");
-        this.$store.dispatch("cancelCollect", articleId);
-      } else {
-        console.log("add", this.$store.getters.collectArticle);
-        this.$store.dispatch("collectArticle", articleId);
-      }
-    },
-  },
   components: {
     Icon,
     BoardBar,
   },
-  watch: {
-    $route: function () {
-      this.$axios
-        .get(`/api/board/${this.$route.params.boardPath}`)
-        .then((res) => {
-          this.articleData = res.data.articleData;
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+  data() {
+    return {
+      articleData: [],
+      busy: false,
+    };
+  },
+  // directives: {
+  //   scroll: {
+  //     bind: function (el, binding) {
+  //       let top =
+  //         document.documentElement.scrollTop ||
+  //         document.body.scrollTop ||
+  //         window.pageYOffset;
+  //       window.addEventListener("scroll", () => {
+  //         console.log(
+  //           top,
+  //           window.innerHeight,
+  //           el.clientHeight,
+  //           top + window.innerHeight >= el.clientHeight
+  //         );
+  //         if (top + window.innerHeight >= el.clientHeight) {
+  //           // console.log(top + window.innerHeight >= el.clientHeight);
+  //           let fnc = binding.value;
+  //           fnc();
+  //         }
+  //       });
+  //     },
+  //   },
+  // },
+  methods: {
+    findCollect(articleId) {
+      return (
+        this.$store.getters.collectArticle
+
+          .map((x) => x.collectArticleId)
+
+          .indexOf(articleId) >= 0
+      );
+    },
+    loadMore: async function () {
+      this.busy = true;
+      console.log("1", this.articleData.length);
+      let data;
+      await setTimeout(async () => {
+        await this.$axios
+          .get(
+            `/api/board/${this.$route.params.boardPath}/${this.articleData.length}`
+          )
+          .then((res) => {
+            data = res.data.articleData;
+            console.log("2", data);
+            this.articleData.push(...data);
+          })
+          .catch((err) => console.log(err));
+        this.busy = false;
+      }, 1500);
+    },
+
+    collectArticle(articleId) {
+      let collectData = this.$store.getters.collectArticle;
+      if (collectData.map((x) => x.collectArticleId).indexOf(articleId) >= 0) {
+        this.$store.dispatch("cancelCollect", articleId);
+      } else this.$store.dispatch("collectArticle", articleId);
     },
   },
-  created() {
-    this.$axios
-      .get(`/api/board/${this.$route.params.boardPath}`)
-      .then((res) => {
-        this.articleData = res.data.articleData;
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-    // 獲取動態訊息，如收藏文章等等
-    this.$store.dispatch("storeUserDynamicData", {
-      userId: this.$store.state.userData.id,
-    });
+
+  watch: {
+    $route: async function () {
+      this.articleData = [];
+      this.busy = true;
+      console.log("1", this.articleData.length);
+      let data;
+
+      await this.$axios
+        .get(
+          `/api/board/${this.$route.params.boardPath}/${this.articleData.length}`
+        )
+        .then((res) => {
+          data = res.data.articleData;
+          console.log("2", data);
+          this.articleData.push(...data);
+        })
+        .catch((err) => console.log(err));
+      this.busy = false;
+    },
   },
   computed: {
     getUserCollectArticle() {
-      return this.$store.state.collectArticle;
+      return this.$store.getters.collectArticle;
     },
   },
 };
 </script>
-
 
 <style lang="scss" scoped>
 .container {
   max-width: 728px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: flex-start;
+  margin-top: 20px;
   background: #fff;
   margin: 0 12px;
+  min-height: 0;
+  min-width: 0;
 }
 .banner {
-  width: 100%;
 }
+.board {
+}
+
 .board {
   position: sticky;
   top: 48px;
 }
 article {
   display: flex;
-  margin: 0 40px;
+  width: 100%;
   padding: 20px;
   border-bottom: 1px solid rgb(233, 233, 233);
-  .articleLink {
-    width: 100%;
-    height: 115px;
-    display: flex;
-    flex-direction: column;
-  }
 }
-
+.articleLink {
+  width: 100%;
+  padding: 0 40px;
+  height: 115px;
+  display: flex;
+  flex-direction: column;
+}
 .block-top {
   display: flex;
   align-items: center;
@@ -160,20 +196,25 @@ article {
 
 .block-bottom {
   display: flex;
-  flex-grow: 1;
+  height: 100%;
   .block-left {
+    max-width: 504px;
     display: flex;
-    flex-grow: 1;
     flex-direction: column;
+    min-height: 0;
+    min-width: 0;
     .content {
-      max-width: 504px;
+      min-height: 0;
+      min-width: 0;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
-      margin: auto;
       justify-content: center;
-      line-height: 1.4rem;
+      line-height: 1.5rem;
       h2 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         font-size: 18px;
       }
       p {
@@ -203,7 +244,7 @@ article {
     }
   }
   .block-right {
-    align-self: flex-end;
+    align-self: flex-start;
     .pic {
       margin-left: 20px;
       img {

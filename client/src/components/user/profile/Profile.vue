@@ -15,59 +15,60 @@
         </li>
       </ul>
     </aside>
-    <div class="main">
-      <div class="title">我的收藏</div>
-      <article v-for="art in getUserCollectArticle" :key="art._id">
-        <router-link
-          :to="`/dcard/forum/${art.boardPath}/${art._id}`"
-          class="articleLink"
-        >
-          <div class="block-top">
-            <Icon name="male" v-if="art.sex === 'male'" />
-            <Icon name="female" v-else />
-            <p>{{ art.selectedBoard }} ． {{ art.username }}</p>
-          </div>
-          <div class="block-bottom">
-            <div class="block-left">
-              <div class="content">
-                <h2>{{ art.title }}</h2>
-                <p>{{ art.content }}</p>
+    <div class="dummy">
+      <div class="main">
+        <div class="title">我的收藏</div>
+
+        <article v-for="art in coollectArticle" :key="art._id">
+          <router-link
+            :to="`/dcard/forum/${art.boardPath}/${art._id}`"
+            class="articleLink"
+          >
+            <div class="block-top">
+              <Icon name="male" v-if="art.sex === 'male'" />
+              <Icon name="female" v-else />
+              <p>
+                {{ art.article.selectedBoard }} ． {{ art.article.username }}
+              </p>
+            </div>
+            <div class="block-bottom">
+              <div class="block-left">
+                <div class="content">
+                  <h2>{{ art.article.title }}</h2>
+                  <p>{{ art.article.content }}</p>
+                </div>
+                <div class="status">
+                  <button
+                    class="collect"
+                    @click.prevent="collectArticle(art.article._id)"
+                  >
+                    <Icon
+                      v-if="findCollect(art.article._id)"
+                      name="favorited"
+                    />
+                    <Icon v-else name="favorite" />
+                    <span>收藏</span>
+                  </button>
+                </div>
               </div>
-              <div class="status">
-                <button
-                  class="collect"
-                  @click.prevent="collectArticle(art._id)"
-                >
-                  <Icon v-if="findCollect(art._id)" name="favorited" />
-                  <Icon v-else name="favorite" />
-                  <span>收藏</span>
-                </button>
-                <button
-                  class="collect"
-                  @click.prevent="collectArticle(art._id)"
-                >
-                  <Icon v-if="findCollect(art._id)" name="favorited" />
-                  <Icon v-else name="favorite" />
-                  <span>收藏</span>
-                </button>
-                <button
-                  class="collect"
-                  @click.prevent="collectArticle(art._id)"
-                >
-                  <Icon v-if="findCollect(art._id)" name="favorited" />
-                  <Icon v-else name="favorite" />
-                  <span>收藏</span>
-                </button>
+              <div class="block-right">
+                <div class="pic">
+                  <img :src="art.img" alt />
+                </div>
               </div>
             </div>
-            <div class="block-right">
-              <div class="pic">
-                <img :src="art.img" alt />
-              </div>
-            </div>
-          </div>
-        </router-link>
-      </article>
+          </router-link>
+        </article>
+      </div>
+
+      <ul class="footer">
+        <li><a href="#">服務條款 </a></li>
+        <li><a href="#">常見問題</a></li>
+        <li><a href="#">品牌識別</a></li>
+        <li><a href="#">徵才</a></li>
+        <li><a href="#">商業合作</a></li>
+        <p>Copyright © Dcard Taiwan Ltd. 2020</p>
+      </ul>
     </div>
   </div>
 </template>
@@ -77,7 +78,7 @@ import moment from "moment";
 export default {
   data() {
     return {
-      A: [],
+      coollectArticle: [],
     };
   },
   components: {
@@ -93,7 +94,6 @@ export default {
     },
     collectArticle(articleId) {
       console.log(this.$store.getters.collectArticle);
-
       if (
         this.$store.getters.collectArticle
           .map((x) => x.collectArticleId)
@@ -113,26 +113,22 @@ export default {
     },
   },
   created() {
-    // 獲取動態訊息，如收藏文章等等
-    this.$store.dispatch("storeUserDynamicData", {
-      userId: this.$store.state.userData.id,
-    });
+    let userId = { userId: this.$store.state.userData.id };
+    this.$axios
+      .post("/api/user/collect/article/data", userId)
+      .then((res) => {
+        console.log(res.data);
+        this.coollectArticle = res.data;
+      })
+      .catch((err) => console.log(err));
   },
   computed: {
     getUserData() {
       return this.$store.getters.userData;
     },
-    async getUserCollectArticle() {
-      let collectArticle = this.$store.getters.collectArticle;
-      await this.$axios
-        .post(
-          "/api/user/collect/article/data",
-          this.$store.getters.collectArticle
-        )
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-      return this.$store.getters.collectArticle;
-    },
+    // getUserCollectArticle() {
+    //   return this.$store.getters.collectArticle;
+    // },
   },
   filters: {
     handleDate: function (date) {
@@ -143,11 +139,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
+  padding-top: 20px;
   display: flex;
   justify-content: center;
 }
 aside {
-  min-height: calc(100vh - 48px);
+  min-height: calc(100vh - 68px);
   display: flex;
   position: sticky;
   flex-direction: column;
@@ -222,17 +219,18 @@ aside {
   }
   article {
     display: flex;
-    margin: 0 40px;
+    width: 100%;
     padding: 20px;
     border-bottom: 1px solid rgb(233, 233, 233);
-    .articleLink {
-      width: 100%;
-      height: 115px;
-      display: flex;
-      flex-direction: column;
-    }
+    background-color: #fff;
   }
+  .articleLink {
+    width: 100%;
 
+    height: 115px;
+    display: flex;
+    flex-direction: column;
+  }
   .block-top {
     display: flex;
     align-items: center;
@@ -249,20 +247,25 @@ aside {
 
   .block-bottom {
     display: flex;
-    flex-grow: 1;
+    height: 100%;
     .block-left {
+      max-width: 504px;
       display: flex;
-      flex-grow: 1;
       flex-direction: column;
+      min-height: 0;
+      min-width: 0;
       .content {
-        max-width: 504px;
+        min-height: 0;
+        min-width: 0;
         display: flex;
         flex-direction: column;
         flex-grow: 1;
-        margin: auto;
         justify-content: center;
-        line-height: 1.4rem;
+        line-height: 1.5rem;
         h2 {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
           font-size: 18px;
         }
         p {
@@ -292,7 +295,7 @@ aside {
       }
     }
     .block-right {
-      align-self: flex-end;
+      align-self: flex-start;
       .pic {
         margin-left: 20px;
         img {
@@ -301,6 +304,21 @@ aside {
         }
       }
     }
+  }
+}
+.footer {
+  height: 68px;
+  display: flex;
+  align-items: center;
+  li {
+    a {
+      color: #fff;
+      font-size: 14px;
+    }
+  }
+  p {
+    color: #fff;
+    font-size: 14px;
   }
 }
 </style>

@@ -19,6 +19,9 @@ export default {
       this.$store.dispatch("setAuthenticated", !this.isEmpty(decoded));
       // 把使用者基本訊息存放到localstorge
       this.$store.dispatch("storeUserData", decoded);
+      this.$store.dispatch("storeUserDynamicData", {
+        userId: this.$store.state.userData.id,
+      });
     }
   },
   methods: {
