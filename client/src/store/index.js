@@ -5,8 +5,11 @@ Vue.use(Vuex)
 
 const state = {
   isAuthenticated: false,  // 是否授權
+  isProcessApi: true,
   userData: {},  // 用戶資訊
-  collectArticle: []
+  collectArticle: [],
+  loveArticle: [],
+  trackingBoard: []
 }
 
 //假設期望得到的數據,是基於this.$store.state.name 上""經過複雜計算""得來的,而這個getName要在好多個地方使用,那麼我們就得複制好幾份.
@@ -15,7 +18,9 @@ const state = {
 const getters = {
   isAuthenticated: state => state.isAuthenticated,
   userData: state => state.userData,
-  collectArticle: state => state.collectArticle
+  collectArticle: state => state.collectArticle,
+  loveArticle: state => state.loveArticle,
+  trackingBoard: state => state.trackingBoard
 }
 
 const mutations = {
@@ -27,20 +32,25 @@ const mutations = {
     if (userData) state.userData = userData
     else state.userData = {}
   },
-  // PROCESS_COLLECT_ARTICLE(state, newCollectArticle) {
-  //   console.log(newCollectArticle);
-  //   state.collectArticle = newCollectArticle
-  //   // console.log(state.collectArticle);
-  // },
-  SET_DYNAMIC_DATA(state, dynamicData) {
+  SET_COLLECT_DATA(state, dynamicData) {
     state.collectArticle = dynamicData
   },
   PUSH_COLLECT_DATA(state, collectData) {
-    console.log(collectData);
     state.collectArticle.push(collectData)
-    console.log(state.collectArticle);
-    // state.collectArticle = collectData
-  }
+  },
+  SET_LOVE_DATA(state, loveArticle) {
+    state.loveArticle = loveArticle
+  },
+  PUSH_LOVE_DATA(state, loveArticle) {
+    state.loveArticle.push(loveArticle)
+  },
+  DELETE_LOVE_DATA(state, loveArticle) {
+    state.loveArticle.splice(state.loveArticle.findIndex(x => x.loveArticleId === loveArticle.loveArticleId), 1)
+
+  },
+  SET_TRACKINGBOARD_DATA(state, trackingBoard) {
+    state.trackingBoard = trackingBoard;
+  },
 
 }
 
@@ -55,8 +65,9 @@ const actions = {
   storeUserDynamicData: ({ commit }, userId) => {
     axios.post('/api/user/dynamicData', userId)
       .then(res => {
-        // console.log(res);
-        commit('SET_DYNAMIC_DATA', res.data)
+        commit('SET_COLLECT_DATA', res.data.collectArticle);
+        commit('SET_LOVE_DATA', res.data.loveArticle);
+        commit('SET_TRACKINGBOARD_DATA', res.data.trackingBoard)
       })
       .catch(err => console.log(err))
   },
@@ -80,12 +91,37 @@ const actions = {
     axios.post('/api/user/cancelCollect', data)
       .then(res => {
         console.log(res.data);
-        commit('SET_DYNAMIC_DATA', res.data)
+        commit('SET_COLLECT_DATA', res.data)
       })
       .catch(err => {
         console.log(err);
       })
   },
+  loveArticle: async ({ commit }, articleId) => {
+    let data = {
+      articleId: articleId,
+      userId: state.userData.id
+    }
+    await axios.post("/api/user/love/article", data)
+      .then((res) => {
+        commit('PUSH_LOVE_DATA', res.data)
+
+      })
+      .catch((err) => console.log(err));
+  },
+  cancelLove: async ({ commit }, articleId) => {
+    let data = {
+      articleId: articleId,
+      userId: state.userData.id
+    }
+
+    await axios.post("/api/user/cancel/love/article", data)
+      .then((res) => {
+        commit('DELETE_LOVE_DATA', res.data);
+
+      })
+      .catch((err) => console.log(err));
+  }
 }
 
 export default new Vuex.Store({

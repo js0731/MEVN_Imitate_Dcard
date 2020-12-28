@@ -3,7 +3,7 @@
     <div class="container">
       <div class="block-left">
         <h1 class="title">
-          <router-link class="logoLink" to="/dcard/forum">
+          <router-link class="logoLink" to="/dcard/forum/all">
             <Icon name="logo" />
           </router-link>
         </h1>
@@ -23,11 +23,7 @@
             <Icon name="bell" />
           </router-link>
         </li>
-        <li class="menuItem">
-          <router-link class="navLink" to="/dcard/user">
-            <Icon name="email" />
-          </router-link>
-        </li>
+
         <li class="menuItem">
           <router-link class="navLink" to="/dcard/user/profile">
             <Icon name="user" />

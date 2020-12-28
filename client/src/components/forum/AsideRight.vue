@@ -2,23 +2,13 @@
   <aside class="aside-right">
     <ul class="menu">
       <li class="item">
-        <router-link class="link" to="/dcard">
+        <router-link class="link" to="/dcard/forum/all">
           <Icon name="allBoard" />所有看板
         </router-link>
       </li>
       <li class="item">
         <router-link class="link" to="/dcard">
           <Icon name="hotBoard" />即時熱門看板
-        </router-link>
-      </li>
-      <li class="item">
-        <router-link class="link" to="/dcard">
-          <Icon name="store" />好物研究室
-        </router-link>
-      </li>
-      <li class="item">
-        <router-link class="link" to="/dcard">
-          <Icon name="gameBoard" />遊戲專區
         </router-link>
       </li>
     </ul>

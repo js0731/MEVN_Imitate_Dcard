@@ -74,7 +74,7 @@
 </template>
 <script>
 import Icon from "../../Icon";
-import moment from "moment";
+
 export default {
   data() {
     return {
@@ -131,9 +131,7 @@ export default {
     // },
   },
   filters: {
-    handleDate: function (date) {
-      return moment(date).format("YYYY年MM月DD");
-    },
+    handleDate: function (date) {},
   },
 };
 </script>

@@ -3,13 +3,16 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
-const User = require('../models/User')
+const dateFormat = require('dateformat');
+
+const User = require('../models/User');
 const Article = require('../models/Article');
 const { route } = require('./board');
 
 router.get('/', (req, res) => {
     res.json({ msg: 'user works' });
 });
+
 
 
 router.post('/register', (req, res) => {
@@ -76,6 +79,8 @@ router.post('/login', (req, res) => {
         })
 })
 
+// 新增文章
+
 router.post('/addarticle', (req, res) => {
     console.log(req.body.username, req.body.sex, req.body.date, req.body.selectedBoard, req.body.title, req.body.content);
     Article.create({
@@ -96,13 +101,7 @@ router.post('/addarticle', (req, res) => {
 })
 
 
-
-
-router.get('/allarticle', (req, res) => {
-    Article.find({}, (err, data) => {
-        res.json(data)
-    })
-})
+// 收藏文章
 
 router.post('/collectarticle', passport.authenticate('jwt', { session: false }), (req, res) => {
     const collectData = {
@@ -119,6 +118,9 @@ router.post('/collectarticle', passport.authenticate('jwt', { session: false }),
     })
     console.log(collectData);
 })
+
+
+
 router.post('/cancelcollect', passport.authenticate('jwt', { session: false }), (req, res) => {
     User.updateOne({ _id: req.body.userId }, {
         $pull: {
@@ -138,6 +140,7 @@ router.post('/cancelcollect', passport.authenticate('jwt', { session: false }), 
     })
 })
 
+// 
 router.get('/information/:id', (req, res) => {
     User.findById({ _id: req.params.id })
         .then(userData => {
@@ -149,10 +152,14 @@ router.get('/information/:id', (req, res) => {
 })
 
 router.post('/dynamicdata', (req, res) => {
-
     User.findById({ _id: req.body.userId })
         .then(user => {
-            res.json(user.collectArticle)
+            res.json({
+                collectArticle: user.collectArticle,
+                loveArticle: user.loveArticle,
+                trackingBoard: user.trackingBoard,
+            }
+            )
         })
 })
 
@@ -195,33 +202,111 @@ router.post('/collect/article/data', async (req, res) => {
         })
 })
 
+
+router.post('/leave/message', (req, res) => {
+    console.log(req.body.articleId);
+    console.log(req.body.messageData);
+    Article.updateOne({ _id: req.body.articleId }, {
+        $push: {
+            message: req.body.messageData
+        }
+    }, (err, result) => {
+        if (err) console.log(err);
+        Article.findById({ _id: req.body.articleId }, (err, data) => {
+            res.json(data.message)
+        })
+    })
+})
+
+router.post('/delete/message', (req, res) => {
+    console.log(req.body.articleId);
+    console.log(req.body.messageId);
+    Article.updateOne({ _id: req.body.articleId }, {
+        $pull: {
+            message: {
+                _id: req.body.messageId,
+            }
+        }
+    }, (err, result) => {
+        if (err) console.log(err);
+        Article.findById({ _id: req.body.articleId }, (err, data) => {
+            res.json(data.message)
+        })
+    })
+})
+
+
+
+router.post('/tracking/board', (req, res) => {
+    console.log(req.body);
+    User.updateOne({ _id: req.body.userId }, {
+        $push: {
+            trackingBoard: req.body.boardName
+        }
+    }, (err, result) => {
+        if (err) console.log(err);
+        User.findById({ _id: req.body.userId })
+            .then(data => { res.json(data.trackingBoard) })
+            .catch(err => console.log(err))
+    })
+
+})
+
+
+router.post('/cancel/tracking/board', (req, res) => {
+    console.log(req.body);
+    User.updateOne({ _id: req.body.userId }, {
+        $pull: {
+            trackingBoard: req.body.boardName
+        }
+    }, (err, result) => {
+        if (err) console.log(err);
+        User.findById({ _id: req.body.userId })
+            .then(data => { res.json(data.trackingBoard) })
+            .catch(err => console.log(err))
+    })
+
+})
+
+
+router.post('/love/article', (req, res) => {
+
+    Article.updateOne({ _id: req.body.articleId }, { $inc: { love: 1 } })
+        .then(result => {
+            User.updateOne({ _id: req.body.userId }, {
+                $push: {
+                    loveArticle: [{ loveArticleId: req.body.articleId }]
+                }
+            }, (err, result) => {
+                if (err) console.log(err);
+                res.json({ loveArticleId: req.body.articleId })
+            })
+        })
+
+})
+
+router.post('/cancel/love/article', (req, res) => {
+    Article.updateOne({ _id: req.body.articleId }, { $inc: { love: -1 } })
+        .then(result => {
+            User.updateOne({ _id: req.body.userId }, {
+                $pull: {
+                    loveArticle: {
+                        loveArticleId: req.body.articleId,
+                    }
+                }
+            }, (err, result) => {
+                if (err) console.log(err);
+                res.json({ loveArticleId: req.body.articleId })
+            })
+        })
+
+})
+
+
 module.exports = router
 
 
 
-
-
-
-// router.post('/collectarticle', passport.authenticate('jwt', { session: false }), (req, res) => {
-//     User.updateOne({ _id: req.body.userId }, {
-//         $push: {
-//             collectArticle: [{
-//                 collectArticleId: req.body.articleId,
-//                 collectArticleDate: new Date()
-//             }]
-//         }
-//     }, (err, response) => {
-//         if (err) console.log(err)
-//         User.findById({ _id: req.body.userId })
-//             .then(data => {
-//                 console.log(data.collectArticle);
-//                 res.json(data.collectArticle)
-//             })
-//             .catch(err => console.log(err))
-//     },
-//     );
-
-// })
 
 
 

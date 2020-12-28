@@ -8,7 +8,7 @@ import User from "../views/User.vue";
 import AddArticle from "@/components/user/addarticle/AddArticle";
 import Profile from "@/components/user/profile/Profile";
 import UseDcard from "@/components/dcard/UseDcard";
-import AllBoard from '@/components/forum/articlelist/AllBoard'
+
 
 
 Vue.use(VueRouter)
@@ -46,11 +46,7 @@ const routes = [
     path: '/dcard/forum',
     component: Forum,
     children: [
-      {
-        name: 'AllBoard',
-        path: '/',
-        component: AllBoard,
-      },
+
       {
         name: 'BoardArticle',
         path: '/dcard/forum/:boardPath',

@@ -11,15 +11,37 @@ const Article = require('../models/Article')
 
 // })
 
+
+// router.get('/:board', (req, res) => {
+//     Article.find({}, (err, data) => {
+//         res.json(data)
+//     })
+// })
+
 router.get('/:board/:number', (req, res) => {
-    console.log(Number(req.params.number + 10));
-    Article.find({ boardPath: req.params.board })
-        .skip(Number(req.params.number))
-        .limit(Number(10))
-        .then(articleData => {
-            console.log(articleData);
-            res.json({ articleData: articleData })
-        })
+    console.log(req.params);
+    if (req.params.board === 'all') {
+        Article.find({})
+            .skip(Number(req.params.number))
+            .limit(Number(10))
+            .then(articleData => {
+                // console.log(articleData);
+                res.json({ articleData: articleData })
+            })
+    } else {
+
+        Article.find({ boardPath: req.params.board })
+            .sort({ love: -1 })
+            .skip(Number(req.params.number))
+            .limit(Number(10))
+            .then(articleData => {
+                console.log(articleData);
+                res.json({ articleData: articleData })
+            })
+
+
+
+    }
 })
 
 
@@ -27,10 +49,13 @@ router.get('/:board/:number', (req, res) => {
 router.get('/:board/article/:id', (req, res) => {
     console.log(req.params);
     Article.find({ boardPath: req.params.board, _id: req.params.id }, (err, article) => {
-        console.log(...article);
         res.json(...article)
     })
 })
+
+
+
+
 
 
 module.exports = router

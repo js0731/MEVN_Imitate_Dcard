@@ -1,50 +1,81 @@
 
 <template>
-  <div class="container">
-    <h1 class="title">發表文章</h1>
-    <form action="">
-      <div class="block_top">
-        <label @click="openWindow = true">
+  <div class="newArticle-root">
+    <h1 class="newArticle-title">發表文章</h1>
+    <form class="newArticle-form" action="">
+      <div class="form-top">
+        <label class="top-label" @click="openWindow = true">
           <input
-            class="selectBoard"
+            class="top-input-selectBoard"
             type="button"
             value=""
             v-model="newArticle.selectedBoard"
           />
-          <Icon class="dropDownIcon" name="dropdown" />
+          <Icon class="top-dropDownIcon" name="dropdown" />
         </label>
-        <span class="postRule">
-          <Icon class="alertIcon" name="alert" />發文規則
+        <span class="top-span">
+          <Icon class="top-alertIcon" name="alert" />
+          <span class="top-txt">發文規則</span>
         </span>
       </div>
-      <div class="block_mid">
-        <Icon class="maleIcon" name="male" v-if="(newArticle.sex = 'male')" />
-        <Icon class="maleIcon" name="female" v-else />
-        <div class="info">
-          <p class="username">{{ newArticle.username }}</p>
-          <p class="postDate">{{ newArticle.date | handleDate }}</p>
+      <div class="form-mid">
+        <Icon
+          class="mid-sexIcon"
+          name="male"
+          v-if="(newArticle.sex = 'male')"
+        />
+        <Icon class="mid-sexIcon" name="female" v-else />
+        <div class="mid-info">
+          <p class="info-username">{{ newArticle.username }}</p>
+          <p class="info-postDate">{{ newArticle.date }}</p>
         </div>
       </div>
-      <div class="block_bottom">
-        <textarea
-          class="inputTitle"
+
+      <div class="form-bottom">
+        <!-- <textarea
+          class="botton-txtAreaTitle"
           placeholder="標題"
           v-model="newArticle.title"
         >
-        </textarea>
-        <div class="boxContent">
-          <div class="dummy">{{ newArticle.content }}</div>
-          <textarea class="inputContent" v-model="newArticle.content">
+        </textarea> -->
+
+        <div class="bottom-titleWrap">
+          <div class="titleWrap-displayTxt">{{ newArticle.title }}</div>
+          <textarea
+            class="botton-txtAreaTitle"
+            placeholder="標題"
+            v-model="newArticle.title"
+          >
+          </textarea>
+        </div>
+
+        <div class="bottom-contentWrap">
+          <div class="contentWrap-displayTxt">{{ newArticle.content }}</div>
+          <textarea
+            class="contentWrap-txtAreaContent"
+            v-model="newArticle.content"
+          >
           </textarea>
         </div>
       </div>
 
-      <div class="footer">
-        <button class="btnCancel">取消</button>
-        <button class="btnNext" @click.prevent="submitArticle()">下一步</button>
+      <div class="newArticle-fixBottom">
+        <button
+          class="fixBottom-btn fixBottom-btnCancel"
+          @click.prevent="cancel()"
+        >
+          取消
+        </button>
+        <button
+          class="fixBottom-btn fixBottom-btnNext"
+          @click.prevent="submitArticle()"
+        >
+          下一步
+        </button>
       </div>
     </form>
-    <transition name="fade">
+
+    <transition name="newArticle-popWindow">
       <div v-if="openWindow" class="popWindow">
         <BackDrop @click.native="openWindow = false" />
         <ul class="window">
@@ -64,9 +95,10 @@
 
 <script>
 import Icon from "../../Icon";
-import moment from "moment";
+import dateFormat from "dateformat";
 import BackDrop from "../../common/BackDrop";
 export default {
+  name: "AddArticle",
   components: {
     Icon,
     BackDrop,
@@ -77,13 +109,21 @@ export default {
       newArticle: {
         sex: this.$store.state.userData.sex,
         username: this.$store.state.userData.name,
-        date: new Date().getTime(),
+        date: dateFormat(new Date(), "yyyy-mm-dd H:M"),
         selectedBoard: "請選擇看板",
         boardPath: "",
         title: "",
         content: "",
       },
     };
+  },
+  beforeCreate() {
+    document
+      .querySelector("body")
+      .setAttribute("style", "background-color:#fff;");
+  },
+  beforeDestroy() {
+    document.querySelector("body").removeAttribute("style");
   },
   methods: {
     setBoard(selectedBoard, boardPath) {
@@ -108,49 +148,32 @@ export default {
       newArticle.title = "";
       newArticle.content = "";
       newArticle.selectedBoard = "請選擇看板";
+      this.$router.push("/dcard/forum/all");
+    },
+    cancel() {
+      this.$router.push("/dcard/forum/all");
     },
   },
-  filters: {
-    handleDate: function (date) {
-      return moment(date).format("MM月DD M:DD");
-    },
-  },
+
   computed: {
     userData() {
       return this.$store.state.userData;
     },
   },
-
-  beforeCreate() {
-    document
-      .querySelector("body")
-      .setAttribute("style", "background-color:#fff;");
-  },
-  beforeDestroy() {
-    document.querySelector("body").removeAttribute("style");
-  },
 };
 </script>
 
 <style lang="scss" scoped>
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-  transition: 0.2s;
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: 0.2s;
-}
-.container {
-  max-width: 768px;
+.newArticle-root {
+  max-width: 700px;
   min-height: calc(100vh - 48px);
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  padding: 0 50px;
+  padding: 20px 10px 0 10px;
+  padding-top: 20px;
 }
-.title {
+.newArticle-title {
   width: 100%;
   height: 60px;
   margin-bottom: 20px;
@@ -158,21 +181,20 @@ export default {
   text-align: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
-form {
+.newArticle-form {
   width: 100%;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   position: relative;
-  padding-top: 28px;
   margin: 0 auto;
 }
-.block_top {
+.form-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
-  label {
+  .top-label {
     height: 32px;
     display: flex;
     align-items: center;
@@ -184,66 +206,97 @@ form {
     &:hover {
       cursor: pointer;
     }
-    input[type="button"] {
+    .top-input-selectBoard {
       border: none;
       padding: 0;
       &:hover {
         cursor: pointer;
       }
     }
-    .dropDownIcon {
+    .top-dropDownIcon {
       width: 18px;
       height: 18px;
       left: 6px;
       fill: rgba(0, 0, 0, 0.5);
     }
   }
+  .top-span {
+    display: flex;
+    align-items: center;
+    .top-txt {
+      color: rgba(0, 0, 0, 0.25);
+      font-size: 14px;
+      padding: 0 8px;
+    }
+  }
 }
-.block_mid {
+.form-mid {
   display: flex;
   margin-bottom: 24px;
-  .maleIcon {
+  .mid-sexIcon {
     margin-right: 8px;
   }
-  .info {
+  .mid-info {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    .username {
+    .info-username {
       font-size: 14px;
     }
-    .postDate {
+    .info-postDate {
       font-size: 12px;
       color: rgba(0, 0, 0, 0.35);
     }
   }
 }
-.block_bottom {
+.form-bottom {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  .inputTitle {
-    width: 100%;
-    height: 40px;
-    margin-bottom: 20px;
-    font-size: 28px;
+  .bottom-titleWrap {
+    min-height: 40px;
+    position: relative;
+    font: 28px monospace;
     font-weight: 500;
-    border: none;
-    resize: none;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    margin-bottom: 20px;
+    .titleWrap-displayTxt {
+      visibility: hidden;
+      white-space: pre-wrap; // 連續的空白字元都會被保留。換行會在換行字元、有<br>元素以及被文字空間限制時發生。
+      overflow-wrap: break-word; // 表示如果行內沒有多餘的地方容納該單詞到結尾，則那些正常的不能被分割的單詞會被強制分割換行。
+    }
+    .botton-txtAreaTitle {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      resize: none;
+      border: none;
+      /* border: 5px solid black; */
+      overflow-y: hidden;
+      font: inherit;
+      &:focus {
+        outline: none;
+      }
+    }
   }
-  .boxContent {
+
+  .bottom-contentWrap {
     height: 100%;
     flex-grow: 1;
     position: relative;
     font: 14px monospace;
     white-space: pre-wrap;
     overflow-wrap: break-word;
-    .dummy {
+    .contentWrap-displayTxt {
       visibility: hidden;
       white-space: pre-wrap; // 連續的空白字元都會被保留。換行會在換行字元、有<br>元素以及被文字空間限制時發生。
       overflow-wrap: break-word; // 表示如果行內沒有多餘的地方容納該單詞到結尾，則那些正常的不能被分割的單詞會被強制分割換行。
     }
-    .inputContent {
+    .contentWrap-txtAreaContent {
       width: 100%;
       position: absolute;
       left: 0;
@@ -261,7 +314,7 @@ form {
     }
   }
 }
-.footer {
+.newArticle-fixBottom {
   height: 68px;
   display: flex;
   align-items: center;
@@ -270,20 +323,35 @@ form {
   right: 0;
   left: 0;
   bottom: 0;
-  border: 1px solid black;
-  button {
+
+  .fixBottom-btn {
     height: 44px;
     padding: 0 8px;
     border-radius: 5px;
-    &:hover {
-      background: rgb(90, 176, 219);
-    }
   }
-  .btnNext {
+  .fixBottom-btnNext {
     margin-left: 16px;
+    padding: 0 16px;
+    background: rgb(90, 176, 219);
+    color: #fff;
   }
 }
-/* ---------------未處理-------------------------------------------- */
+/*popWindow*/
+.newArticle-popWindow-enter,
+.newArticle-popWindow-leave-to {
+  opacity: 0;
+  transition: 0.2s;
+}
+.newArticle-popWindow-enter-active,
+.newArticle-popWindow-leave-active {
+  transition: 0.2s;
+}
+.newArticle-popWindow-dropDownIcon {
+  width: 18px;
+  height: 18px;
+  left: 6px;
+  fill: rgba(0, 0, 0, 0.5);
+}
 .popWindow {
   .window {
     position: absolute;
@@ -322,7 +390,7 @@ form {
       border-radius: 10px;
       margin-bottom: 12px;
 
-      .dropDownIcon {
+      .newArticle-dropDownIcon {
         margin: 0 10px;
         height: 100%;
       }

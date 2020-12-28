@@ -22,6 +22,6 @@ export default {
 .container {
   display: flex;
   justify-content: center;
-  margin-top: 48px;
+  margin-top: 68px;
 }
 </style>

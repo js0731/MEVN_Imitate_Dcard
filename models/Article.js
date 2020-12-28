@@ -28,13 +28,37 @@ const ArticlesSchema = new Schema({
         required: true
     },
     date: {
-        type: Date,
+        type: String,
         require: true
     },
-    isCollect: {
-        type: Boolean,
-        default: false
+    love: {
+        type: Number,
+        default: 0,
     },
+    message: [
+        {
+            messageSex: {
+                type: String,
+                require: true
+            },
+            messageName: {
+                type: String,
+                default: 0,
+            },
+            messageDate: {
+                type: String,
+                require: true
+            },
+            messageLove: {
+                type: Number,
+                default: 0,
+            },
+            messageContent: {
+                type: String,
+                require: true
+            },
+        }
+    ],
 })
 
 module.exports = Article = mongoose.model('articles', ArticlesSchema)

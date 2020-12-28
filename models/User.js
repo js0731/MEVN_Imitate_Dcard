@@ -20,21 +20,24 @@ const UserSchema = new Schema({
         required: true
     },
     date: {
-        type: Date,
+        type: String,
         default: Date.now
     },
-
     collectArticle: [
         {
             collectArticleId: String,
-            collectArticleDate: Date,
+            collectArticleDate: String,
         }
     ],
     loveArticle: [
         {
             loveArticleId: String,
+            loveArticleDate: String,
         }
     ],
+    trackingBoard: {
+        type: Array
+    }
     // collectArticle: {
     //     type: [
     //         {

@@ -1,84 +1,58 @@
 <template>
   <div class="container">
     <div class="topBar">
-      <Icon name="female" />
+      <Icon :name="article.sex" />
       <span>{{ article.username }}</span>
     </div>
     <article class="article">
       <h1 class="title">{{ article.title }}</h1>
-      <div class="info">
-        {{ article.selectedBoard }} · {{ article.date | handleDate }}
-      </div>
+      <div class="info">{{ article.selectedBoard }} · {{ article.date }}</div>
       <div class="content">
         {{ article.content }}
       </div>
     </article>
     <div class="status">
       <div class="left">
-        <img class="love" src="../../../../assets/img/love.jpg" alt="" /> 2 ・
-        回應 10
+        <img class="love" src="../../../../assets/img/love.jpg" alt="" />
+        {{ article.love }} ・ 回應 10
       </div>
       <div class="right">
-        <button>
-          <Icon name="love" />
+        <button class="collect" @click.prevent="collectArticle(articleId)">
+          <Icon v-if="findCollect(articleId)" name="favorited" />
+          <Icon v-else name="favorite" />
+          <!-- <span>收藏</span> -->
         </button>
-        <button>
-          <Icon name="favorite" />
+        <button class="collect" @click.prevent="loveArticle(articleId)">
+          <Icon v-if="findLove(articleId)" name="loved" />
+          <Icon v-else name="love" />
         </button>
       </div>
     </div>
     <div class="messageBlock">
-      <span class="replyNumber">共 8 則回應</span>
-      <div class="message">
+      <span class="replyNumber">共 {{ this.messages.length }} 則回應</span>
+
+      <div class="message" v-for="msg in messages" :key="msg._id">
         <div class="messageHeader">
           <Icon class="avatar" name="female" />
-          <div class="messageUser">
-            <span class="userName">莊家臻</span>
-            <span class="userPostDate">B1・12月9日 12:31</span>
+          <div class="user">
+            <span class="userName">{{ msg.messageName }}</span>
+            <span class="userPostDate">B1・{{ msg.messageDate }}</span>
+          </div>
+          <div class="btnGroup">
+            <button class="btn">
+              <Icon name="love" />{{ msg.messageLove }}
+            </button>
+            <button
+              class="btn"
+              @click="deleteMessage(msg._id)"
+              v-if="msg.messageName === getUserData.name"
+            >
+              <Icon name="garbage" />
+            </button>
           </div>
         </div>
         <div class="messageContent">
-          我能向你應徵抓猴大隊嗎 <br />
-          我有一串香蕉🍌
-        </div>
-      </div>
-      <div class="message">
-        <div class="messageHeader">
-          <Icon class="avatar" name="female" />
-          <div class="messageUser">
-            <span class="userName">莊家臻</span>
-            <span class="userPostDate">B1・12月9日 12:31</span>
-          </div>
-        </div>
-        <div class="messageContent">
-          我能向你應徵抓猴大隊嗎 <br />
-          我有一串香蕉🍌
-        </div>
-      </div>
-      <div class="message">
-        <div class="messageHeader">
-          <Icon class="avatar" name="female" />
-          <div class="messageUser">
-            <span class="userName">莊家臻</span>
-            <span class="userPostDate">B1・12月9日 12:31</span>
-          </div>
-        </div>
-        <div class="messageContent">
-          我能向你應徵抓猴大隊嗎 <br />
-          我有一串香蕉🍌
-        </div>
-      </div>
-      <div class="message">
-        <div class="messageHeader">
-          <Icon class="avatar" name="female" />
-          <div class="messageUser">
-            <span class="userName">莊家臻</span>
-            <span class="userPostDate">B1・12月9日 12:31</span>
-          </div>
-        </div>
-        <div class="messageContent">
-          我能向你應徵抓猴大隊嗎 <br />
-          我有兩串香蕉🍌
+          {{ msg.messageContent }}
         </div>
       </div>
     </div>
@@ -88,6 +62,7 @@
           >回應...</span
         >
       </button>
+
       <button class="btn"><Icon class="svg" name="love" /></button>
       <button class="btn"><Icon class="svg" name="favorite" /></button>
     </div>
@@ -97,12 +72,11 @@
       v-if="isOpenPostBlock"
       :style="{ height: isScaling ? 'calc(100vh - 48px)' : null }"
     >
-      <!-- :style="{ height: isScaling ? 'red' : '100%' }" -->
       <div class="postHeader">
         <Icon class="svgSex" name="female" />
         <div class="dummy">
           <span class="userName">莊家臻</span>
-          <span class="userPostDate">B6 | 12月11日 14:40</span>
+          <span class="userPostDate">{{ messageData.messageDate }}</span>
         </div>
         <button class="svgScaling" @click="isScaling = !isScaling">
           <Icon name="scaling" />
@@ -110,14 +84,14 @@
       </div>
       <textarea
         class="textarea"
-        name=""
         placeholder="回應前請詳閱全站站規和本板板規"
+        v-model="messageData.messageContent"
       ></textarea>
       <div class="btnGroup">
         <button class="btn btn-cancel" @click="isOpenPostBlock = false">
           取消
         </button>
-        <button class="btn btn-submit">送出</button>
+        <button class="btn btn-submit" @click="addMessage">送出</button>
       </div>
     </div>
   </div>
@@ -125,38 +99,110 @@
 
 <script>
 import Icon from "../../../Icon";
-import moment from "moment";
+import dateFormat from "dateformat";
+import LoginFormVue from "../../../dcard/LoginForm.vue";
 export default {
   data() {
     return {
+      articleId: "",
       article: [],
+      messages: [],
       isOpenPostBlock: false,
       isScaling: false,
+      messageData: {
+        messageSex: this.$store.state.userData.sex,
+        messageName: this.$store.state.userData.name,
+        messageDate: dateFormat(new Date(), "yyyy-mm-dd HH:MM"),
+        messageContent: "",
+      },
+      isProcessApi: true,
     };
   },
   components: {
     Icon,
   },
   methods: {
-    openPostBlock() {},
+    addMessage() {
+      this.$axios
+        .post("/api/user/leave/message", {
+          articleId: this.$route.params.id,
+          messageData: this.messageData,
+        })
+        .then((res) => {
+          this.messages = res.data;
+        })
+        .catch((err) => console.error(err));
+      this.isOpenPostBlock = false;
+    },
+    deleteMessage(messageId) {
+      this.$axios
+        .post("/api/user/delete/message", {
+          articleId: this.$route.params.id,
+          messageId: messageId,
+        })
+        .then((res) => {
+          this.messages = res.data;
+        })
+        .catch((err) => console.error(err));
+    },
+    findCollect(articleId) {
+      return (
+        this.$store.getters.collectArticle
+          .map((x) => x.collectArticleId)
+          .indexOf(articleId) >= 0
+      );
+    },
+    findLove(articleId) {
+      return (
+        this.$store.getters.loveArticle
+          .map((x) => x.loveArticleId)
+          .indexOf(articleId) >= 0
+      );
+    },
+    collectArticle(articleId) {
+      console.log(articleId);
+      let collectData = this.$store.getters.collectArticle;
+      if (collectData.map((x) => x.collectArticleId).indexOf(articleId) >= 0) {
+        this.$store.dispatch("cancelCollect", articleId);
+      } else this.$store.dispatch("collectArticle", articleId);
+    },
+    async loveArticle(articleId) {
+      let loveData = this.$store.getters.loveArticle;
+
+      if (this.isProcessApi === false) return;
+      this.isProcessApi = false;
+
+      if (loveData.map((x) => x.loveArticleId).indexOf(articleId) >= 0) {
+        await this.$store.dispatch("cancelLove", articleId);
+        this.article.love -= 1;
+        this.isProcessApi = true;
+      } else {
+        await this.$store.dispatch("loveArticle", articleId);
+        this.article.love += 1;
+        this.isProcessApi = true;
+      }
+    },
+  },
+  computed: {
+    getUserData() {
+      return this.$store.getters.userData;
+    },
   },
   created() {
+    this.articleId = this.$route.params.id;
     this.$axios
       .get(
         `/api/board/${this.$route.params.boardPath}/article/${this.$route.params.id}`
       )
       .then((res) => {
         this.article = res.data;
+        console.log(this.article.message);
+        this.messages = this.article.message;
         // console.log(res.data, this.article);
       })
       .catch((err) => {
         console.error(err);
       });
-  },
-  filters: {
-    handleDate: function (date) {
-      return moment(date).format("MM月DD M:DD");
-    },
   },
 };
 </script>
@@ -169,9 +215,9 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   background: #fff;
-  margin: 20px 12px 0 12px;
+  margin: 0 12px 0 12px;
   border-radius: 5px;
-  position: relative;
+  min-height: calc(100vh - 68px);
 }
 
 .topBar {
@@ -193,6 +239,9 @@ article {
   .title {
     font-size: 28px;
     margin-bottom: 12px;
+    line-height: 28px;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
   }
   .info {
     font-size: 14px;
@@ -237,6 +286,7 @@ article {
 .messageBlock {
   padding: 40px 60px 15px 60px;
   background: rgb(245, 245, 245);
+  flex-grow: 1;
   .replyNumber {
     display: flex;
     font-size: 16px;
@@ -253,15 +303,39 @@ article {
       .avatar {
         margin-right: 8px;
       }
-      .messageUser {
+      .user {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+
         .userName {
           font-size: 14px;
         }
         .userPostDate {
+          color: rgba(0, 0, 0, 0.35);
           font-size: 12px;
+        }
+      }
+      .btnGroup {
+        display: flex;
+        margin-left: auto;
+      }
+      .btn {
+        margin-right: 15px;
+        margin-left: auto;
+        color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        /* &:hover {
+          color: rgb(234, 92, 92);
+          svg {
+            fill: rgb(234, 92, 92);
+          }
+        } */
+        svg {
+          margin-right: 8px;
         }
       }
     }
@@ -339,6 +413,7 @@ article {
     padding: 12px 0;
     display: flex;
     justify-content: flex-end;
+    /* margin-bottom: 20px; */
     .btn {
       height: 100%;
       font-size: 15px;
