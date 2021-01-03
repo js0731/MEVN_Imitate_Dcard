@@ -66,7 +66,7 @@ export default {
           // 空值就回傳false
           this.$store.dispatch("setAuthenticated", !this.isEmpty(decoded));
           this.$store.dispatch("storeUserData", decoded);
-          this.$router.push("/dcard/forum");
+          this.$router.push("/dcard/forum/all");
           // this.$toast("0....0");
         })
         .catch((err) => {

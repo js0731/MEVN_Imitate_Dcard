@@ -35,7 +35,7 @@
         </li>
         <span class="text">Dcard 精選看板</span>
         <li class="item">
-          <router-link class="link" to="/dcard">
+          <router-link class="link" to="/dcard/forum/frontend">
             <img src="../.././assets/img/frontend.jpg" alt="" />
             前端工程師
           </router-link>
@@ -47,117 +47,87 @@
           </router-link>
         </li>
         <li class="item">
-          <router-link class="link" to="/dcard">
+          <router-link class="link" to="/dcard/forum/funny">
             <img src="../.././assets/img/funny.jpg" alt="" />
             有趣版
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../.././assets/img/frontend.jpg" alt="" />
-            前端工程師
-          </router-link>
-        </li>
-        <li class="item">
-          <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../.././assets/img/dressup.jpg" alt="" />
-            穿搭
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../.././assets/img/funny.jpg" alt="" />
-            有趣版
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../.././assets/img/frontend.jpg" alt="" />
-            前端工程師
-          </router-link>
-        </li>
-        <li class="item">
-          <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../.././assets/img/dressup.jpg" alt="" />
-            穿搭
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../.././assets/img/funny.jpg" alt="" />
-            有趣版
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../.././assets/img/frontend.jpg" alt="" />
-            前端工程師
-          </router-link>
-        </li>
-        <li class="item">
-          <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../.././assets/img/dressup.jpg" alt="" />
-            穿搭
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../.././assets/img/funny.jpg" alt="" />
-            有趣版
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../.././assets/img/frontend.jpg" alt="" />
-            前端工程師
-          </router-link>
-        </li>
-        <li class="item">
-          <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../.././assets/img/dressup.jpg" alt="" />
-            穿搭
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../.././assets/img/funny.jpg" alt="" />
-            有趣版
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../.././assets/img/frontend.jpg" alt="" />
-            前端工程師
-          </router-link>
-        </li>
-        <li class="item">
-          <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../.././assets/img/dressup.jpg" alt="" />
-            穿搭
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../.././assets/img/funny.jpg" alt="" />
-            有趣版
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../.././assets/img/frontend.jpg" alt="" />
-            前端工程師
-          </router-link>
-        </li>
-        <li class="item">
-          <router-link class="link" to="/dcard/forum/dressup">
-            <img src="../.././assets/img/dressup.jpg" alt="" />
-            穿搭
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
           </router-link>
         </li>
         <li class="item">
           <router-link class="link" to="/dcard">
-            <img src="../.././assets/img/funny.jpg" alt="" />
-            有趣版
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="item">
+          <router-link class="link" to="/dcard">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
           </router-link>
         </li>
       </ul>
@@ -180,7 +150,7 @@ export default {
   height: calc(100vh - 108px);
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  flex-shrink: 0;
   max-width: 208px;
   background: #00324e;
   position: sticky;

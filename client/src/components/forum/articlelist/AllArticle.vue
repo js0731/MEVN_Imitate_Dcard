@@ -5,30 +5,7 @@
     infinite-scroll-disabled="busy"
     infinite-scroll-distance="10"
   >
-    <img class="boardArticle-banner" src="http://fakeimg.pl/728x242/" />
     <div class="boardArticle-header">
-      <div class="header-topBar">
-        <img
-          :src="
-            require(`../../../assets/img/${this.$route.params.boardPath}.jpg`)
-          "
-          alt
-        />
-        <h2 class="topBar-boardName" v-if="articleData">
-          {{ boardName }}
-        </h2>
-        <button
-          class="topBar-followBoard"
-          v-if="getTrackingBoard.includes(boardName)"
-          @click="trackingBoard"
-        >
-          <Icon class="topBar-bellIcon" name="bell" />
-          追蹤中
-        </button>
-        <button class="topBar-followBoard" v-else @click="trackingBoard">
-          追蹤
-        </button>
-      </div>
       <ul class="header-list">
         <li
           :class="{ active: sortArticleList === 'hot' }"
@@ -46,7 +23,6 @@
         >
           最新
         </li>
-        <li>板規</li>
       </ul>
     </div>
     <div class="boardArticle-article" v-if="sortArticleList === 'hot'">
@@ -166,37 +142,12 @@ export default {
     return {
       articleData: [],
       latestArticleData: [],
-      boardName: "",
-
       busy: false,
       isProcessApi: true,
       articleEmpty: false,
       sortArticleList: "hot",
     };
   },
-  // directives: {
-  //   scroll: {
-  //     bind: function (el, binding) {
-  //       let top =
-  //         document.documentElement.scrollTop ||
-  //         document.body.scrollTop ||
-  //         window.pageYOffset;
-  //       window.addEventListener("scroll", () => {
-  //         console.log(
-  //           top,
-  //           window.innerHeight,
-  //           el.clientHeight,
-  //           top + window.innerHeight >= el.clientHeight
-  //         );
-  //         if (top + window.innerHeight >= el.clientHeight) {
-  //           // console.log(top + window.innerHeight >= el.clientHeight);
-  //           let fnc = binding.value;
-  //           fnc();
-  //         }
-  //       });
-  //     },
-  //   },
-  // },
   methods: {
     trackingBoard() {},
     findCollect(articleId) {
@@ -244,17 +195,14 @@ export default {
       if (this.sortArticleList === "hot") {
         await setTimeout(async () => {
           await this.$axios
-            .get(
-              `/api/board/${this.$route.params.boardPath}/${this.articleData.length}`
-            )
+            .get(`/api/board/all/${this.articleData.length}`)
             .then((res) => {
               data = res.data.articleData;
               if (data.length === 0) this.articleEmpty = true;
 
               this.articleData.push(...data);
-              this.boardName = this.articleData[0].selectedBoard;
+
               console.log(this.boardName);
-              console.log(this.articleData[0].selectedBoard);
             })
             .catch((err) => console.log(err));
           this.busy = false;
@@ -262,9 +210,7 @@ export default {
       } else if (this.sortArticleList === "latest") {
         await setTimeout(async () => {
           await this.$axios
-            .get(
-              `/api/board/${this.$route.params.boardPath}/latest/${this.latestArticleData.length}`
-            )
+            .get(`/api/board/all/latest/${this.latestArticleData.length}`)
             .then((res) => {
               data = res.data.articleData;
               if (data.length === 0) this.articleEmpty = true;
@@ -332,18 +278,7 @@ export default {
       this.busy = false;
     },
   },
-  created() {
-    // let data;
-    // this.$axios
-    //   .get(`/api/board/${this.$route.params.boardPath}/0`)
-    //   .then((res) => {
-    //     data = res.data.articleData;
-    //     this.boardName = data[0].selectedBoard;
-    //
-    //     this.articleData.push(...data);
-    //   })
-    //   .catch((err) => console.log(err));
-  },
+
   computed: {
     getUserCollectArticle() {
       return this.$store.getters.collectArticle;

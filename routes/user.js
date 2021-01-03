@@ -81,7 +81,7 @@ router.post('/login', (req, res) => {
 
 // 新增文章
 
-router.post('/addarticle', (req, res) => {
+router.post('/addarticle', passport.authenticate('jwt', { session: false }), (req, res) => {
     console.log(req.body.username, req.body.sex, req.body.date, req.body.selectedBoard, req.body.title, req.body.content);
     Article.create({
         username: req.body.username,
@@ -141,7 +141,7 @@ router.post('/cancelcollect', passport.authenticate('jwt', { session: false }), 
 })
 
 // 
-router.get('/information/:id', (req, res) => {
+router.get('/information/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
     User.findById({ _id: req.params.id })
         .then(userData => {
             res.json(userData)
@@ -151,7 +151,7 @@ router.get('/information/:id', (req, res) => {
         })
 })
 
-router.post('/dynamicdata', (req, res) => {
+router.post('/dynamicdata', passport.authenticate('jwt', { session: false }), (req, res) => {
     User.findById({ _id: req.body.userId })
         .then(user => {
             res.json({
@@ -164,7 +164,7 @@ router.post('/dynamicdata', (req, res) => {
 })
 
 // 從收藏文章id取得收藏文章整體資料
-router.post('/collect/article/data', async (req, res) => {
+router.post('/collect/article/data', passport.authenticate('jwt', { session: false }), async (req, res) => {
     // 找出使用者的收藏文章id和date
     let userCollectData
     await User.findById({ _id: req.body.userId })
@@ -203,7 +203,7 @@ router.post('/collect/article/data', async (req, res) => {
 })
 
 
-router.post('/leave/message', (req, res) => {
+router.post('/leave/message', passport.authenticate('jwt', { session: false }), (req, res) => {
     console.log(req.body.articleId);
     console.log(req.body.messageData);
     Article.updateOne({ _id: req.body.articleId }, {
@@ -218,7 +218,7 @@ router.post('/leave/message', (req, res) => {
     })
 })
 
-router.post('/delete/message', (req, res) => {
+router.post('/delete/message', passport.authenticate('jwt', { session: false }), (req, res) => {
     console.log(req.body.articleId);
     console.log(req.body.messageId);
     Article.updateOne({ _id: req.body.articleId }, {
@@ -237,7 +237,7 @@ router.post('/delete/message', (req, res) => {
 
 
 
-router.post('/tracking/board', (req, res) => {
+router.post('/tracking/board', passport.authenticate('jwt', { session: false }), (req, res) => {
     console.log(req.body);
     User.updateOne({ _id: req.body.userId }, {
         $push: {
@@ -253,7 +253,7 @@ router.post('/tracking/board', (req, res) => {
 })
 
 
-router.post('/cancel/tracking/board', (req, res) => {
+router.post('/cancel/tracking/board', passport.authenticate('jwt', { session: false }), (req, res) => {
     console.log(req.body);
     User.updateOne({ _id: req.body.userId }, {
         $pull: {
@@ -269,7 +269,7 @@ router.post('/cancel/tracking/board', (req, res) => {
 })
 
 
-router.post('/love/article', (req, res) => {
+router.post('/love/article', passport.authenticate('jwt', { session: false }), (req, res) => {
 
     Article.updateOne({ _id: req.body.articleId }, { $inc: { love: 1 } })
         .then(result => {
@@ -285,7 +285,7 @@ router.post('/love/article', (req, res) => {
 
 })
 
-router.post('/cancel/love/article', (req, res) => {
+router.post('/cancel/love/article', passport.authenticate('jwt', { session: false }), (req, res) => {
     Article.updateOne({ _id: req.body.articleId }, { $inc: { love: -1 } })
         .then(result => {
             User.updateOne({ _id: req.body.userId }, {

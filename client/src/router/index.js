@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Forum from '../views/Forum'
+import AllArticle from "@/components/forum/articlelist/AllArticle";
 import BoardArticle from "@/components/forum/articlelist/BoardArticle";
 import Article from "@/components/forum/articlelist/article/Article";
 import User from "../views/User.vue";
@@ -46,7 +47,11 @@ const routes = [
     path: '/dcard/forum',
     component: Forum,
     children: [
-
+      {
+        name: 'AllArticle',
+        path: '/dcard/forum/all',
+        component: AllArticle,
+      },
       {
         name: 'BoardArticle',
         path: '/dcard/forum/:boardPath',
@@ -57,22 +62,8 @@ const routes = [
         name: 'Article',
         path: '/dcard/forum/:boardPath/article/:id',
         component: Article,
-      }
-      // {
-      //   name: 'Dressup',
-      //   path: 'dressup',
-      //   component: Board,
-      // },
-      // {
-      //   name: 'Frontend',
-      //   path: 'frontend',
-      //   component: Board,
-      // },
-      // {
-      //   name: 'Funny',
-      //   path: 'funny',
-      //   component: Board,
-      // },
+      },
+
     ]
   },
 

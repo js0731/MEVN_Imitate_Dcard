@@ -14,13 +14,6 @@
     >
       登入
     </button>
-    <button class="btn-thirdParty btn-facebook">
-      <Icon name="facebook" />Facebook 註冊 / 登入
-    </button>
-    <button class="btn-thirdParty btn-google">
-      <Icon name="google" />Google 註冊 / 登入入
-    </button>
-    <span class="text-or">或</span>
     <keep-alive>
       <RegisterForm v-if="toggle" />
       <LoginForm v-else />

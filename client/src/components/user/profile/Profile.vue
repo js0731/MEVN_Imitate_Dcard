@@ -1,45 +1,51 @@
 <template>
-  <div class="container">
-    <aside>
-      <div class="userInfo">
-        <Icon class="avatar" name="male" />
-        <span class="userName">{{ getUserData.name }}</span>
-        <span class="userDate">{{ getUserData.date | handleDate }}</span>
+  <div class="profile-root">
+    <aside class="profile-aside">
+      <div class="aside-userInfo">
+        <Icon class="userInfo-avatar" name="male" />
+        <span class="userInfo userInfo-userName">{{ getUserData.name }}</span>
+        <span class="userInfo userInfo-userDate">{{
+          getUserData.date | handleDate
+        }}</span>
       </div>
-      <ul class="menu">
-        <li class="list">
+      <ul class="aside-menu">
+        <li class="menu-list">
           <router-link to="#"><Icon name="favorited" />我的收藏</router-link>
         </li>
-        <li class="list">
+        <li class="menu-lis">
           <router-link to="#"><Icon name="setting" />設定</router-link>
         </li>
       </ul>
     </aside>
-    <div class="dummy">
-      <div class="main">
-        <div class="title">我的收藏</div>
+    <div class="dummy-main">
+      <div class="main-main">
+        <div class="main-title">我的收藏</div>
 
-        <article v-for="art in coollectArticle" :key="art._id">
+        <article
+          class="main-article"
+          v-for="art in coollectArticle"
+          :key="art._id"
+        >
           <router-link
-            :to="`/dcard/forum/${art.boardPath}/${art._id}`"
-            class="articleLink"
+            :to="`/dcard/forum/${art.article.boardPath}/article/${art.article._id}`"
+            class="article-articleLink"
           >
-            <div class="block-top">
+            <div class="articleLink-top">
               <Icon name="male" v-if="art.sex === 'male'" />
               <Icon name="female" v-else />
               <p>
                 {{ art.article.selectedBoard }} ． {{ art.article.username }}
               </p>
             </div>
-            <div class="block-bottom">
-              <div class="block-left">
-                <div class="content">
-                  <h2>{{ art.article.title }}</h2>
-                  <p>{{ art.article.content }}</p>
+            <div class="articleLink-bottom">
+              <div class="bottom-left">
+                <div class="left-content">
+                  <h2 class="content-title">{{ art.article.title }}</h2>
+                  <p class="content-content">{{ art.article.content }}</p>
                 </div>
-                <div class="status">
+                <div class="left-status">
                   <button
-                    class="collect"
+                    class="status-collect"
                     @click.prevent="collectArticle(art.article._id)"
                   >
                     <Icon
@@ -49,10 +55,14 @@
                     <Icon v-else name="favorite" />
                     <span>收藏</span>
                   </button>
+
+                  <span class="status-reply"
+                    >回應 {{ art.article.message.length }}</span
+                  >
                 </div>
               </div>
-              <div class="block-right">
-                <div class="pic">
+              <div class="bottom-right">
+                <div class="right-pic">
                   <img :src="art.img" alt />
                 </div>
               </div>
@@ -118,6 +128,7 @@ export default {
       .post("/api/user/collect/article/data", userId)
       .then((res) => {
         console.log(res.data);
+        console.log(res.data.message);
         this.coollectArticle = res.data;
       })
       .catch((err) => console.log(err));
@@ -136,47 +147,47 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.container {
+.profile-root {
   padding-top: 20px;
   display: flex;
   justify-content: center;
 }
-aside {
+.profile-aside {
   min-height: calc(100vh - 68px);
   display: flex;
   position: sticky;
   flex-direction: column;
   width: 208px;
-  .userInfo {
+  .aside-userInfo {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px 0;
-    .avatar {
+    .userInfo {
+      font-size: 24px;
+      color: #fff;
+    }
+    .userInfo-avatar {
       width: 100px;
       height: 100px;
       margin-bottom: 16px;
     }
-    .userName {
+    .userInfo-userName {
       margin-bottom: 10px;
     }
-    span {
-      font-size: 24px;
-      color: #fff;
-    }
-    .userDate {
+    .userInfo-userDate {
       font-size: 14px;
     }
   }
 
-  .menu {
+  .aside-menu {
     display: flex;
     flex-direction: column;
     align-items: center;
     flex: 1 1 0%;
     height: 100%;
     overflow: auto;
-    .list {
+    .menu-list {
       width: 100%;
       a {
         display: flex;
@@ -200,7 +211,7 @@ aside {
     }
   }
 }
-.main {
+.main-main {
   width: 760px;
   padding: 20px 60px;
   display: flex;
@@ -208,28 +219,39 @@ aside {
   background-color: rgb(242, 243, 244);
   border-radius: 12px;
   margin: 0 10px;
-  .title {
+  .main-title {
     height: 60px;
     font-size: 24px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.15);
     line-height: 60px;
     margin-bottom: 24px;
   }
-  article {
+  .main-article {
     display: flex;
     width: 100%;
     padding: 20px;
-    border-bottom: 1px solid rgb(233, 233, 233);
     background-color: #fff;
+    position: relative;
+    &:after {
+      content: "";
+      width: 90%;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.1);
+      position: absolute;
+      z-index: 0;
+      bottom: 0px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
   }
-  .articleLink {
+  .article-articleLink {
     width: 100%;
-
     height: 115px;
     display: flex;
     flex-direction: column;
   }
-  .block-top {
+  .articleLink-top {
     display: flex;
     align-items: center;
     svg {
@@ -243,16 +265,17 @@ aside {
     }
   }
 
-  .block-bottom {
+  .articleLink-bottom {
     display: flex;
+    justify-content: space-between;
     height: 100%;
-    .block-left {
+    .bottom-left {
       max-width: 504px;
       display: flex;
       flex-direction: column;
       min-height: 0;
       min-width: 0;
-      .content {
+      .left-content {
         min-height: 0;
         min-width: 0;
         display: flex;
@@ -260,22 +283,22 @@ aside {
         flex-grow: 1;
         justify-content: center;
         line-height: 1.5rem;
-        h2 {
+        .content-title {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
           font-size: 18px;
         }
-        p {
+        .content-content {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
           font-size: 14px;
         }
       }
-      .status {
+      .left-status {
         display: flex;
-
+        align-items: center;
         button {
           display: flex;
           align-items: center;
@@ -290,11 +313,15 @@ aside {
             font-size: 14px;
           }
         }
+        .status-reply {
+          color: rgba(0, 0, 0, 0.35);
+          font-size: 14px;
+        }
       }
     }
-    .block-right {
+    .bottom-right {
       align-self: flex-start;
-      .pic {
+      .right-pic {
         margin-left: 20px;
         img {
           width: 84px;

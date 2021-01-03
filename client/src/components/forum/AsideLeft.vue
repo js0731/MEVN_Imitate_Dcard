@@ -14,6 +14,7 @@ export default {};
 <style lang="scss" scoped>
 aside {
   display: flex;
+  flex-shrink: 5;
   flex-direction: column;
   max-width: 300px;
   height: 700px;
