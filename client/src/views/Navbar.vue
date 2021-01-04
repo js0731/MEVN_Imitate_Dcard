@@ -19,19 +19,13 @@
           </router-link>
         </li>
         <li class="menuItem">
-          <router-link class="navLink" to="/dcard/edit">
-            <Icon name="bell" />
-          </router-link>
-        </li>
-
-        <li class="menuItem">
           <router-link class="navLink" to="/dcard/user/profile">
             <Icon name="user" />
           </router-link>
         </li>
-        <li class="menuItem">
+        <li class="menuItem" v-if="!getIsAuthenticated">
           <router-link class="navLink" to="/dcard/usedcard">
-            <Icon name="enroll" />
+            <Icon name="enroll" :style="{ padding: '2.3px' }" />
           </router-link>
         </li>
         <li class="menuItem">
@@ -82,6 +76,12 @@ export default {
     return {
       open: false,
     };
+  },
+  computed: {
+    getIsAuthenticated() {
+      console.log(this.$store.getters.isAuthenticated);
+      return this.$store.getters.isAuthenticated;
+    },
   },
 };
 </script>

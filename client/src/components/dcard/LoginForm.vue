@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <form action="">
+  <div class="login-root">
+    <form class="login-form">
       <label for="email">
         <span>常用信箱</span>
         <input
@@ -87,7 +87,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-form {
+.login-root {
   label {
     font-size: 14px;
     margin-bottom: 16px;

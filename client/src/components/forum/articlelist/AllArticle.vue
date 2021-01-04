@@ -292,7 +292,7 @@ export default {
 
 <style lang="scss" scoped>
 .boardArticle-root {
-  max-width: 728px;
+  width: 728px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
