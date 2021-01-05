@@ -29,6 +29,7 @@ axios.interceptors.response.use(response => {
   const { status } = err.response;
   if (status === 401) { // 用戶未認證
     console.log('token無效，請重新登錄');
+    this.$router.push("/dcard/usedcard");
     localStorage.removeItem('myToken');  // 清除token
   }
   return Promise.reject(err)

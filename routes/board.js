@@ -4,7 +4,7 @@ const User = require('../models/User')
 const Article = require('../models/Article')
 const passport = require('passport');
 
-router.get('/all/:number', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/all/:number', (req, res) => {
     console.log(req.params);
     Article.find({})
         .sort({ love: -1 })
@@ -16,7 +16,7 @@ router.get('/all/:number', passport.authenticate('jwt', { session: false }), (re
         })
 })
 
-router.get('/all/latest/:number', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/all/latest/:number', (req, res) => {
     console.log(req.params);
     Article.find({})
         .skip(Number(req.params.number))
@@ -27,7 +27,7 @@ router.get('/all/latest/:number', passport.authenticate('jwt', { session: false 
         })
 })
 
-router.get('/:board/:number', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/:board/:number', (req, res) => {
     console.log(req.params);
     Article.find({ boardPath: req.params.board })
         .sort({ love: -1 })
@@ -39,7 +39,7 @@ router.get('/:board/:number', passport.authenticate('jwt', { session: false }), 
         })
 })
 
-router.get('/:board/latest/:number', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/:board/latest/:number', { session: false }), (req, res) => {
     console.log(req.params);
     Article.find({ boardPath: req.params.board })
         .skip(Number(req.params.number))
@@ -52,7 +52,7 @@ router.get('/:board/latest/:number', passport.authenticate('jwt', { session: fal
 
 
 
-router.get('/:board/article/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/:board/article/:id', { session: false }), (req, res) => {
     console.log(req.params);
     Article.find({ boardPath: req.params.board, _id: req.params.id }, (err, article) => {
         res.json(...article)
