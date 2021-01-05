@@ -39,7 +39,7 @@ router.get('/:board/:number', (req, res) => {
         })
 })
 
-router.get('/:board/latest/:number', { session: false }), (req, res) => {
+router.get('/:board/latest/:number', (req, res) => {
     console.log(req.params);
     Article.find({ boardPath: req.params.board })
         .skip(Number(req.params.number))
@@ -52,7 +52,7 @@ router.get('/:board/latest/:number', { session: false }), (req, res) => {
 
 
 
-router.get('/:board/article/:id', { session: false }), (req, res) => {
+router.get('/:board/article/:id', (req, res) => {
     console.log(req.params);
     Article.find({ boardPath: req.params.board, _id: req.params.id }, (err, article) => {
         res.json(...article)
