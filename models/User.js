@@ -35,6 +35,10 @@ const UserSchema = new Schema({
             loveArticleDate: String,
         }
     ],
+    loveMessage: {
+        type: Array
+    }
+    ,
     trackingBoard: {
         type: Array
     }

@@ -9,7 +9,7 @@
           id="userName"
           type="text"
           required
-          minlength="3"
+          minlength="2"
           maxlength="50"
           ref="name"
         />
@@ -74,6 +74,7 @@
 import Icon from "../Icon";
 import validateInput from "../../utils/validateform.js";
 export default {
+  props: ["toggleValue"],
   data() {
     return {
       registerUser: {
@@ -83,6 +84,7 @@ export default {
         password: "",
       },
       validateInput: validateInput,
+      handleToggle: this.toggleValue,
     };
   },
   components: {
@@ -90,16 +92,18 @@ export default {
   },
   methods: {
     submitRegisterForm() {
-      this.$loading();
       const userDate = this.registerUser;
       this.$axios
         .post("/api/user/register", userDate) // 跨域路由加上'/api'
         .then((res) => {
           console.log(res);
           this.$toast(res.data);
-          for (let key in this.registerUser) {
-            this.registerUser[key] = "";
+
+          if (res.data === "註冊成功!") {
+            this.$emit("toggleLogin");
           }
+          console.log(res.statu);
+
           this.$loading(false);
         })
         .catch((err) => {

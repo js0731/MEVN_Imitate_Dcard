@@ -5,7 +5,7 @@ const ToastConstructor = Vue.extend(Toast);
 
 
 
-function showToast(text, duration = 2000) {
+function showToast(text, duration = 4000) {
     const toastDom = new ToastConstructor({
         el: document.createElement('div'),
         data() {
@@ -16,6 +16,7 @@ function showToast(text, duration = 2000) {
         }
     })
     //toastDom指向元件的實體
+    console.log(toastDom.$el);
     document.body.appendChild(toastDom.$el)
     setTimeout(() => {
         toastDom.show = false

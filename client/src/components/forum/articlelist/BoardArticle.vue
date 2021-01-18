@@ -21,6 +21,9 @@
           class="topBar-followBoard"
           v-if="getTrackingBoard.includes(boardName)"
           @click="trackingBoard"
+          :class="{
+            'topBar-cancelFollowBoard': getTrackingBoard.includes(boardName),
+          }"
         >
           <Icon class="topBar-bellIcon" name="bell" />
           追蹤中
@@ -167,8 +170,8 @@ export default {
       articleData: [],
       latestArticleData: [],
       boardName: "",
-
       busy: false,
+
       isProcessApi: true,
       articleEmpty: false,
       sortArticleList: "hot",
@@ -198,7 +201,6 @@ export default {
   //   },
   // },
   methods: {
-    trackingBoard() {},
     findCollect(articleId) {
       return (
         this.$store.getters.collectArticle
@@ -280,7 +282,11 @@ export default {
       let collectData = this.$store.getters.collectArticle;
       if (collectData.map((x) => x.collectArticleId).indexOf(articleId) >= 0) {
         this.$store.dispatch("cancelCollect", articleId);
-      } else this.$store.dispatch("collectArticle", articleId);
+        this.$toast("收藏成功 !");
+      } else {
+        this.$toast("取消收藏成功 !");
+        this.$store.dispatch("collectArticle", articleId);
+      }
     },
     async loveArticle(articleId) {
       let loveData = this.$store.getters.loveArticle;
@@ -290,7 +296,12 @@ export default {
         await this.$store.dispatch("cancelLove", articleId);
 
         this.articleData.map((x) => {
-          console.log(x._id, articleId);
+          if (x._id === articleId) {
+            x.love -= 1;
+          }
+        });
+
+        this.latestArticleData.map((x) => {
           if (x._id === articleId) {
             x.love -= 1;
           }
@@ -299,12 +310,17 @@ export default {
         this.isProcessApi = true;
       } else {
         await this.$store.dispatch("loveArticle", articleId);
-        this.articleData.map((x) => {
-          console.log(x._id, articleId);
+        this.latestArticleData.map((x) => {
           if (x._id === articleId) {
             x.love += 1;
           }
         });
+        this.articleData.map((x) => {
+          if (x._id === articleId) {
+            x.love += 1;
+          }
+        });
+
         this.isProcessApi = true;
       }
     },
@@ -332,18 +348,7 @@ export default {
       this.busy = false;
     },
   },
-  created() {
-    // let data;
-    // this.$axios
-    //   .get(`/api/board/${this.$route.params.boardPath}/0`)
-    //   .then((res) => {
-    //     data = res.data.articleData;
-    //     this.boardName = data[0].selectedBoard;
-    //
-    //     this.articleData.push(...data);
-    //   })
-    //   .catch((err) => console.log(err));
-  },
+
   computed: {
     getUserCollectArticle() {
       return this.$store.getters.collectArticle;
@@ -356,6 +361,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../../../src/assets/scss/all.scss";
 .boardArticle-root {
   max-width: 728px;
   display: flex;
@@ -365,6 +371,10 @@ export default {
   margin: 0 12px;
   min-height: 0;
   min-width: 0;
+  border-radius: 5px 5px 0 0;
+}
+.boardArticle-banner {
+  border-radius: 5px 5px 0 0;
 }
 .boardArticle-header {
   display: flex;
@@ -375,6 +385,15 @@ export default {
   background: #fff;
   position: sticky;
   top: 48px;
+  @media (max-width: 768px) {
+    padding: 20px 40px 0px;
+  }
+  @media (max-width: 767px) {
+    padding: 20px 30px 0px;
+  }
+  @media (max-width: 414px) {
+    padding: 20px 15px 0px;
+  }
   .header-topBar {
     height: 60px;
     display: flex;
@@ -406,7 +425,7 @@ export default {
       color: #ffffff;
       background: #3397cf;
     }
-    .topBar-followBoard {
+    .topBar-cancelFollowBoard {
       color: rgba(0, 0, 0, 0.75);
       position: relative;
       background: rgba(0, 16, 32, 0.06);
@@ -434,6 +453,15 @@ export default {
     display: flex;
     width: 100%;
     padding: 0 40px;
+    @media (max-width: 768px) {
+      padding: 0 20px;
+    }
+    @media (max-width: 767px) {
+      padding: 0 10px;
+    }
+    @media (max-width: 414px) {
+      padding: 0px;
+    }
     .article-articleLink {
       width: 100%;
       padding: 20px;
@@ -441,6 +469,7 @@ export default {
       display: flex;
       flex-direction: column;
       border-bottom: 1px solid rgb(233, 233, 233);
+      min-width: 0;
       .articleLink-head {
         display: flex;
         align-items: center;
@@ -466,11 +495,8 @@ export default {
     max-width: 504px;
     display: flex;
     flex-direction: column;
-    min-height: 0;
     min-width: 0;
     .left-content {
-      min-height: 0;
-      min-width: 0;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
@@ -498,9 +524,6 @@ export default {
         margin-right: 16px;
         background: none;
         padding: 0;
-        &:hover {
-          background: red;
-        }
         span {
           color: rgba(0, 0, 0, 0.35);
           font-size: 14px;
@@ -520,7 +543,7 @@ export default {
   }
 }
 
-.active {
+/* .active {
   color: black;
   border-bottom: 2px solid rgb(51, 151, 207);
 }
@@ -531,5 +554,5 @@ export default {
   align-items: center;
   color: rgba(0, 0, 0, 0.35);
   font-size: 14px;
-}
+} */
 </style>

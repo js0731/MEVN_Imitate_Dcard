@@ -1,6 +1,6 @@
 <template>
   <div class="profile-root">
-    <aside class="profile-aside">
+    <!-- <aside class="profile-aside">
       <div class="aside-userInfo">
         <Icon class="userInfo-avatar" name="male" />
         <span class="userInfo userInfo-userName">{{ getUserData.name }}</span>
@@ -12,73 +12,55 @@
         <li class="menu-list">
           <router-link to="#"><Icon name="favorited" />我的收藏</router-link>
         </li>
-        <li class="menu-lis">
-          <router-link to="#"><Icon name="setting" />設定</router-link>
-        </li>
       </ul>
-    </aside>
-    <div class="dummy-main">
-      <div class="main-main">
-        <div class="main-title">我的收藏</div>
+    </aside> -->
 
-        <article
-          class="main-article"
-          v-for="art in coollectArticle"
-          :key="art._id"
+    <div class="main-main">
+      <div class="main-title">我的收藏</div>
+
+      <article
+        class="main-article"
+        v-for="art in coollectArticle"
+        :key="art._id"
+      >
+        <router-link
+          :to="`/dcard/forum/${art.article.boardPath}/article/${art.article._id}`"
+          class="article-articleLink"
         >
-          <router-link
-            :to="`/dcard/forum/${art.article.boardPath}/article/${art.article._id}`"
-            class="article-articleLink"
-          >
-            <div class="articleLink-top">
-              <Icon name="male" v-if="art.sex === 'male'" />
-              <Icon name="female" v-else />
-              <p>
-                {{ art.article.selectedBoard }} ． {{ art.article.username }}
-              </p>
-            </div>
-            <div class="articleLink-bottom">
-              <div class="bottom-left">
-                <div class="left-content">
-                  <h2 class="content-title">{{ art.article.title }}</h2>
-                  <p class="content-content">{{ art.article.content }}</p>
-                </div>
-                <div class="left-status">
-                  <button
-                    class="status-collect"
-                    @click.prevent="collectArticle(art.article._id)"
-                  >
-                    <Icon
-                      v-if="findCollect(art.article._id)"
-                      name="favorited"
-                    />
-                    <Icon v-else name="favorite" />
-                    <span>收藏</span>
-                  </button>
-
-                  <span class="status-reply"
-                    >回應 {{ art.article.message.length }}</span
-                  >
-                </div>
+          <div class="articleLink-top">
+            <Icon name="male" v-if="art.sex === 'male'" />
+            <Icon name="female" v-else />
+            <p>{{ art.article.selectedBoard }} ． {{ art.article.username }}</p>
+          </div>
+          <div class="articleLink-bottom">
+            <div class="bottom-left">
+              <div class="left-content">
+                <h2 class="content-title">{{ art.article.title }}</h2>
+                <p class="content-content">{{ art.article.content }}</p>
               </div>
-              <div class="bottom-right">
-                <div class="right-pic">
-                  <img :src="art.img" alt />
-                </div>
+              <div class="left-status">
+                <button
+                  class="status-collect"
+                  @click.prevent="collectArticle(art.article._id)"
+                >
+                  <Icon v-if="findCollect(art.article._id)" name="favorited" />
+                  <Icon v-else name="favorite" />
+                  <span>收藏</span>
+                </button>
+
+                <span class="status-reply"
+                  >回應 {{ art.article.message.length }}</span
+                >
               </div>
             </div>
-          </router-link>
-        </article>
-      </div>
-
-      <ul class="footer">
-        <li><a href="#">服務條款 </a></li>
-        <li><a href="#">常見問題</a></li>
-        <li><a href="#">品牌識別</a></li>
-        <li><a href="#">徵才</a></li>
-        <li><a href="#">商業合作</a></li>
-        <p>Copyright © Dcard Taiwan Ltd. 2020</p>
-      </ul>
+            <div class="bottom-right">
+              <div class="right-pic">
+                <img :src="art.img" alt />
+              </div>
+            </div>
+          </div>
+        </router-link>
+      </article>
     </div>
   </div>
 </template>
@@ -137,9 +119,6 @@ export default {
     getUserData() {
       return this.$store.getters.userData;
     },
-    // getUserCollectArticle() {
-    //   return this.$store.getters.collectArticle;
-    // },
   },
   filters: {
     handleDate: function (date) {},
@@ -147,12 +126,14 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "../../../../src/assets/scss/all.scss";
 .profile-root {
   padding-top: 20px;
   display: flex;
+
   justify-content: center;
 }
-.profile-aside {
+/* .profile-aside {
   min-height: calc(100vh - 68px);
   display: flex;
   position: sticky;
@@ -187,6 +168,8 @@ export default {
     flex: 1 1 0%;
     height: 100%;
     overflow: auto;
+    min-width: 140px;
+    flex-shrink: 5;
     .menu-list {
       width: 100%;
       a {
@@ -210,15 +193,27 @@ export default {
       }
     }
   }
-}
+} */
+
 .main-main {
-  width: 760px;
-  padding: 20px 60px;
+  flex-grow: 1;
+  min-width: 0;
+  max-width: 760px;
+  padding: 20px 60px 0 60px;
   display: flex;
   flex-direction: column;
   background-color: rgb(242, 243, 244);
   border-radius: 12px;
   margin: 0 10px;
+  flex-shrink: 1;
+  @media (max-width: 768px) {
+  }
+  @media (max-width: 767px) {
+    padding: 10px 20px 0 20px;
+  }
+  @media (max-width: 414px) {
+    padding: 5px 10px 0 10px;
+  }
   .main-title {
     height: 60px;
     font-size: 24px;
@@ -229,25 +224,14 @@ export default {
   .main-article {
     display: flex;
     width: 100%;
-    padding: 20px;
-    background-color: #fff;
-    position: relative;
-    &:after {
-      content: "";
-      width: 90%;
-      height: 1px;
-      background: rgba(0, 0, 0, 0.1);
-      position: absolute;
-      z-index: 0;
-      bottom: 0px;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
-    }
+    padding: 24px 20px;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    border-radius: 10px;
   }
   .article-articleLink {
     width: 100%;
-    height: 115px;
+    height: 116px;
     display: flex;
     flex-direction: column;
   }
@@ -270,14 +254,12 @@ export default {
     justify-content: space-between;
     height: 100%;
     .bottom-left {
-      max-width: 504px;
+      width: 100%;
+      flex-shrink: 5;
       display: flex;
       flex-direction: column;
-      min-height: 0;
       min-width: 0;
       .left-content {
-        min-height: 0;
-        min-width: 0;
         display: flex;
         flex-direction: column;
         flex-grow: 1;
@@ -305,9 +287,7 @@ export default {
           margin-right: 16px;
           background: none;
           padding: 0;
-          &:hover {
-            background: red;
-          }
+
           span {
             color: rgba(0, 0, 0, 0.35);
             font-size: 14px;
@@ -329,21 +309,6 @@ export default {
         }
       }
     }
-  }
-}
-.footer {
-  height: 68px;
-  display: flex;
-  align-items: center;
-  li {
-    a {
-      color: #fff;
-      font-size: 14px;
-    }
-  }
-  p {
-    color: #fff;
-    font-size: 14px;
   }
 }
 </style>

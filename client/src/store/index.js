@@ -9,6 +9,7 @@ const state = {
   userData: {},  // 用戶資訊
   collectArticle: [],
   loveArticle: [],
+  loveMessage: [],
   trackingBoard: []
 }
 
@@ -20,6 +21,7 @@ const getters = {
   userData: state => state.userData,
   collectArticle: state => state.collectArticle,
   loveArticle: state => state.loveArticle,
+  loveMessage: state => state.loveloveMessage,
   trackingBoard: state => state.trackingBoard
 }
 
@@ -46,6 +48,9 @@ const mutations = {
   },
   DELETE_LOVE_DATA(state, loveArticle) {
     state.loveArticle.splice(state.loveArticle.findIndex(x => x.loveArticleId === loveArticle.loveArticleId), 1)
+  },
+  SET_LOVE_MESSAGE_DATA(state, loveMessage) {
+    state.loveMessage = loveMessage
 
   },
   SET_TRACKINGBOARD_DATA(state, trackingBoard) {
@@ -65,8 +70,10 @@ const actions = {
   storeUserDynamicData: ({ commit }, userId) => {
     axios.post('/api/user/dynamicData', userId)
       .then(res => {
+
         commit('SET_COLLECT_DATA', res.data.collectArticle);
         commit('SET_LOVE_DATA', res.data.loveArticle);
+        commit('SET_LOVE_MESSAGE_DATA', res.data.loveMessage)
         commit('SET_TRACKINGBOARD_DATA', res.data.trackingBoard)
       })
       .catch(err => console.log(err))

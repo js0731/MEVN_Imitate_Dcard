@@ -78,10 +78,10 @@ const router = new VueRouter({
 // to: 即將要進入的路由 from : 當前要離開的路由。 next(去哪的路由)
 router.beforeEach((to, from, next) => {
   const isLogin = localStorage.myToken ? true : false; //查看localStorage token 是否存在
-  if (to.path === '/dcard/usedcard') {
+  if (to.path === '/dcard/usedcard' || to.path === '/dcard/forum/all' || to.path === '/dcard/forum/frontend' || to.path === '/dcard/forum/dressup' || to.path === '/dcard/forum/funny') {
     next();
   } else {
-    isLogin ? next() : next('/dcard/usedcard')  // 如果 localStorage token 不存在則導入/login頁面，存在則放行。
+    isLogin ? next() : next('/dcard/usedcard')     // 如果 localStorage token 不存在則導入/login頁面，存在則放行。
   }
 })
 

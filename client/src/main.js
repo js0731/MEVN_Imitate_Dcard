@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios';
-import '../src/assets/scss/_all.scss'
+import '../src/assets/scss/all.scss'
 import toastRegister from './components/toast.js'
 import loadingRegister from './utils/loading/loading.js'
 import infiniteScroll from 'vue-infinite-scroll'
@@ -29,7 +29,7 @@ axios.interceptors.response.use(response => {
   const { status } = err.response;
   if (status === 401) { // 用戶未認證
     console.log('token無效，請重新登錄');
-    this.$router.push("/dcard/usedcard");
+    window.location.assign("http://localhost:8080/dcard/usedcard")
     localStorage.removeItem('myToken');  // 清除token
   }
   return Promise.reject(err)

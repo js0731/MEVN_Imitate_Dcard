@@ -22,7 +22,7 @@
         <Icon
           class="mid-sexIcon"
           name="male"
-          v-if="(newArticle.sex = 'male')"
+          v-if="newArticle.sex === 'male'"
         />
         <Icon class="mid-sexIcon" name="female" v-else />
         <div class="mid-info">
@@ -54,6 +54,7 @@
           <textarea
             class="contentWrap-txtAreaContent"
             v-model="newArticle.content"
+            placeholder="內容..."
           >
           </textarea>
         </div>
@@ -134,17 +135,13 @@ export default {
     submitArticle() {
       const newArticle = this.newArticle;
       if (newArticle.selectedBoard === "請選擇看板") {
-        alert("選看板拉87");
+        alert("請選擇看板!");
         return;
       }
       this.$axios
         .post("/api/user/addarticle", newArticle)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+        .then((res) => this.$toast("新增文章成功"))
+        .catch((err) => console.error(err));
       newArticle.title = "";
       newArticle.content = "";
       newArticle.selectedBoard = "請選擇看板";
@@ -359,12 +356,21 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 900;
-
     width: 520px;
     display: block;
     padding: 40px 60px;
     border-radius: 8px;
     background: #fff;
+    @media (max-width: 768px) {
+    }
+    @media (max-width: 767px) {
+      padding: 30px 40px;
+      width: 380px;
+    }
+    @media (max-width: 414px) {
+      padding: 15px 20px;
+      width: 300px;
+    }
     p {
       font-size: 24px;
       line-height: 33px;

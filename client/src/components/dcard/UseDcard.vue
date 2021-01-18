@@ -15,7 +15,7 @@
       登入
     </button>
     <keep-alive>
-      <RegisterForm v-if="toggle" />
+      <RegisterForm v-if="toggle" v-on:toggleLogin="toggleLogin" />
       <LoginForm v-else />
     </keep-alive>
 
@@ -34,13 +34,16 @@ export default {
       toggle: false,
     };
   },
+  methods: {
+    toggleLogin() {
+      this.toggle = false;
+    },
+  },
   components: {
     Icon,
     LoginForm,
     RegisterForm,
   },
-  methods: {},
-  created() {},
 };
 </script>
 

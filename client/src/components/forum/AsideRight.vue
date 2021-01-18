@@ -1,131 +1,155 @@
 <template>
-  <aside class="aside-right">
-    <ul class="menu">
-      <li class="item">
-        <router-link class="link" to="/dcard/forum/all">
+  <aside class="asideRight-root">
+    <!-- <ul class="root-menu menu">
+      <li class="menu-item item">
+        <router-link class="item-link link" to="/dcard/forum/all">
           <Icon name="allBoard" />所有看板
         </router-link>
       </li>
-      <li class="item">
-        <router-link class="link" to="/dcard">
-          <Icon name="hotBoard" />即時熱門看板
-        </router-link>
-      </li>
-    </ul>
-    <div class="scrollBlock">
-      <ul class="menu">
-        <span class="text">追蹤的看板</span>
-        <li class="item">
-          <router-link class="link" to="/dcard/forum/frontend">
+    </ul> -->
+    <div class="root-scrollBlock">
+      <ul class="scrollBlock-menu menu">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard/forum/all">
+            <Icon name="allBoard" />所有看板
+          </router-link>
+        </li>
+        <span class="menu-text text">追蹤的看板</span>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard/forum/frontend">
             <img src="../.././assets/img/frontend.jpg" alt="" />
             前端工程師
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard/forum/dressup">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard/forum/dressup">
             <img src="../.././assets/img/dressup.jpg" alt="" />
             穿搭
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard/forum/funny">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard/forum/funny">
             <img src="../.././assets/img/funny.jpg" alt="" />
             有趣版
           </router-link>
         </li>
-        <span class="text">Dcard 精選看板</span>
-        <li class="item">
-          <router-link class="link" to="/dcard/forum/frontend">
+        <span class="menu-text text">Dcard 精選看板</span>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard/forum/frontend">
             <img src="../.././assets/img/frontend.jpg" alt="" />
             前端工程師
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard/forum/dressup">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard/forum/dressup">
             <img src="../.././assets/img/dressup.jpg" alt="" />
             穿搭
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard/forum/funny">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard/forum/funny">
             <img src="../.././assets/img/funny.jpg" alt="" />
             有趣版
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
-        <li class="item">
-          <router-link class="link" to="/dcard">
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="/dcard">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
@@ -146,24 +170,45 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.aside-right {
+@import "../../../src/assets/scss/all.scss";
+.asideRight-root {
   height: calc(100vh - 108px);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   max-width: 208px;
+  flex-grow: 1;
   background: #00324e;
   position: sticky;
   top: 68px;
   z-index: 100;
+
+  @include pad {
+    max-width: 768px;
+    left: 0;
+    right: 0;
+    top: calc(100vh - 60px);
+    position: fixed;
+    height: 60px;
+    flex-direction: row;
+    overflow-x: auto;
+  }
 }
 .menu {
+  @include pad {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
   .text {
     height: 44px;
     color: rgba(255, 255, 255, 0.35);
     font-size: 14px;
     line-height: 44px;
     padding-left: 20px;
+    @include pad {
+      white-space: nowrap;
+    }
   }
   .item {
     .link {
@@ -173,6 +218,9 @@ export default {
       height: 44px;
       color: #fff;
       font-size: 16px;
+      @include pad {
+        white-space: nowrap;
+      }
       img {
         width: 30px;
         height: 30px;
@@ -191,7 +239,7 @@ export default {
     }
   }
 }
-.scrollBlock {
+.root-scrollBlock {
   height: 100%;
   overflow: scroll;
   overflow-x: hidden;
@@ -206,6 +254,14 @@ export default {
   }
   &:hover {
     color: rgba(0, 0, 0, 0.5);
+  }
+  font-size: 16px;
+  @include pad {
+    overflow-x: auto;
+    overflow-y: hidden;
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
   }
 }
 </style>

@@ -3,11 +3,11 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
-const dateFormat = require('dateformat');
+
 
 const User = require('../models/User');
 const Article = require('../models/Article');
-const { route } = require('./board');
+
 
 router.get('/', (req, res) => {
     res.json({ msg: 'user works' });
@@ -16,27 +16,36 @@ router.get('/', (req, res) => {
 
 
 router.post('/register', (req, res) => {
-    // 查詢是否已經註冊過
-    User.findOne({ email: req.body.email })
-        .then((user) => {
-            if (user) { // 如果user存在
-                return res.status.json({ email: "郵件已註冊過" })
-            } else { // 如果user不存在，進行註冊動作
-                const newUser = new User({
-                    name: req.body.name,
-                    email: req.body.email,
-                    password: req.body.password,
-                    sex: req.body.sex,
-                })
 
-                // 加密函式 (使用者密碼, 加鹽次數多越安全相對的加密時間就越長, callback)
-                bcrypt.hash(newUser.password, 10, function (err, hash) {
-                    if (err) throw err
-                    newUser.password = hash  // 將newUser.password 改為加密密碼
-                    newUser.save() // 將資訊存入mongodb
-                        .then(user => res.json('註冊成功!!')) // 成功回傳
-                        .catch(err => console.log(err)) // 錯誤回傳
-                });
+    console.log(req.body);
+    User.findOne({ email: req.body.email, name: req.body.name })
+        .then((user) => {
+            if (user) {
+                return res.json("郵件已註冊過")
+            } else {
+                User.findOne({ name: req.body.name })
+                    .then(userName => {
+                        if (userName) {
+                            return res.json("姓名已註冊過")
+                        } {
+                            const newUser = new User({
+                                name: req.body.name,
+                                email: req.body.email,
+                                password: req.body.password,
+                                sex: req.body.sex,
+                            })
+
+                            // 加密函式 (使用者密碼, 加鹽次數多越安全相對的加密時間就越長, callback)
+                            bcrypt.hash(newUser.password, 10, function (err, hash) {
+                                if (err) throw err
+                                newUser.password = hash
+                                newUser.save()
+                                    .then(user => res.json('註冊成功!'))
+                                    .catch(err => console.log(err))
+                            });
+                        }
+                    })
+
             }
         })
 })
@@ -158,6 +167,7 @@ router.post('/dynamicdata', passport.authenticate('jwt', { session: false }), (r
                 collectArticle: user.collectArticle,
                 loveArticle: user.loveArticle,
                 trackingBoard: user.trackingBoard,
+                loveMessage: user.loveMessage
             }
             )
         })
@@ -219,8 +229,7 @@ router.post('/leave/message', passport.authenticate('jwt', { session: false }), 
 })
 
 router.post('/delete/message', passport.authenticate('jwt', { session: false }), (req, res) => {
-    console.log(req.body.articleId);
-    console.log(req.body.messageId);
+
     Article.updateOne({ _id: req.body.articleId }, {
         $pull: {
             message: {
@@ -232,6 +241,39 @@ router.post('/delete/message', passport.authenticate('jwt', { session: false }),
         Article.findById({ _id: req.body.articleId }, (err, data) => {
             res.json(data.message)
         })
+    })
+})
+
+
+router.post('/love/message', passport.authenticate('jwt', { session: false }), (req, res) => {
+
+    Article.updateOne({ "message._id": req.body.messageId }, { $inc: { "message.$.messageLove": 1 } })
+        .then(result => {
+            console.log(result);
+        })
+    User.updateOne({ _id: req.body.userId }, {
+        $push: {
+            loveMessage: req.body.messageId
+        },
+    }, (err, result) => {
+        if (err) console.log(err);
+        res.json()
+    })
+
+})
+
+router.post('/cancel/love/message', passport.authenticate('jwt', { session: false }), (req, res) => {
+    Article.updateOne({ "message._id": req.body.messageId }, { $inc: { "message.$.messageLove": -1 } })
+        .then(result => {
+            console.log(result);
+        })
+    User.updateOne({ _id: req.body.userId }, {
+        $pull: {
+            loveMessage: req.body.messageId
+        },
+    }, (err, result) => {
+        if (err) console.log(err);
+        res.json()
     })
 })
 

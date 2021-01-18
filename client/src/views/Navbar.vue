@@ -7,10 +7,10 @@
             <Icon name="logo" />
           </router-link>
         </h1>
-        <div class="searchBar">
+        <!-- <div class="searchBar">
           <input type="search" placeholder />
           <button>龍</button>
-        </div>
+        </div> -->
       </div>
       <ul class="block-right">
         <li class="menuItem">
@@ -35,28 +35,28 @@
           <ul class="legal" v-show="open">
             <div class="diamond"></div>
             <li>
-              <a href="">服務條款</a>
+              <a href="#">服務條款</a>
             </li>
             <li>
-              <a href="">常見問題</a>
+              <a href="#">常見問題</a>
             </li>
             <li>
-              <a href="">回報問題</a>
+              <a href="#">回報問題</a>
             </li>
             <li>
-              <a href="">品牌識別</a>
+              <a href="#">品牌識別</a>
             </li>
             <li>
-              <a href="">徵才</a>
+              <a href="#">徵才</a>
             </li>
             <li>
-              <a href="">商業合作</a>
+              <a href="#">商業合作</a>
             </li>
             <li>
-              <a href="">免費下載App</a>
+              <a href="#">免費下載App</a>
             </li>
             <li>
-              <a href="">登出</a>
+              <a href="#" @click="signOut">登出</a>
             </li>
           </ul>
         </li>
@@ -77,6 +77,12 @@ export default {
       open: false,
     };
   },
+  methods: {
+    signOut() {
+      localStorage.removeItem("myToken"); // 清除token
+      this.$router.push("/dcard/forum/usedcard");
+    },
+  },
   computed: {
     getIsAuthenticated() {
       console.log(this.$store.getters.isAuthenticated);
@@ -87,6 +93,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../src/assets/scss/all.scss";
 .navbar {
   width: 100%;
   height: 48px;
@@ -97,6 +104,8 @@ export default {
   right: 0;
   top: 0;
   z-index: 1000;
+  @include pad {
+  }
 }
 .container {
   display: flex;

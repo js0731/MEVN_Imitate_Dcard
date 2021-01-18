@@ -10,15 +10,19 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  position: absolute;
-  top: calc(10% - 20px);
-  right: calc(10% - 50px);
-  width: 100px;
-  height: 40px;
+  /* position: absolute; */
+  position: fixed;
+
+  height: 48px;
+  line-height: 48px;
+  background: #58c476;
+  top: 68px;
+  right: 50px;
   text-align: center;
-  line-height: 40px;
   color: #fff;
-  background: rgba(0, 0, 0, 0.8);
+  text-align: left;
+  padding: 0 10px;
+
   border-radius: 10px;
 }
 </style>

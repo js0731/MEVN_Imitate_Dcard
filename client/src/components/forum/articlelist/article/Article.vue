@@ -17,12 +17,11 @@
         {{ article.love }} ・ 回應 10
       </div>
       <div class="right">
-        <button class="collect" @click.prevent="collectArticle(articleId)">
+        <button class="collect" @click="collectArticle(articleId)">
           <Icon v-if="findCollect(articleId)" name="favorited" />
           <Icon v-else name="favorite" />
-          <!-- <span>收藏</span> -->
         </button>
-        <button class="collect" @click.prevent="loveArticle(articleId)">
+        <button class="collect" @click="loveArticle(articleId)">
           <Icon v-if="findLove(articleId)" name="loved" />
           <Icon v-else name="love" />
         </button>
@@ -39,8 +38,9 @@
             <span class="userPostDate">B1・{{ msg.messageDate }}</span>
           </div>
           <div class="btnGroup">
-            <button class="btn">
-              <Icon name="love" />{{ msg.messageLove }}
+            <button class="btn" @click="loveMessage(msg._id)">
+              <Icon name="loved" v-if="findLoveMessage(msg._id)" />
+              <Icon name="love" v-else />{{ msg.messageLove }}
             </button>
             <button
               class="btn"
@@ -62,9 +62,14 @@
           >回應...</span
         >
       </button>
-
-      <button class="btn"><Icon class="svg" name="love" /></button>
-      <button class="btn"><Icon class="svg" name="favorite" /></button>
+      <button class="btn" @click="collectArticle(articleId)">
+        <Icon class="svg" v-if="findCollect(articleId)" name="favorited" />
+        <Icon class="svg" v-else name="favorite" />
+      </button>
+      <button class="btn" @click="loveArticle(articleId)">
+        <Icon class="svg" v-if="findLove(articleId)" name="loved" />
+        <Icon class="svg" v-else name="love" />
+      </button>
     </div>
 
     <div
@@ -75,7 +80,7 @@
       <div class="postHeader">
         <Icon class="svgSex" name="female" />
         <div class="dummy">
-          <span class="userName">莊家臻</span>
+          <span class="userName"> {{ messageData.messageName }}</span>
           <span class="userPostDate">{{ messageData.messageDate }}</span>
         </div>
         <button class="svgScaling" @click="isScaling = !isScaling">
@@ -109,6 +114,7 @@ export default {
       messages: [],
       isOpenPostBlock: false,
       isScaling: false,
+      isProcessApi: true,
       messageData: {
         messageSex: this.$store.state.userData.sex,
         messageName: this.$store.state.userData.name,
@@ -145,6 +151,46 @@ export default {
         })
         .catch((err) => console.error(err));
     },
+    loveMessage(messageId) {
+      if (this.isProcessApi === false) return;
+      this.isProcessApi = false;
+      if (this.$store.state.loveMessage.map((x) => x).indexOf(messageId) < 0) {
+        this.$axios
+          .post("/api/user/love/message", {
+            messageId: messageId,
+            userId: this.$store.state.userData.id,
+          })
+          .then((res) => {
+            this.$store.state.loveMessage.push(messageId);
+            this.messages.map((x) => {
+              if (x._id === messageId) {
+                x.messageLove += 1;
+              }
+            });
+            this.isProcessApi = true;
+          })
+          .catch((err) => console.error(err));
+      } else {
+        this.$axios
+          .post("/api/user/cancel/love/message", {
+            messageId: messageId,
+            userId: this.$store.state.userData.id,
+          })
+          .then((res) => {
+            this.$store.state.loveMessage.splice(
+              this.$store.state.loveMessage.indexOf(messageId),
+              1
+            );
+            this.messages.map((x) => {
+              if (x._id === messageId) {
+                x.messageLove -= 1;
+              }
+            });
+            this.isProcessApi = true;
+          })
+          .catch((err) => console.error(err));
+      }
+    },
     findCollect(articleId) {
       return (
         this.$store.getters.collectArticle
@@ -159,20 +205,25 @@ export default {
           .indexOf(articleId) >= 0
       );
     },
+    findLoveMessage(messageId) {
+      return (
+        this.$store.state.loveMessage.map((x) => x).indexOf(messageId) >= 0
+      );
+    },
     collectArticle(articleId) {
-      console.log(articleId);
       let collectData = this.$store.getters.collectArticle;
       if (collectData.map((x) => x.collectArticleId).indexOf(articleId) >= 0) {
         this.$store.dispatch("cancelCollect", articleId);
       } else this.$store.dispatch("collectArticle", articleId);
     },
     async loveArticle(articleId) {
-      let loveData = this.$store.getters.loveArticle;
-
+      let loveArticleData = this.$store.getters.loveArticle;
+      console.log(this.isProcessApi);
       if (this.isProcessApi === false) return;
       this.isProcessApi = false;
 
-      if (loveData.map((x) => x.loveArticleId).indexOf(articleId) >= 0) {
+      if (loveArticleData.map((x) => x.loveArticleId).indexOf(articleId) >= 0) {
+        console.log(this.isProcessApi);
         await this.$store.dispatch("cancelLove", articleId);
         this.article.love -= 1;
         this.isProcessApi = true;
@@ -196,7 +247,6 @@ export default {
       )
       .then((res) => {
         this.article = res.data;
-        console.log(this.article.message);
         this.messages = this.article.message;
         // console.log(res.data, this.article);
       })

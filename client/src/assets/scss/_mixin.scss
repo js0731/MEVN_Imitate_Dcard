@@ -1,5 +1,29 @@
-@mixin  img_replace_text {
-    text-indent: 101%;
-    white-space: nowrap;
-    overflow: hidden;
+
+
+@mixin pad {
+    @media  (max-width: 768px) {
+        @content;
+    }
 }
+@mixin phone {
+    @media (max-width: 600px) {
+        @content;
+    }
+}
+
+// @mixin phone600 {
+//     @media (max-width: 600px) {
+//         @content;
+//     }
+// }
+// @mixin phone414 {
+//     @media (max-width: 414px) {
+//         @content;
+//     }
+// }
+
+// @mixin phone320 {
+//     @media (max-width: 320px) {
+//         @content;
+//     }
+// }

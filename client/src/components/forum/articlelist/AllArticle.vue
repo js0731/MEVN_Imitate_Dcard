@@ -201,8 +201,6 @@ export default {
               if (data.length === 0) this.articleEmpty = true;
 
               this.articleData.push(...data);
-
-              console.log(this.boardName);
             })
             .catch((err) => console.log(err));
           this.busy = false;
@@ -238,7 +236,13 @@ export default {
         this.articleData.map((x) => {
           console.log(x._id, articleId);
           if (x._id === articleId) {
-            x.love -= 1;
+            return (x.love -= 1);
+          }
+        });
+        this.latestArticleData.map((x) => {
+          console.log(x._id, articleId);
+          if (x._id === articleId) {
+            return (x.love -= 1);
           }
         });
 
@@ -246,6 +250,12 @@ export default {
       } else {
         await this.$store.dispatch("loveArticle", articleId);
         this.articleData.map((x) => {
+          console.log(x._id, articleId);
+          if (x._id === articleId) {
+            x.love += 1;
+          }
+        });
+        this.latestArticleData.map((x) => {
           console.log(x._id, articleId);
           if (x._id === articleId) {
             x.love += 1;
@@ -300,6 +310,7 @@ export default {
   margin: 0 12px;
   min-height: 0;
   min-width: 0;
+  border-radius: 5px 5px 0 0;
 }
 .boardArticle-header {
   display: flex;
@@ -310,10 +321,21 @@ export default {
   background: #fff;
   position: sticky;
   top: 48px;
+  border-radius: 5px 5px 0 0;
+  @media (max-width: 768px) {
+    padding: 20px 40px 0px;
+  }
+  @media (max-width: 767px) {
+    padding: 20px 30px 0px;
+  }
+  @media (max-width: 414px) {
+    padding: 20px 15px 0px;
+  }
   .header-topBar {
     height: 60px;
     display: flex;
     align-items: center;
+
     img {
       width: 40px;
       height: 40px;
@@ -369,6 +391,15 @@ export default {
     display: flex;
     width: 100%;
     padding: 0 40px;
+    @media (max-width: 768px) {
+      padding: 0 20px;
+    }
+    @media (max-width: 767px) {
+      padding: 0 10px;
+    }
+    @media (max-width: 414px) {
+      padding: 0px;
+    }
     .article-articleLink {
       width: 100%;
       padding: 20px;
@@ -401,11 +432,8 @@ export default {
     max-width: 504px;
     display: flex;
     flex-direction: column;
-    min-height: 0;
     min-width: 0;
     .left-content {
-      min-height: 0;
-      min-width: 0;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
@@ -433,9 +461,6 @@ export default {
         margin-right: 16px;
         background: none;
         padding: 0;
-        &:hover {
-          background: red;
-        }
         span {
           color: rgba(0, 0, 0, 0.35);
           font-size: 14px;
