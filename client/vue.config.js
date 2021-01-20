@@ -1,6 +1,7 @@
 
 module.exports = {
     publicPath: './',
+    // NODE_ENV: '"production"',
     devServer: {
         open: true,
         host: 'localhost',

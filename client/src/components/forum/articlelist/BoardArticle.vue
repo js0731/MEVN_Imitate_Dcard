@@ -253,8 +253,8 @@ export default {
         await setTimeout(async () => {
           await this.$axios
             .get(
-              // `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/${this.latestArticleData.length}`
-              `/api/board/${this.$route.params.boardPath}/${this.articleData.length}`
+              `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/${this.latestArticleData.length}`
+              // `/api/board/${this.$route.params.boardPath}/${this.articleData.length}`
             )
             .then((res) => {
               data = res.data.articleData;
