@@ -139,7 +139,10 @@ export default {
         return;
       }
       this.$axios
-        .post("/api/user/addarticle", newArticle)
+        .post(
+          "https://protected-garden-60426.herokuapp.com/user/addarticle",
+          newArticle
+        )
         .then((res) => this.$toast("新增文章成功"))
         .catch((err) => console.error(err));
       newArticle.title = "";
