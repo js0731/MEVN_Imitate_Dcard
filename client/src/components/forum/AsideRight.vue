@@ -19,6 +19,8 @@
           <router-link class="item-link link" to="/dcard/forum/frontend">
             <img src="../.././assets/img/frontend.jpg" alt="" />
             前端工程師
+            <!-- <img src="https://js0731.github.io/MEVN_Imitate_Dcard/client/dist/img/frontend.25acf3b4.jpg" alt="" />
+            前端工程師 -->
           </router-link>
         </li>
         <li class="menu-item item">

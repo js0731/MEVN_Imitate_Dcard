@@ -8,6 +8,12 @@
     <img class="boardArticle-banner" src="http://fakeimg.pl/728x242/" />
     <div class="boardArticle-header">
       <div class="header-topBar">
+        <!-- <img
+          :src="
+            require(`https://js0731.github.io/MEVN_Imitate_Dcard/client/dist/img/${this.$route.params.boardPath}.jpg`)
+          "
+          alt
+        /> -->
         <img
           :src="
             require(`../../../assets/img/${this.$route.params.boardPath}.jpg`)
@@ -247,6 +253,7 @@ export default {
         await setTimeout(async () => {
           await this.$axios
             .get(
+              // `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/${this.latestArticleData.length}`
               `/api/board/${this.$route.params.boardPath}/${this.articleData.length}`
             )
             .then((res) => {

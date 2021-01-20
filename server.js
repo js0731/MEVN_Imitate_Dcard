@@ -5,9 +5,19 @@ const mongoose = require('mongoose');
 require('dotenv').config()
 const bodyParser = require('body-parser')
 const passport = require('passport');
+const cors = require('cors');
 
 const user = require('./routes/user');
 const board = require('./routes/board');
+
+
+app.use(
+    cors({
+        origin: 'https://js0731.github.io',
+        methods: ['GET', 'POST'],
+        credentials: true,
+    })
+);
 
 mongoose.connect(process.env.MONGODBURL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Mongodb Connected'))
