@@ -55,7 +55,10 @@ export default {
     submitLoginForm() {
       const loginUserData = this.loginUser;
       this.$axios
-        .post("/api/user/login", loginUserData)
+        .post(
+          "https://protected-garden-60426.herokuapp.com/user/login",
+          loginUserData
+        )
 
         .then((res) => {
           // 取出token

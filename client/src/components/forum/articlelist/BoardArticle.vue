@@ -228,7 +228,10 @@ export default {
       };
       if (this.$store.getters.trackingBoard.includes(this.boardName)) {
         this.$axios
-          .post("/api/user/cancel/tracking/board", data)
+          .post(
+            "https://protected-garden-60426.herokuapp.com/user/cancel/tracking/board",
+            data
+          )
           .then((res) => {
             console.log(this.$store.state.trackingBoard);
             this.$store.state.trackingBoard = res.data;
@@ -237,7 +240,10 @@ export default {
           .catch((err) => console.log(err));
       } else {
         this.$axios
-          .post("/api/user/tracking/board", data)
+          .post(
+            "https://protected-garden-60426.herokuapp.com/user/tracking/board",
+            data
+          )
           .then((res) => {
             console.log(this.$store.state.trackingBoard);
             this.$store.state.trackingBoard = res.data;
@@ -272,7 +278,7 @@ export default {
         await setTimeout(async () => {
           await this.$axios
             .get(
-              `/api/board/${this.$route.params.boardPath}/latest/${this.latestArticleData.length}`
+              `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/latest/${this.latestArticleData.length}`
             )
             .then((res) => {
               data = res.data.articleData;
@@ -344,7 +350,7 @@ export default {
       console.log(this.articleData.length);
       await this.$axios
         .get(
-          `/api/board/${this.$route.params.boardPath}/${this.articleData.length}`
+          `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/${this.articleData.length}`
         )
         .then((res) => {
           data = res.data.articleData;
