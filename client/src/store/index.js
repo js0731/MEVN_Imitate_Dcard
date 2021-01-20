@@ -68,7 +68,7 @@ const actions = {
 
   },
   storeUserDynamicData: ({ commit }, userId) => {
-    axios.post('/api/user/dynamicData', userId)
+    axios.post('https://protected-garden-60426.herokuapp.com/user/dynamicData', userId)
       .then(res => {
 
         commit('SET_COLLECT_DATA', res.data.collectArticle);
@@ -83,7 +83,7 @@ const actions = {
       articleId: articleId,
       userId: state.userData.id
     }
-    axios.post('/api/user/collectarticle', data)
+    axios.post('https://protected-garden-60426.herokuapp.com/user/collectarticle', data)
       .then(res => {
         console.log(res, res.data);
         commit('PUSH_COLLECT_DATA', res.data)
@@ -95,7 +95,7 @@ const actions = {
       articleId: articleId,
       userId: state.userData.id
     }
-    axios.post('/api/user/cancelCollect', data)
+    axios.post('https://protected-garden-60426.herokuapp.com/user/cancelCollect', data)
       .then(res => {
         console.log(res.data);
         commit('SET_COLLECT_DATA', res.data)
@@ -109,7 +109,7 @@ const actions = {
       articleId: articleId,
       userId: state.userData.id
     }
-    await axios.post("/api/user/love/article", data)
+    await axios.post("https://protected-garden-60426.herokuapp.com/user/love/article", data)
       .then((res) => {
         commit('PUSH_LOVE_DATA', res.data)
 
@@ -122,7 +122,7 @@ const actions = {
       userId: state.userData.id
     }
 
-    await axios.post("/api/user/cancel/love/article", data)
+    await axios.post("https://protected-garden-60426.herokuapp.com/user/cancel/love/article", data)
       .then((res) => {
         commit('DELETE_LOVE_DATA', res.data);
 
