@@ -58,7 +58,7 @@ router.post('/login', (req, res) => {
     User.findOne({ email: req.body.email })
         .then(user => {
             if (!user) {
-                return res.status(404).json({ email: "email不存在" })
+                return res.json('郵箱錯誤')
             }
             // 驗證加密密碼 (使用者輸入的密碼,  資料庫內的bcrypt密碼, callback)
             bcrypt.compare(req.body.password, user.password, (err, result) => {
@@ -82,7 +82,7 @@ router.post('/login', (req, res) => {
                     })
                 } else {  // 密碼比對為 false
                     console.log(err);
-                    return res.status(400).json({ password: '密碼錯誤' })
+                    return res.json('密碼錯誤')
                 }
             });
         })

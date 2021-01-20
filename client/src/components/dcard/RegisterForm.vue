@@ -101,13 +101,9 @@ export default {
         .then((res) => {
           console.log(res);
           this.$toast(res.data);
-
           if (res.data === "註冊成功!") {
             this.$emit("toggleLogin");
           }
-          console.log(res.statu);
-
-          this.$loading(false);
         })
         .catch((err) => {
           console.error(err);

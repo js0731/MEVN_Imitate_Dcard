@@ -61,6 +61,10 @@ export default {
         )
 
         .then((res) => {
+          console.log(res.data);
+          if (res.data === "郵箱錯誤" || "密碼錯誤") {
+            return this.$toast(res.data);
+          }
           // 取出token
           const { token } = res.data;
           // 存儲到 localStorage
