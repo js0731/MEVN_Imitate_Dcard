@@ -56,15 +56,15 @@ export default {
       const loginUserData = this.loginUser;
       this.$axios
         .post(
-          "https://protected-garden-60426.herokuapp.com/user/login",
+          // "https://protected-garden-60426.herokuapp.com/user/login",
+          "/api/user/login",
           loginUserData
         )
 
         .then((res) => {
-          console.log(res.data);
-          if (res.data === "郵箱錯誤" || "密碼錯誤") {
-            console.log(res.data);
-            return this.$toast(res.data);
+          console.log(res);
+          if (!res.data.success) {
+            return this.$toast(res.data.message);
           }
           // 取出token
           const { token } = res.data;
@@ -75,7 +75,6 @@ export default {
           this.$store.dispatch("setAuthenticated", !this.isEmpty(decoded));
           this.$store.dispatch("storeUserData", decoded);
           this.$router.push("/dcard/forum/all");
-          // this.$toast("0....0");
         })
         .catch((err) => {
           console.log(err);

@@ -14,7 +14,7 @@
     <div class="status">
       <div class="left">
         <img class="love" src="../../../../assets/img/love.jpg" alt="" />
-        {{ article.love }} ・ 回應 10
+        {{ article.love }} ・ 回應 {{ messages.length }}
       </div>
       <div class="right">
         <button class="collect" @click="collectArticle(articleId)">
@@ -131,7 +131,8 @@ export default {
     addMessage() {
       this.$axios
         .post(
-          "https://protected-garden-60426.herokuapp.com/user/leave/message",
+          // "https://protected-garden-60426.herokuapp.com/user/leave/message",
+          "/api/user/leave/message",
           {
             articleId: this.$route.params.id,
             messageData: this.messageData,
@@ -146,7 +147,8 @@ export default {
     deleteMessage(messageId) {
       this.$axios
         .post(
-          "https://protected-garden-60426.herokuapp.com/user/delete/message",
+          // "https://protected-garden-60426.herokuapp.com/user/delete/message",
+          "/api/user/delete/message",
           {
             articleId: this.$route.params.id,
             messageId: messageId,
@@ -163,7 +165,8 @@ export default {
       if (this.$store.state.loveMessage.map((x) => x).indexOf(messageId) < 0) {
         this.$axios
           .post(
-            "https://protected-garden-60426.herokuapp.com/user/love/message",
+            // "https://protected-garden-60426.herokuapp.com/user/love/message",
+            "/api/user/love/message",
             {
               messageId: messageId,
               userId: this.$store.state.userData.id,
@@ -182,7 +185,8 @@ export default {
       } else {
         this.$axios
           .post(
-            "https://protected-garden-60426.herokuapp.com/user/cancel/love/message",
+            // "https://protected-garden-60426.herokuapp.com/user/cancel/love/message",
+            "/api/user/cancel/love/message",
             {
               messageId: messageId,
               userId: this.$store.state.userData.id,
@@ -255,7 +259,8 @@ export default {
     this.articleId = this.$route.params.id;
     this.$axios
       .get(
-        `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/article/${this.$route.params.id}`
+        // `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/article/${this.$route.params.id}`
+        `/api/board/${this.$route.params.boardPath}/article/${this.$route.params.id}`
       )
       .then((res) => {
         this.article = res.data;

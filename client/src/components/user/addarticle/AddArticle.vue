@@ -140,7 +140,8 @@ export default {
       }
       this.$axios
         .post(
-          "https://protected-garden-60426.herokuapp.com/user/addarticle",
+          // "https://protected-garden-60426.herokuapp.com/user/addarticle",
+          "/api/user/addarticle",
           newArticle
         )
         .then((res) => this.$toast("新增文章成功"))

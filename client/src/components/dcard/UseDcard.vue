@@ -1,14 +1,14 @@
 <template>
-  <div class="frame">
+  <div class="usedcard-root">
     <button
-      class="btn-account"
+      class="usedcard-btn"
       @click="toggle = true"
       :class="{ btnActive: toggle }"
     >
       註冊
     </button>
     <button
-      class="btn-account"
+      class="usedcard-btn"
       @click="toggle = false"
       :class="{ btnActive: !toggle }"
     >
@@ -19,7 +19,7 @@
       <LoginForm v-else />
     </keep-alive>
 
-    <span class="text-protocol">註冊/登入即代表您同意遵守 Dcard 使用協議</span>
+    <span class="usedcard-protocol">本網站模仿</span>
   </div>
 </template>
 
@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.frame {
+.usedcard-root {
   width: 450px;
   display: flex;
   flex-wrap: wrap;
@@ -60,7 +60,21 @@ export default {
   left: 50%;
   padding: 25px 50px;
   border-radius: 5px;
-  .btn-account {
+
+  @media (max-width: 768px) {
+    width: 400px;
+    padding: 20px 40px;
+  }
+  @media (max-width: 767px) {
+    width: 350px;
+    padding: 20px 30px;
+    margin-top: 25px;
+  }
+  @media (max-width: 414px) {
+    width: 300px;
+    padding: 20px 30px;
+  }
+  .usedcard-btn {
     width: 45%;
     height: 48px;
     margin-bottom: 20px;
@@ -145,7 +159,7 @@ export default {
     color: #fff;
     background: rgb(51, 151, 207);
   }
-  .text-protocol {
+  .usedcard-protocol {
     color: rgba(0, 0, 0, 0.35);
     margin: 0 auto;
   }

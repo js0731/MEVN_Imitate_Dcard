@@ -68,9 +68,11 @@ const actions = {
 
   },
   storeUserDynamicData: ({ commit }, userId) => {
-    axios.post('https://protected-garden-60426.herokuapp.com/user/dynamicData', userId)
+    axios.post(
+      // 'https://protected-garden-60426.herokuapp.com/user/dynamicData'
+      '/api/user/dynamicData'
+      , userId)
       .then(res => {
-
         commit('SET_COLLECT_DATA', res.data.collectArticle);
         commit('SET_LOVE_DATA', res.data.loveArticle);
         commit('SET_LOVE_MESSAGE_DATA', res.data.loveMessage)
@@ -83,7 +85,10 @@ const actions = {
       articleId: articleId,
       userId: state.userData.id
     }
-    axios.post('https://protected-garden-60426.herokuapp.com/user/collectarticle', data)
+    axios.post(
+      // 'https://protected-garden-60426.herokuapp.com/user/collectarticle',
+      '/api/user/collectarticle',
+      data)
       .then(res => {
         console.log(res, res.data);
         commit('PUSH_COLLECT_DATA', res.data)
@@ -95,7 +100,11 @@ const actions = {
       articleId: articleId,
       userId: state.userData.id
     }
-    axios.post('https://protected-garden-60426.herokuapp.com/user/cancelCollect', data)
+    axios.post(
+      // 'https://protected-garden-60426.herokuapp.com/user/cancelCollect',
+      '/api/user/cancelCollect',
+      data)
+
       .then(res => {
         console.log(res.data);
         commit('SET_COLLECT_DATA', res.data)
@@ -109,7 +118,10 @@ const actions = {
       articleId: articleId,
       userId: state.userData.id
     }
-    await axios.post("https://protected-garden-60426.herokuapp.com/user/love/article", data)
+    await axios.post(
+      // "https://protected-garden-60426.herokuapp.com/user/love/article"
+      "/api/user/love/article",
+      data)
       .then((res) => {
         commit('PUSH_LOVE_DATA', res.data)
 
@@ -122,7 +134,9 @@ const actions = {
       userId: state.userData.id
     }
 
-    await axios.post("https://protected-garden-60426.herokuapp.com/user/cancel/love/article", data)
+    await axios.post(
+      // "https://protected-garden-60426.herokuapp.com/user/cancel/love/article",
+      "/api/user/cancel/love/article", data)
       .then((res) => {
         commit('DELETE_LOVE_DATA', res.data);
 

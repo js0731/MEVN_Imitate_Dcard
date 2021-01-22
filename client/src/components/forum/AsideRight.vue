@@ -1,15 +1,15 @@
 <template>
   <aside class="asideRight-root">
-    <!-- <ul class="root-menu menu">
-      <li class="menu-item item">
+    <ul class="root-menuFixed menu">
+      <li class="menuFixed-item item">
         <router-link class="item-link link" to="/dcard/forum/all">
           <Icon name="allBoard" />所有看板
         </router-link>
       </li>
-    </ul> -->
+    </ul>
     <div class="root-scrollBlock">
       <ul class="scrollBlock-menu menu">
-        <li class="menu-item item">
+        <li class="menu-item item hidden">
           <router-link class="item-link link" to="/dcard/forum/all">
             <Icon name="allBoard" />所有看板
           </router-link>
@@ -55,103 +55,253 @@
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
         </li>
         <li class="menu-item item">
-          <router-link class="item-link link" to="/dcard">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
+            <img src="http://fakeimg.pl/30x30/" alt="" />
+            尚未增加
+          </router-link>
+        </li>
+        <li class="menu-item item">
+          <router-link class="item-link link" to="#">
             <img src="http://fakeimg.pl/30x30/" alt="" />
             尚未增加
           </router-link>
@@ -196,6 +346,13 @@ export default {
     overflow-x: auto;
   }
 }
+.menuFixed-item {
+  display: block;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
 .menu {
   @include pad {
     height: 100%;
@@ -209,6 +366,7 @@ export default {
     line-height: 44px;
     padding-left: 20px;
     @include pad {
+      padding: 0 20px;
       white-space: nowrap;
     }
   }
@@ -221,6 +379,7 @@ export default {
       color: #fff;
       font-size: 16px;
       @include pad {
+        padding: 0 20px;
         white-space: nowrap;
       }
       img {
@@ -264,6 +423,12 @@ export default {
     &::-webkit-scrollbar {
       height: 6px;
     }
+  }
+}
+.hidden {
+  display: none;
+  @include pad {
+    display: block;
   }
 }
 </style>

@@ -95,7 +95,8 @@ export default {
       const userDate = this.registerUser;
       this.$axios
         .post(
-          "https://protected-garden-60426.herokuapp.com/user/register",
+          // "https://protected-garden-60426.herokuapp.com/user/register",
+          "/api/user/register",
           userDate
         ) // 跨域路由加上'/api'
         .then((res) => {

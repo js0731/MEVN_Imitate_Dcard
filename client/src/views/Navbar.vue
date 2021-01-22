@@ -85,7 +85,6 @@ export default {
   },
   computed: {
     getIsAuthenticated() {
-      console.log(this.$store.getters.isAuthenticated);
       return this.$store.getters.isAuthenticated;
     },
   },
@@ -96,7 +95,7 @@ export default {
 @import "../../src/assets/scss/all.scss";
 .navbar {
   width: 100%;
-  height: 48px;
+  height: 47px;
   background: #006aa6;
   display: flex;
   position: fixed;
@@ -104,8 +103,6 @@ export default {
   right: 0;
   top: 0;
   z-index: 1000;
-  @include pad {
-  }
 }
 .container {
   display: flex;
@@ -164,7 +161,7 @@ export default {
         background: #fff;
         width: 160px;
         filter: drop-shadow(rgba(0, 0, 0, 0.1) 0px 3px 12px);
-        left: calc((160px / -2) + 14px);
+        left: calc((160px / -2) - 39px);
         right: 0;
         border-radius: 10px;
         padding: 6px 0;
@@ -172,9 +169,9 @@ export default {
           background: #fff;
           position: absolute;
           left: 0;
-          right: 0;
+          right: -106px;
           margin: 0 auto;
-          top: -10px;
+          top: -5px;
           width: 20px;
           height: 20px;
           transform: rotate(45deg);

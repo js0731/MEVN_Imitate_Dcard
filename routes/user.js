@@ -58,7 +58,7 @@ router.post('/login', (req, res) => {
     User.findOne({ email: req.body.email })
         .then(user => {
             if (!user) {
-                return res.json('郵箱錯誤')
+                return res.json({ success: false, message: '郵箱錯誤' })
             }
             // 驗證加密密碼 (使用者輸入的密碼,  資料庫內的bcrypt密碼, callback)
             bcrypt.compare(req.body.password, user.password, (err, result) => {
@@ -82,7 +82,7 @@ router.post('/login', (req, res) => {
                     })
                 } else {  // 密碼比對為 false
                     console.log(err);
-                    return res.json('密碼錯誤')
+                    return res.json({ success: false, message: '密碼錯誤' })
                 }
             });
         })
@@ -163,6 +163,7 @@ router.get('/information/:id', passport.authenticate('jwt', { session: false }),
 router.post('/dynamicdata', passport.authenticate('jwt', { session: false }), (req, res) => {
     User.findById({ _id: req.body.userId })
         .then(user => {
+            console.log(user.name);
             res.json({
                 collectArticle: user.collectArticle,
                 loveArticle: user.loveArticle,

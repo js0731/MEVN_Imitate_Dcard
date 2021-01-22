@@ -48,9 +48,8 @@
         <li
           :class="{ active: sortArticleList === 'latest' }"
           @click="
-            loadMore();
             sortArticleList = 'latest';
-            articleEmpty = false;
+            loadMore();
           "
         >
           最新
@@ -96,11 +95,14 @@
                   <Icon v-else name="love" />
                   <span>{{ art.love }}</span>
                 </button>
+                <span class="status-replyNum"
+                  >回應 {{ art.message.length }}</span
+                >
               </div>
             </div>
             <div class="block-right">
               <div class="pic">
-                <img :src="art.img" alt />
+                <img src="http://fakeimg.pl/84x84/" alt />
               </div>
             </div>
           </div>
@@ -146,30 +148,39 @@
                   <Icon v-else name="love" />
                   <span>{{ art.love }}</span>
                 </button>
+                <span class="status-replyNum">
+                  回應 {{ art.message.length }}
+                </span>
               </div>
             </div>
             <div class="block-right">
               <div class="pic">
-                <img :src="art.img" alt />
+                <img src="http://fakeimg.pl/84x84/" alt />
               </div>
             </div>
           </div>
         </router-link>
       </article>
     </div>
-    <div v-if="articleEmpty === true" class="noarticle">沒有更多文章了!</div>
+    <div v-if="sortArticleList === 'hot' && hotArticleEmpty" class="noarticle">
+      沒有更多文章了!
+    </div>
+    <div
+      v-if="sortArticleList === 'latest' && latestArticleEmpty"
+      class="noarticle"
+    >
+      沒有更多文章了!
+    </div>
   </div>
 </template>
 
 <script>
 import LoginFormVue from "../../dcard/LoginForm.vue";
 import Icon from "../../Icon";
-import BoardBar from "./BoardBar";
 import dateFormat from "dateformat";
 export default {
   components: {
     Icon,
-    BoardBar,
   },
   data() {
     return {
@@ -177,9 +188,9 @@ export default {
       latestArticleData: [],
       boardName: "",
       busy: false,
-
       isProcessApi: true,
-      articleEmpty: false,
+      hotArticleEmpty: false,
+      latestArticleEmpty: false,
       sortArticleList: "hot",
     };
   },
@@ -229,7 +240,8 @@ export default {
       if (this.$store.getters.trackingBoard.includes(this.boardName)) {
         this.$axios
           .post(
-            "https://protected-garden-60426.herokuapp.com/user/cancel/tracking/board",
+            // "https://protected-garden-60426.herokuapp.com/user/cancel/tracking/board",
+            "/api/user/cancel/tracking/board",
             data
           )
           .then((res) => {
@@ -241,7 +253,8 @@ export default {
       } else {
         this.$axios
           .post(
-            "https://protected-garden-60426.herokuapp.com/user/tracking/board",
+            // "https://protected-garden-60426.herokuapp.com/user/tracking/board",
+            "/api/user/tracking/board",
             data
           )
           .then((res) => {
@@ -256,33 +269,33 @@ export default {
       this.busy = true;
       let data;
       if (this.sortArticleList === "hot") {
+        if (this.hotArticleEmpty) return (this.busy = false);
         await setTimeout(async () => {
           await this.$axios
             .get(
-              `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/${this.latestArticleData.length}`
-              // `/api/board/${this.$route.params.boardPath}/${this.articleData.length}`
+              // `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/${this.latestArticleData.length}`
+              `/api/board/${this.$route.params.boardPath}/${this.articleData.length}`
             )
             .then((res) => {
               data = res.data.articleData;
-              if (data.length === 0) this.articleEmpty = true;
-
+              if (data.length === 0) return (this.hotArticleEmpty = true);
               this.articleData.push(...data);
               this.boardName = this.articleData[0].selectedBoard;
-              console.log(this.boardName);
-              console.log(this.articleData[0].selectedBoard);
             })
             .catch((err) => console.log(err));
           this.busy = false;
         }, 500);
       } else if (this.sortArticleList === "latest") {
+        if (this.latestArticleEmpty) return (this.busy = false);
         await setTimeout(async () => {
           await this.$axios
             .get(
-              `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/latest/${this.latestArticleData.length}`
+              // `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/latest/${this.latestArticleData.length}`
+              `/api/board/${this.$route.params.boardPath}/latest/${this.latestArticleData.length}`
             )
             .then((res) => {
               data = res.data.articleData;
-              if (data.length === 0) this.articleEmpty = true;
+              if (data.length === 0) this.latestArticleEmpty = true;
               this.latestArticleData.push(...data);
             })
             .catch((err) => console.log(err));
@@ -343,14 +356,14 @@ export default {
     $route: async function () {
       this.articleData = [];
       this.latestArticleData = [];
-      this.articleEmpty = false;
       this.sortArticleList = "hot";
       this.busy = true;
       let data;
       console.log(this.articleData.length);
       await this.$axios
         .get(
-          `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/${this.articleData.length}`
+          // `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/${this.articleData.length}`
+          `/api/board/${this.$route.params.boardPath}/${this.articleData.length}`
         )
         .then((res) => {
           data = res.data.articleData;
@@ -542,24 +555,27 @@ export default {
           font-size: 14px;
         }
       }
+      .status-replyNum {
+        display: flex;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.35);
+        font-size: 14px;
+      }
     }
   }
   .block-right {
     align-self: flex-start;
     .pic {
       margin-left: 20px;
-      img {
-        width: 84px;
-        height: 84px;
-      }
     }
   }
 }
 
-/* .active {
+.active {
   color: black;
   border-bottom: 2px solid rgb(51, 151, 207);
 }
+
 .noarticle {
   height: 120px;
   display: flex;
@@ -567,5 +583,5 @@ export default {
   align-items: center;
   color: rgba(0, 0, 0, 0.35);
   font-size: 14px;
-} */
+}
 </style>

@@ -108,7 +108,8 @@ export default {
     let userId = { userId: this.$store.state.userData.id };
     this.$axios
       .post(
-        "https://protected-garden-60426.herokuapp.com/user/collect/article/data",
+        // "https://protected-garden-60426.herokuapp.com/user/collect/article/data",
+        "/api/user/collect/article/data",
         userId
       )
       .then((res) => {
