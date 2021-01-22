@@ -10,7 +10,7 @@ const state = {
   collectArticle: [],
   loveArticle: [],
   loveMessage: [],
-  trackingBoard: []
+  trackingBoard: [],
 }
 
 //假設期望得到的數據,是基於this.$store.state.name 上""經過複雜計算""得來的,而這個getName要在好多個地方使用,那麼我們就得複制好幾份.
@@ -69,8 +69,7 @@ const actions = {
   },
   storeUserDynamicData: ({ commit }, userId) => {
     axios.post(
-      // 'https://protected-garden-60426.herokuapp.com/user/dynamicData'
-      '/api/user/dynamicData'
+      `${process.env.VUE_APP_API}/user/dynamicData`
       , userId)
       .then(res => {
         commit('SET_COLLECT_DATA', res.data.collectArticle);
@@ -86,9 +85,7 @@ const actions = {
       userId: state.userData.id
     }
     axios.post(
-      // 'https://protected-garden-60426.herokuapp.com/user/collectarticle',
-      '/api/user/collectarticle',
-      data)
+      `${process.env.VUE_APP_API}/user/collectarticle`, data)
       .then(res => {
         console.log(res, res.data);
         commit('PUSH_COLLECT_DATA', res.data)
@@ -100,11 +97,7 @@ const actions = {
       articleId: articleId,
       userId: state.userData.id
     }
-    axios.post(
-      // 'https://protected-garden-60426.herokuapp.com/user/cancelCollect',
-      '/api/user/cancelCollect',
-      data)
-
+    axios.post(`${process.env.VUE_APP_API}/user/cancelCollect`, data)
       .then(res => {
         console.log(res.data);
         commit('SET_COLLECT_DATA', res.data)
@@ -118,10 +111,7 @@ const actions = {
       articleId: articleId,
       userId: state.userData.id
     }
-    await axios.post(
-      // "https://protected-garden-60426.herokuapp.com/user/love/article"
-      "/api/user/love/article",
-      data)
+    await axios.post(`${process.env.VUE_APP_API}/user/love/article`, data)
       .then((res) => {
         commit('PUSH_LOVE_DATA', res.data)
 
@@ -134,9 +124,7 @@ const actions = {
       userId: state.userData.id
     }
 
-    await axios.post(
-      // "https://protected-garden-60426.herokuapp.com/user/cancel/love/article",
-      "/api/user/cancel/love/article", data)
+    await axios.post(`${process.env.VUE_APP_API}/user/cancel/love/article`, data)
       .then((res) => {
         commit('DELETE_LOVE_DATA', res.data);
 

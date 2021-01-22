@@ -130,14 +130,10 @@ export default {
   methods: {
     addMessage() {
       this.$axios
-        .post(
-          "https://protected-garden-60426.herokuapp.com/user/leave/message",
-          // "/api/user/leave/message",
-          {
-            articleId: this.$route.params.id,
-            messageData: this.messageData,
-          }
-        )
+        .post(`${process.env.VUE_APP_API}/user/leave/message`, {
+          articleId: this.$route.params.id,
+          messageData: this.messageData,
+        })
         .then((res) => {
           this.messages = res.data;
         })
@@ -146,14 +142,10 @@ export default {
     },
     deleteMessage(messageId) {
       this.$axios
-        .post(
-          "https://protected-garden-60426.herokuapp.com/user/delete/message",
-          // "/api/user/delete/message",
-          {
-            articleId: this.$route.params.id,
-            messageId: messageId,
-          }
-        )
+        .post(`${process.env.VUE_APP_API}/user/delete/message`, {
+          articleId: this.$route.params.id,
+          messageId: messageId,
+        })
         .then((res) => {
           this.messages = res.data;
         })
@@ -165,7 +157,7 @@ export default {
       if (this.$store.state.loveMessage.map((x) => x).indexOf(messageId) < 0) {
         this.$axios
           .post(
-            "https://protected-garden-60426.herokuapp.com/user/love/message",
+            `${process.env.VUE_APP_API}/user/love/message`,
             // "/api/user/love/message",
             {
               messageId: messageId,
@@ -184,14 +176,10 @@ export default {
           .catch((err) => console.error(err));
       } else {
         this.$axios
-          .post(
-            "https://protected-garden-60426.herokuapp.com/user/cancel/love/message",
-            // "/api/user/cancel/love/message",
-            {
-              messageId: messageId,
-              userId: this.$store.state.userData.id,
-            }
-          )
+          .post(`${process.env.VUE_APP_API}/user/cancel/love/message`, {
+            messageId: messageId,
+            userId: this.$store.state.userData.id,
+          })
           .then((res) => {
             this.$store.state.loveMessage.splice(
               this.$store.state.loveMessage.indexOf(messageId),
@@ -255,13 +243,10 @@ export default {
     },
   },
   created() {
-    console.log(process.env.LOCALAPI);
-    console.log(process.env.HEROKUAPI);
     this.articleId = this.$route.params.id;
     this.$axios
       .get(
-        `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/article/${this.$route.params.id}`
-        // `/api/board/${this.$route.params.boardPath}/article/${this.$route.params.id}`
+        `${process.env.VUE_APP_API}/board/${this.$route.params.boardPath}/article/${this.$route.params.id}`
       )
       .then((res) => {
         this.article = res.data;

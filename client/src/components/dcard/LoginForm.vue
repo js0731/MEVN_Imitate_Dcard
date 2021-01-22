@@ -55,11 +55,7 @@ export default {
     submitLoginForm() {
       const loginUserData = this.loginUser;
       this.$axios
-        .post(
-          // "https://protected-garden-60426.herokuapp.com/user/login",
-          "/api/user/login",
-          loginUserData
-        )
+        .post(`${process.env.VUE_APP_API}/user/login`, loginUserData)
 
         .then((res) => {
           console.log(res);

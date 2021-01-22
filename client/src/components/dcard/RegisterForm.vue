@@ -94,11 +94,7 @@ export default {
     submitRegisterForm() {
       const userDate = this.registerUser;
       this.$axios
-        .post(
-          // "https://protected-garden-60426.herokuapp.com/user/register",
-          "/api/user/register",
-          userDate
-        ) // 跨域路由加上'/api'
+        .post(`${process.env.VUE_APP_API}/user/register`, userDate) // 跨域路由加上'/api'
         .then((res) => {
           console.log(res);
           this.$toast(res.data);

@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios';
 import '../src/assets/scss/all.scss'
-import toastRegister from './components/toast.js'
+import toastRegister from './components/module/toast/toast.js'
 import loadingRegister from './utils/loading/loading.js'
 import infiniteScroll from 'vue-infinite-scroll'
 

@@ -184,11 +184,7 @@ export default {
       };
       if (this.$store.getters.trackingBoard.includes(this.boardName)) {
         this.$axios
-          .post(
-            "https://protected-garden-60426.herokuapp.com/user/cancel/tracking/board",
-            // "/api/user/cancel/tracking/board",
-            data
-          )
+          .post(`${process.env.VUE_APP_API}/user/cancel/tracking/board`, data)
           .then((res) => {
             console.log(this.$store.state.trackingBoard);
             this.$store.state.trackingBoard = res.data;
@@ -197,11 +193,7 @@ export default {
           .catch((err) => console.log(err));
       } else {
         this.$axios
-          .post(
-            "https://protected-garden-60426.herokuapp.com/user/tracking/board",
-            // "/api/user/tracking/board",
-            data
-          )
+          .post(`${process.env.VUE_APP_API}/user/tracking/board`, data)
           .then((res) => {
             console.log(this.$store.state.trackingBoard);
             this.$store.state.trackingBoard = res.data;
@@ -258,7 +250,7 @@ export default {
         await setTimeout(async () => {
           await this.$axios
             .get(
-              `https://protected-garden-60426.herokuapp.com/board/all/${this.articleData.length}`
+              `${process.env.VUE_APP_API}/board/all/${this.articleData.length}`
               // `/api/board/all/${this.articleData.length}`
             )
             .then((res) => {
@@ -277,7 +269,7 @@ export default {
         await setTimeout(async () => {
           await this.$axios
             .get(
-              `https://protected-garden-60426.herokuapp.com/board/all/latest/${this.latestArticleData.length}`
+              `${process.env.VUE_APP_API}/board/all/latest/${this.latestArticleData.length}`
               // `/api/board/all/latest/${this.latestArticleData.length}`
             )
             .then((res) => {
@@ -349,7 +341,7 @@ export default {
       console.log(this.articleData.length);
       await this.$axios
         .get(
-          `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/${this.articleData.length}`
+          `${process.env.VUE_APP_API}/${this.$route.params.boardPath}/${this.articleData.length}`
           // `api/board/${this.$route.params.boardPath}/${this.articleData.length}`
         )
         .then((res) => {
