@@ -240,8 +240,8 @@ export default {
       if (this.$store.getters.trackingBoard.includes(this.boardName)) {
         this.$axios
           .post(
-            // "https://protected-garden-60426.herokuapp.com/user/cancel/tracking/board",
-            "/api/user/cancel/tracking/board",
+            "https://protected-garden-60426.herokuapp.com/user/cancel/tracking/board",
+            // "/api/user/cancel/tracking/board",
             data
           )
           .then((res) => {
@@ -253,8 +253,8 @@ export default {
       } else {
         this.$axios
           .post(
-            // "https://protected-garden-60426.herokuapp.com/user/tracking/board",
-            "/api/user/tracking/board",
+            "https://protected-garden-60426.herokuapp.com/user/tracking/board",
+            // "/api/user/tracking/board",
             data
           )
           .then((res) => {
@@ -273,8 +273,8 @@ export default {
         await setTimeout(async () => {
           await this.$axios
             .get(
-              // `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/${this.latestArticleData.length}`
-              `/api/board/${this.$route.params.boardPath}/${this.articleData.length}`
+              `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/${this.latestArticleData.length}`
+              // `/api/board/${this.$route.params.boardPath}/${this.articleData.length}`
             )
             .then((res) => {
               data = res.data.articleData;

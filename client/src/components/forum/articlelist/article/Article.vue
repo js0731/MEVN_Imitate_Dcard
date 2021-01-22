@@ -131,8 +131,8 @@ export default {
     addMessage() {
       this.$axios
         .post(
-          // "https://protected-garden-60426.herokuapp.com/user/leave/message",
-          "/api/user/leave/message",
+          "https://protected-garden-60426.herokuapp.com/user/leave/message",
+          // "/api/user/leave/message",
           {
             articleId: this.$route.params.id,
             messageData: this.messageData,
@@ -147,8 +147,8 @@ export default {
     deleteMessage(messageId) {
       this.$axios
         .post(
-          // "https://protected-garden-60426.herokuapp.com/user/delete/message",
-          "/api/user/delete/message",
+          "https://protected-garden-60426.herokuapp.com/user/delete/message",
+          // "/api/user/delete/message",
           {
             articleId: this.$route.params.id,
             messageId: messageId,
@@ -165,8 +165,8 @@ export default {
       if (this.$store.state.loveMessage.map((x) => x).indexOf(messageId) < 0) {
         this.$axios
           .post(
-            // "https://protected-garden-60426.herokuapp.com/user/love/message",
-            "/api/user/love/message",
+            "https://protected-garden-60426.herokuapp.com/user/love/message",
+            // "/api/user/love/message",
             {
               messageId: messageId,
               userId: this.$store.state.userData.id,
@@ -185,8 +185,8 @@ export default {
       } else {
         this.$axios
           .post(
-            // "https://protected-garden-60426.herokuapp.com/user/cancel/love/message",
-            "/api/user/cancel/love/message",
+            "https://protected-garden-60426.herokuapp.com/user/cancel/love/message",
+            // "/api/user/cancel/love/message",
             {
               messageId: messageId,
               userId: this.$store.state.userData.id,
@@ -239,7 +239,6 @@ export default {
       this.isProcessApi = false;
 
       if (loveArticleData.map((x) => x.loveArticleId).indexOf(articleId) >= 0) {
-        console.log(this.isProcessApi);
         await this.$store.dispatch("cancelLove", articleId);
         this.article.love -= 1;
         this.isProcessApi = true;
@@ -256,16 +255,17 @@ export default {
     },
   },
   created() {
+    console.log(process.env.LOCALAPI);
+    console.log(process.env.HEROKUAPI);
     this.articleId = this.$route.params.id;
     this.$axios
       .get(
-        // `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/article/${this.$route.params.id}`
-        `/api/board/${this.$route.params.boardPath}/article/${this.$route.params.id}`
+        `https://protected-garden-60426.herokuapp.com/board/${this.$route.params.boardPath}/article/${this.$route.params.id}`
+        // `/api/board/${this.$route.params.boardPath}/article/${this.$route.params.id}`
       )
       .then((res) => {
         this.article = res.data;
         this.messages = this.article.message;
-        // console.log(res.data, this.article);
       })
       .catch((err) => {
         console.error(err);

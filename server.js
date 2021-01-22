@@ -13,7 +13,7 @@ const board = require('./routes/board');
 
 app.use(
     cors({
-        origin: 'https://js0731.github.io',
+        origin: ['https://js0731.github.io', 'http://localhost:8080/'],
         methods: ['GET', 'POST'],
         credentials: true,
     })
