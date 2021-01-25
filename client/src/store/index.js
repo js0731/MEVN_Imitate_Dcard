@@ -80,30 +80,32 @@ const actions = {
       .catch(err => console.log(err))
   },
   collectArticle: ({ commit }, articleId) => {
+
     let data = {
       articleId: articleId,
       userId: state.userData.id
     }
-    axios.post(
+    return axios.post(
       `${process.env.VUE_APP_API}/user/collectarticle`, data)
       .then(res => {
-        console.log(res, res.data);
         commit('PUSH_COLLECT_DATA', res.data)
+        return res
       })
-      .catch(err => console.log(err))
+      .catch(err => { return err })
+
   },
   cancelCollect: ({ commit }, articleId) => {
     let data = {
       articleId: articleId,
       userId: state.userData.id
     }
-    axios.post(`${process.env.VUE_APP_API}/user/cancelCollect`, data)
+    return axios.post(`${process.env.VUE_APP_API}/user/cancelCollect`, data)
       .then(res => {
-        console.log(res.data);
         commit('SET_COLLECT_DATA', res.data)
+        return res
       })
       .catch(err => {
-        console.log(err);
+        return err
       })
   },
   loveArticle: async ({ commit }, articleId) => {
@@ -111,10 +113,10 @@ const actions = {
       articleId: articleId,
       userId: state.userData.id
     }
-    await axios.post(`${process.env.VUE_APP_API}/user/love/article`, data)
+    return await axios.post(`${process.env.VUE_APP_API}/user/love/article`, data)
       .then((res) => {
         commit('PUSH_LOVE_DATA', res.data)
-
+        return res
       })
       .catch((err) => console.log(err));
   },
@@ -124,10 +126,10 @@ const actions = {
       userId: state.userData.id
     }
 
-    await axios.post(`${process.env.VUE_APP_API}/user/cancel/love/article`, data)
+    return await axios.post(`${process.env.VUE_APP_API}/user/cancel/love/article`, data)
       .then((res) => {
         commit('DELETE_LOVE_DATA', res.data);
-
+        return res
       })
       .catch((err) => console.log(err));
   }

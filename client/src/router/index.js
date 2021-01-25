@@ -9,13 +9,17 @@ import User from "../views/User.vue";
 import AddArticle from "@/components/user/addarticle/AddArticle";
 import Profile from "@/components/user/profile/Profile";
 import UseDcard from "@/components/dcard/UseDcard";
-
-
+import ErrorPage from "@/components/ErrorPage/ErrorPage.vue";
+import Navbar from '../views/Navbar'
 
 Vue.use(VueRouter)
 
 
 const routes = [
+  {
+    path: '/',
+    component: Navbar,
+  },
   {
     path: '/dcard',
     component: UseDcard,
@@ -66,11 +70,17 @@ const routes = [
 
     ]
   },
+  {
+    name: '404Page',
+    path: '/*',
+    component: ErrorPage,
+
+  },
 
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   routes
 })
 

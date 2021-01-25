@@ -287,15 +287,35 @@ export default {
     collectArticle(articleId) {
       let collectData = this.$store.getters.collectArticle;
       if (collectData.map((x) => x.collectArticleId).indexOf(articleId) >= 0) {
-        this.$store.dispatch("cancelCollect", articleId);
-      } else this.$store.dispatch("collectArticle", articleId);
+        this.$store.dispatch("cancelCollect", articleId).then((res) => {
+          if (res.status === 200) {
+            this.$toast("取消收藏成功");
+          } else {
+            this.$toast("請重新登入");
+          }
+        });
+      } else {
+        this.$store.dispatch("collectArticle", articleId).then((res) => {
+          if (res.status === 200) {
+            this.$toast("收藏成功");
+          } else {
+            this.$toast("請重新登入");
+          }
+        });
+      }
     },
     async loveArticle(articleId) {
       let loveData = this.$store.getters.loveArticle;
       if (this.isProcessApi === false) return;
       this.isProcessApi = false;
       if (loveData.map((x) => x.loveArticleId).indexOf(articleId) >= 0) {
-        await this.$store.dispatch("cancelLove", articleId);
+        await this.$store.dispatch("cancelLove", articleId).then((res) => {
+          if (res.status === 200) {
+            this.$toast("收藏成功");
+          } else {
+            this.$toast("請重新登入");
+          }
+        });
 
         this.articleData.map((x) => {
           console.log(x._id, articleId);

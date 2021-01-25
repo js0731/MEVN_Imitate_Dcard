@@ -8,6 +8,7 @@ import toastRegister from './components/module/toast/toast.js'
 import loadingRegister from './utils/loading/loading.js'
 import infiniteScroll from 'vue-infinite-scroll'
 
+
 Vue.use(loadingRegister);
 Vue.use(toastRegister);
 Vue.use(infiniteScroll)
@@ -25,12 +26,14 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
   return response
 }, err => {
-  console.error(err);
+  console.log(err);
   const { status } = err.response;
   if (status === 401) { // 用戶未認證
     console.log('token無效，請重新登錄');
-    window.location.assign("http://localhost:8080/dcard/usedcard")
-    localStorage.removeItem('myToken');  // 清除token
+    // window.location.assign("http://localhost:8080/dcard/usedcard")
+    router.replace({ path: '/dcard/usedcard', })
+    localStorage.removeItem('myToken');  // 清除token    
+    return status
   }
   return Promise.reject(err)
 })

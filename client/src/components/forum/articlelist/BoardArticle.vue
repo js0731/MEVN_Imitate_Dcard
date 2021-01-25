@@ -8,18 +8,24 @@
     <img class="boardArticle-banner" src="http://fakeimg.pl/728x242/" />
     <div class="boardArticle-header">
       <div class="header-topBar">
-        <!-- <img
-          :src="
-            require(`https://js0731.github.io/MEVN_Imitate_Dcard/client/dist/img/${this.$route.params.boardPath}.jpg`)
-          "
-          alt
-        /> -->
         <img
+          v-if="this.$route.params.boardPath === 'frontend'"
+          src="https://js0731.github.io/MEVN_Imitate_Dcard/client/dist/img/frontend.25acf3b4.jpg"
+        />
+        <img
+          v-if="this.$route.params.boardPath === 'dressup'"
+          src="https://js0731.github.io/MEVN_Imitate_Dcard/client/dist/img/dressup.eab74c9a.jpg"
+        />
+        <img
+          v-if="this.$route.params.boardPath === 'funny'"
+          src="https://js0731.github.io/MEVN_Imitate_Dcard/client/dist/img/funny.b3f13e2f.jpg"
+        />
+        <!-- <img
           :src="
             require(`../../../assets/img/${this.$route.params.boardPath}.jpg`)
           "
           alt
-        />
+        /> -->
         <h2 class="topBar-boardName" v-if="articleData">
           {{ boardName }}
         </h2>
@@ -175,9 +181,7 @@
 </template>
 
 <script>
-import LoginFormVue from "../../dcard/LoginForm.vue";
 import Icon from "../../Icon";
-import dateFormat from "dateformat";
 export default {
   components: {
     Icon,
@@ -233,6 +237,8 @@ export default {
       );
     },
     trackingBoard() {
+      if (this.isProcessApi === false) return;
+      this.isProcessApi = false;
       let data = {
         boardName: this.boardName,
         userId: this.$store.state.userData.id,
@@ -241,18 +247,18 @@ export default {
         this.$axios
           .post(`${process.env.VUE_APP_API}/user/cancel/tracking/board`, data)
           .then((res) => {
-            console.log(this.$store.state.trackingBoard);
             this.$store.state.trackingBoard = res.data;
-            console.log(this.$store.state.trackingBoard);
+
+            this.isProcessApi = true;
           })
           .catch((err) => console.log(err));
       } else {
         this.$axios
           .post(`${process.env.VUE_APP_API}/user/tracking/board`, data)
           .then((res) => {
-            console.log(this.$store.state.trackingBoard);
             this.$store.state.trackingBoard = res.data;
-            console.log(this.$store.state.trackingBoard);
+
+            this.isProcessApi = true;
           })
           .catch((err) => console.log(err));
       }
@@ -265,7 +271,7 @@ export default {
         await setTimeout(async () => {
           await this.$axios
             .get(
-              `${process.env.VUE_APP_API}/board/${this.$route.params.boardPath}/${this.latestArticleData.length}`
+              `${process.env.VUE_APP_API}/board/${this.$route.params.boardPath}/${this.articleData.length}`
             )
             .then((res) => {
               data = res.data.articleData;
@@ -297,11 +303,22 @@ export default {
     collectArticle(articleId) {
       let collectData = this.$store.getters.collectArticle;
       if (collectData.map((x) => x.collectArticleId).indexOf(articleId) >= 0) {
-        this.$store.dispatch("cancelCollect", articleId);
-        this.$toast("收藏成功 !");
+        this.$store.dispatch("cancelCollect", articleId).then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            this.$toast("取消收藏成功");
+          } else {
+            this.$toast("請重新登入");
+          }
+        });
       } else {
-        this.$toast("取消收藏成功 !");
-        this.$store.dispatch("collectArticle", articleId);
+        this.$store.dispatch("collectArticle", articleId).then((res) => {
+          if (res.status === 200) {
+            this.$toast("收藏成功");
+          } else {
+            this.$toast("請重新登入");
+          }
+        });
       }
     },
     async loveArticle(articleId) {
@@ -349,7 +366,6 @@ export default {
       this.sortArticleList = "hot";
       this.busy = true;
       let data;
-      console.log(this.articleData.length);
       await this.$axios
         .get(
           `${process.env.VUE_APP_API}/board/${this.$route.params.boardPath}/${this.articleData.length}`

@@ -484,6 +484,38 @@
       fill-rule="evenodd"
     ></path>
   </svg>
+  <svg
+    v-else-if="name === 'star'"
+    fill="rgba(0, 0, 0, 0.2)"
+    viewBox="0 0 24 24"
+    class="ptn2cr-0 fKdOqo kck43e-0 bPrxYH"
+    focusable="false"
+    width="24"
+    height="24"
+    role="img"
+    aria-hidden="true"
+  >
+    <path
+      d="M12.9 2.98l2.33 5.07 5.54.64a1 1 0 01.56 1.73l-4.1 3.78 1.1 5.46a1 1 0 01-1.47 1.07L12 18l-4.86 2.73a1 1 0 01-1.47-1.07l1.1-5.46-4.1-3.78a1 1 0 01.56-1.73l5.54-.64 2.32-5.07a1 1 0 011.82 0z"
+      data-name="ic_star"
+    ></path>
+  </svg>
+  <svg
+    v-else-if="name === 'trackingStar'"
+    fill="rgb(51, 151, 207)"
+    viewBox="0 0 24 24"
+    class="ptn2cr-0 fKdOqo kck43e-0 bsHoeM"
+    focusable="false"
+    width="24"
+    height="24"
+    role="img"
+    aria-hidden="true"
+  >
+    <path
+      d="M12.9 2.98l2.33 5.07 5.54.64a1 1 0 01.56 1.73l-4.1 3.78 1.1 5.46a1 1 0 01-1.47 1.07L12 18l-4.86 2.73a1 1 0 01-1.47-1.07l1.1-5.46-4.1-3.78a1 1 0 01.56-1.73l5.54-.64 2.32-5.07a1 1 0 011.82 0z"
+      data-name="ic_star"
+    ></path>
+  </svg>
 </template>
 
 <script>

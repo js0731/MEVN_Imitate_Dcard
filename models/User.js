@@ -41,7 +41,7 @@ const UserSchema = new Schema({
     ,
     trackingBoard: {
         type: Array
-    }
+    },
     // collectArticle: {
     //     type: [
     //         {

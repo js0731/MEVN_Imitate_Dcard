@@ -19,7 +19,7 @@
       <LoginForm v-else />
     </keep-alive>
 
-    <span class="usedcard-protocol">本網站模仿</span>
+    <span class="usedcard-protocol">本網站用於模仿 Dcard 非商業用途</span>
   </div>
 </template>
 
