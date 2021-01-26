@@ -405,7 +405,7 @@ export default {
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   background: #fff;
   position: sticky;
-  top: 48px;
+  top: 47px;
   border-radius: 5px 5px 0 0;
   @media (max-width: 768px) {
     padding: 20px 40px 0px;
