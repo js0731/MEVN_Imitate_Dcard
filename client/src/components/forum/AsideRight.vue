@@ -28,17 +28,17 @@
           <a class="item-link link" src="#" @click="toBoard(boardName)">
             <img
               v-if="boardName === '前端工程師'"
-              src="https://js0731.github.io/MEVN_Imitate_Dcard/client/dist/img/frontend.25acf3b4.jpg"
+              src="https://js0731.github.io/MEVN_Imitate_Dcard/img/frontend.jpg"
               alt=""
             />
             <img
               v-if="boardName === '穿搭板'"
-              src="https://js0731.github.io/MEVN_Imitate_Dcard/client/dist/img/dressup.eab74c9a.jpg"
+              src="https://js0731.github.io/MEVN_Imitate_Dcard/img/dressup.jpg"
               alt=""
             />
             <img
               v-if="boardName === '有趣板'"
-              src="https://js0731.github.io/MEVN_Imitate_Dcard/client/dist/img/funny.b3f13e2f.jpg"
+              src="https://js0731.github.io/MEVN_Imitate_Dcard/img/funny.jpg"
               alt=""
             />
             <p class="link-text boardName">{{ boardName }}</p>
@@ -57,7 +57,7 @@
           <router-link class="item-link link" to="/dcard/forum/frontend">
             <!-- <img src="../.././assets/img/frontend.jpg" alt="" /> -->
             <img
-              src="https://js0731.github.io/MEVN_Imitate_Dcard/client/dist/img/frontend.25acf3b4.jpg"
+              src="https://js0731.github.io/MEVN_Imitate_Dcard/img/frontend.jpg"
               alt=""
             />
             <p class="link-text boardName">前端工程師</p>
@@ -74,7 +74,7 @@
           <router-link class="item-link link" to="/dcard/forum/dressup">
             <!-- <img src="../.././assets/img/dressup.jpg" alt="" /> -->
             <img
-              src="https://js0731.github.io/MEVN_Imitate_Dcard/client/dist/img/dressup.eab74c9a.jpg"
+              src="https://js0731.github.io/MEVN_Imitate_Dcard/img/dressup.jpg"
               alt=""
             />
             <p class="link-text boardName">穿搭板</p>
@@ -91,7 +91,7 @@
           <router-link class="item-link link" to="/dcard/forum/funny">
             <!-- <img src="../.././assets/img/funny.jpg" alt="" /> -->
             <img
-              src="https://js0731.github.io/MEVN_Imitate_Dcard/client/dist/img/funny.b3f13e2f.jpg"
+              src="https://js0731.github.io/MEVN_Imitate_Dcard/img/funny.jpg"
               alt=""
             />
             <p class="link-text boardName">有趣版</p>

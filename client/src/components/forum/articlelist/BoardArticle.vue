@@ -10,15 +10,15 @@
       <div class="header-topBar">
         <img
           v-if="this.$route.params.boardPath === 'frontend'"
-          src="https://js0731.github.io/MEVN_Imitate_Dcard/client/dist/img/frontend.25acf3b4.jpg"
+          src="https://js0731.github.io/MEVN_Imitate_Dcard/img/frontend.jpg"
         />
         <img
           v-if="this.$route.params.boardPath === 'dressup'"
-          src="https://js0731.github.io/MEVN_Imitate_Dcard/client/dist/img/dressup.eab74c9a.jpg"
+          src="https://js0731.github.io/MEVN_Imitate_Dcard/img/dressup.jpg"
         />
         <img
           v-if="this.$route.params.boardPath === 'funny'"
-          src="https://js0731.github.io/MEVN_Imitate_Dcard/client/dist/img/funny.b3f13e2f.jpg"
+          src="https://js0731.github.io/MEVN_Imitate_Dcard/img/funny.jpg"
         />
         <!-- <img
           :src="
