@@ -142,9 +142,7 @@
 </template>
 
 <script>
-import LoginFormVue from "../../dcard/LoginForm.vue";
 import Icon from "../../Icon";
-import dateFormat from "dateformat";
 export default {
   components: {
     Icon,
@@ -205,57 +203,16 @@ export default {
     loadMore: async function () {
       this.busy = true;
       let data;
-      // switch (this.sortArticleList) {
-      //   case "hot":
-      //     if (this.hotArticleEmpty) return (this.busy = false);
-      //     await setTimeout(async () => {
-      //       console.log(this.hotArticleEmpty);
-      //       await this.$axios
-      //         .get(
-      //           // `https://protected-garden-60426.herokuapp.com/board/all/${this.articleData.length}`
-      //           `/api/board/all/${this.articleData.length}`
-      //         )
-      //         .then((res) => {
-      //           data = res.data.articleData;
-      //           if (data.length === 0) {
-      //             return (this.hotArticleEmpty = true);
-      //           }
-      //           this.articleData.push(...data);
-      //         })
-      //         .catch((err) => console.log(err));
-      //       this.busy = false;
-      //     }, 500);
-
-      //   case "latest":
-      //     if (this.latestArticleEmpty) return (this.busy = false);
-      //     await setTimeout(async () => {
-      //       await this.$axios
-      //         .get(
-      //           // `https://protected-garden-60426.herokuapp.com/board/all/latest/${this.latestArticleData.length}`
-      //           `/api/board/all/latest/${this.latestArticleData.length}`
-      //         )
-      //         .then((res) => {
-      //           data = res.data.articleData;
-      //           if (data.length === 0) {
-      //             this.latestArticleEmpty = true;
-      //           }
-      //           this.latestArticleData.push(...data);
-      //         })
-      //         .catch((err) => console.log(err));
-      //       this.busy = false;
-      //     }, 500);
-      // }
       if (this.sortArticleList === "hot") {
         if (this.hotArticleEmpty) return (this.busy = false);
         await setTimeout(async () => {
           await this.$axios
             .get(
               `${process.env.VUE_APP_API}/board/all/${this.articleData.length}`
-              // `/api/board/all/${this.articleData.length}`
             )
             .then((res) => {
+              console.log(res.data.articleData);
               data = res.data.articleData;
-
               if (data.length === 0) {
                 return (this.hotArticleEmpty = true);
               }
@@ -270,7 +227,6 @@ export default {
           await this.$axios
             .get(
               `${process.env.VUE_APP_API}/board/all/latest/${this.latestArticleData.length}`
-              // `/api/board/all/latest/${this.latestArticleData.length}`
             )
             .then((res) => {
               data = res.data.articleData;
@@ -288,11 +244,7 @@ export default {
       let collectData = this.$store.getters.collectArticle;
       if (collectData.map((x) => x.collectArticleId).indexOf(articleId) >= 0) {
         this.$store.dispatch("cancelCollect", articleId).then((res) => {
-          if (res.status === 200) {
-            this.$toast("取消收藏成功");
-          } else {
-            this.$toast("請重新登入");
-          }
+          if (!res.status === 200) this.$toast("請重新登入");
         });
       } else {
         this.$store.dispatch("collectArticle", articleId).then((res) => {
@@ -310,11 +262,7 @@ export default {
       this.isProcessApi = false;
       if (loveData.map((x) => x.loveArticleId).indexOf(articleId) >= 0) {
         await this.$store.dispatch("cancelLove", articleId).then((res) => {
-          if (res.status === 200) {
-            this.$toast("收藏成功");
-          } else {
-            this.$toast("請重新登入");
-          }
+          if (!res.status === 200) this.$toast("請重新登入");
         });
 
         this.articleData.map((x) => {
@@ -362,7 +310,6 @@ export default {
       await this.$axios
         .get(
           `${process.env.VUE_APP_API}/${this.$route.params.boardPath}/${this.articleData.length}`
-          // `api/board/${this.$route.params.boardPath}/${this.articleData.length}`
         )
         .then((res) => {
           data = res.data.articleData;

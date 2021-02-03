@@ -262,6 +262,7 @@ export default {
 
 <style lang="scss" scoped>
 .container {
+  position: relative;
   width: 728px;
   display: flex;
   flex-direction: column;
@@ -277,6 +278,15 @@ export default {
   display: flex;
   align-items: center;
   padding: 0 60px;
+  @media (max-width: 768px) {
+    padding: 0 40px;
+  }
+  @media (max-width: 767px) {
+    padding: 0 30px;
+  }
+  @media (max-width: 414px) {
+    padding: 0 20px;
+  }
   svg {
     padding-right: 8px;
   }
@@ -288,6 +298,15 @@ export default {
 article {
   width: 100%;
   padding: 0 60px 30px 60px;
+  @media (max-width: 768px) {
+    padding: 0 40px 30px 40px;
+  }
+  @media (max-width: 767px) {
+    padding: 0 30px 30px 30px;
+  }
+  @media (max-width: 414px) {
+    padding: 0 20px 30px 20px;
+  }
   .title {
     font-size: 28px;
     margin-bottom: 12px;
@@ -313,10 +332,18 @@ article {
 .status {
   padding: 0 60px 30px 60px;
   display: flex;
-
   justify-content: space-between;
   color: rgba(0, 0, 0, 0.5);
   font-size: 18px;
+  @media (max-width: 768px) {
+    padding: 0 40px 30px 40px;
+  }
+  @media (max-width: 767px) {
+    padding: 0 30px 30px 30px;
+  }
+  @media (max-width: 414px) {
+    padding: 0 20px 30px 20px;
+  }
   .right {
     display: flex;
     button {
@@ -339,6 +366,17 @@ article {
   padding: 40px 60px 15px 60px;
   background: rgb(245, 245, 245);
   flex-grow: 1;
+
+  @media (max-width: 768px) {
+    margin-bottom: 48px;
+    padding: 40px 40px 15px 40px;
+  }
+  @media (max-width: 767px) {
+    padding: 40px 30px 15px 30px;
+  }
+  @media (max-width: 414px) {
+    padding: 40px 20px 15px 20px;
+  }
   .replyNumber {
     display: flex;
     font-size: 16px;
@@ -402,7 +440,6 @@ article {
   background: #fff;
   border-top: 1px solid rgba(0, 0, 0, 0.15);
   position: sticky;
-
   bottom: 0;
   padding: 0 60px;
   display: flex;
@@ -492,10 +529,17 @@ article {
   border-top: 1px solid rgba(0, 0, 0, 0.15);
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   position: sticky;
-  bottom: 0;
+  bottom: 0px;
   left: 0;
   right: 0;
   padding: 0 60px;
+  @media (max-width: 768px) {
+    position: fixed;
+    bottom: 60px;
+    left: 12px;
+    right: 12px;
+  }
+
   .btn {
     display: flex;
     align-items: center;

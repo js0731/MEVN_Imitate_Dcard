@@ -301,6 +301,9 @@ export default {
     },
 
     collectArticle(articleId) {
+      // const isLogin = localStorage.myToken ? true : false;
+      // console.log(isLogin);
+      // if (!isLogin) return;
       let collectData = this.$store.getters.collectArticle;
       if (collectData.map((x) => x.collectArticleId).indexOf(articleId) >= 0) {
         this.$store.dispatch("cancelCollect", articleId).then((res) => {

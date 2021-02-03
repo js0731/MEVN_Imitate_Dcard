@@ -14,7 +14,7 @@ Vue.use(toastRegister);
 Vue.use(infiniteScroll)
 
 axios.interceptors.request.use(config => {
-  if (localStorage.myToken) { // 如果token存在
+  if (localStorage.myToken) {
     config.headers.Authorization = localStorage.myToken; // 在http header都加上 token
   }
   return config

@@ -287,7 +287,7 @@ export default {
   top: 68px;
   z-index: 100;
 
-  @include pad {
+  @media (max-width: 768px) {
     max-width: 768px;
     left: 0;
     right: 0;
@@ -296,6 +296,7 @@ export default {
     height: 60px;
     flex-direction: row;
     overflow-x: auto;
+    margin: 0 12px;
   }
 }
 .menuFixed-item {
@@ -307,8 +308,7 @@ export default {
 }
 .menu {
   /* padding: 10px; */
-  @include pad {
-    padding: 0 10px 0 0;
+  @media (max-width: 768px) {
     height: 100%;
     display: flex;
     align-items: center;
@@ -320,7 +320,7 @@ export default {
     line-height: 44px;
     padding: 0 10px;
     /* padding-left: 20px; */
-    @include pad {
+    @media (max-width: 768px) {
       padding: 0 10px;
       white-space: nowrap;
     }
@@ -338,7 +338,7 @@ export default {
         color: #fff;
         font-size: 16px;
         margin: 0 10px;
-        @include pad {
+        @media (max-width: 768px) {
           white-space: nowrap;
         }
       }
@@ -373,7 +373,7 @@ export default {
     color: rgba(0, 0, 0, 0.5);
   }
   font-size: 16px;
-  @include pad {
+  @media (max-width: 768px) {
     overflow-x: auto;
     overflow-y: hidden;
     &::-webkit-scrollbar {
@@ -383,7 +383,7 @@ export default {
 }
 .hidden {
   display: none;
-  @include pad {
+  @media (max-width: 768px) {
     display: block;
   }
 }
