@@ -14,6 +14,7 @@ router.get('/all/:number', (req, res) => {
     //     })
 
     Article.find({})
+        .sort({ love: -1 })
         .skip(Number(req.params.number))
         .limit(Number(10))
         .then(articleData => {
