@@ -4,12 +4,19 @@ const Article = require('../models/Article')
 
 
 router.get('/all/:number', (req, res) => {
+    // Article.find({})
+    //     .sort({ love: -1 })
+    //     .skip(Number(req.params.number))
+    //     .limit(Number(10))
+    //     .then(articleData => {
+
+    //         res.json({ articleData: articleData })
+    //     })
+
     Article.find({})
-        .sort({ love: -1 })
         .skip(Number(req.params.number))
         .limit(Number(10))
         .then(articleData => {
-            console.log(articleData);
             res.json({ articleData: articleData })
         })
 })
@@ -20,7 +27,7 @@ router.get('/all/latest/:number', (req, res) => {
         .skip(Number(req.params.number))
         .limit(Number(10))
         .then(articleData => {
-            console.log(articleData);
+
             res.json({ articleData: articleData })
         })
 })
@@ -32,7 +39,7 @@ router.get('/:board/:number', (req, res) => {
         .skip(Number(req.params.number))
         .limit(Number(10))
         .then(articleData => {
-            console.log(articleData);
+
             res.json({ articleData: articleData })
         })
 })
@@ -42,7 +49,6 @@ router.get('/:board/latest/:number', (req, res) => {
         .skip(Number(req.params.number))
         .limit(Number(10))
         .then(articleData => {
-            console.log(articleData);
             res.json({ articleData: articleData })
         })
 })

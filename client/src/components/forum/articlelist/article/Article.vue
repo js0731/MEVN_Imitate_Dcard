@@ -445,6 +445,9 @@ article {
   display: flex;
   flex-direction: column;
   border-radius: 5px;
+  @media (max-width: 768px) {
+    bottom: 60px;
+  }
 
   .postHeader {
     display: flex;
@@ -538,8 +541,14 @@ article {
     bottom: 60px;
     left: 12px;
     right: 12px;
+    padding: 0 40px;
   }
-
+  @media (max-width: 767px) {
+    padding: 0 30px;
+  }
+  @media (max-width: 414px) {
+    padding: 0 20px;
+  }
   .btn {
     display: flex;
     align-items: center;
