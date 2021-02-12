@@ -1,1 +1,1 @@
-
+![diagram.png](https://github.com/js0731/MEVN_Imitate_Dcard/blob/master/img/diagram.jpg)

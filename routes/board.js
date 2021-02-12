@@ -18,10 +18,10 @@ router.get('/all/:number', (req, res) => {
     //             console.log(e.title);
     //         })
     //     })
-    Article.find({ boardPath: { $in: ['frontend', 'dressup', 'funny'] } })
+    Article.find({})
         .limit(Number(10))
         .skip(Number(req.params.number) + 1)
-        .sort({ love: -1, _id: -1 })
+        .sort({ love: -1, _id: 1 })
         .then(articleData => {
             articleData.forEach(e => {
                 console.log(e.title);
