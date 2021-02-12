@@ -80,7 +80,9 @@ export default {
   methods: {
     signOut() {
       localStorage.removeItem("myToken"); // 清除token
-      this.$router.push("/dcard/forum/usedcard");
+      this.$router.push("/dcard/usedcard");
+
+      this.$store.dispatch("setAuthenticated", false);
     },
   },
   computed: {

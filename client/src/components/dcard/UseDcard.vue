@@ -19,7 +19,10 @@
       <LoginForm v-else />
     </keep-alive>
 
-    <span class="usedcard-protocol">本網站用於模仿 Dcard 非商業用途</span>
+    <div class="usedcard-protocol">
+      <span>本網站用於練習排版 Dcard，</span>
+      <span> 非商業用途。</span>
+    </div>
   </div>
 </template>
 
@@ -160,8 +163,18 @@ export default {
     background: rgb(51, 151, 207);
   }
   .usedcard-protocol {
+    display: flex;
     color: rgba(0, 0, 0, 0.35);
     margin: 0 auto;
+    span {
+      text-align: center;
+      padding: 2px 0;
+    }
+    @media (max-width: 767px) {
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: center;
+    }
   }
 }
 </style>
